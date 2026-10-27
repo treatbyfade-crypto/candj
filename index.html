@@ -167,7 +167,7 @@ body.dark .auth-title{color:#fff}
 .switch-auth{text-align:center;color:var(--muted);font-size:14px;margin-top:18px}
 .app{display:none;min-height:100vh}
 .app.active{display:block}
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px 14px;z-index:100;transition:transform .3s;overflow-y:auto}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px 14px 100px;z-index:100;transition:transform .3s;overflow-y:auto}
 .side-brand{display:flex;align-items:center;gap:10px;padding:0 8px 20px;border-bottom:1px solid var(--border);margin-bottom:14px}
 .side-brand .brand-logo{width:40px;height:40px;font-size:18px;border-radius:10px}
 .side-brand .brand-name{font-size:18px}
@@ -571,6 +571,17 @@ body.dark .settings-title{color:#fff}
 .toggle.active::after{transform:translateX(22px)}
 .profile-header{display:flex;align-items:center;gap:22px;padding:28px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:24px}
 .profile-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));display:grid;place-items:center;color:#03102E;font-weight:700;font-size:32px}
+.profile-avatar img,.avatar img,.community-profile-avatar img{width:100%;height:100%;border-radius:inherit;object-fit:cover}
+.profile-avatar,.avatar,.community-profile-avatar{overflow:hidden}
+.profile-social-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+.profile-social-stat{padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--soft);text-align:center}
+.profile-social-stat strong{display:block;color:var(--navy);font-size:20px}
+body.dark .profile-social-stat strong{color:#fff}
+.profile-social-stat span{font-size:12px;color:var(--muted)}
+.profile-settings-photo{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.profile-settings-photo .profile-avatar{flex:none}
+.profile-handle{color:var(--muted);font-size:13px;margin-top:3px}
+.profile-update-notes{padding:14px;border:1px solid var(--border);background:var(--soft);border-radius:12px;font-size:13px;line-height:1.55;color:var(--muted)}
 .profile-info{flex:1}
 .profile-name{font-size:24px;font-weight:700;color:var(--navy);margin-bottom:6px}
 body.dark .profile-name{color:#fff}
@@ -599,6 +610,39 @@ body.dark .profile-name{color:#fff}
 .contact-details p{font-size:13px;color:var(--muted)}
 .contact-btn{background:var(--gold);color:#03102E;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:600;font-size:14px;transition:all .2s}
 .contact-btn:hover{background:var(--gold-l);transform:translateY(-2px)}
+.community-profile-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(3,16,46,.65);align-items:center;justify-content:center;padding:18px}
+.community-profile-overlay.active{display:flex}
+.community-profile-card{width:min(100%,480px);max-height:85vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;box-shadow:var(--shadow-xl)}
+.community-post-author{padding:0;border:0;background:transparent;color:var(--navy);font:inherit;font-weight:700;cursor:pointer;text-align:left}
+body.dark .community-post-author{color:#fff}
+.community-post-author:hover{text-decoration:underline;color:var(--gold)}
+.community-post-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.community-post-actions button,.community-follow-btn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:9px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.community-post-actions button:hover,.community-follow-btn:hover{border-color:var(--gold);color:var(--gold)}
+.community-post-actions button.liked{background:var(--gold-soft);border-color:var(--gold);color:var(--gold)}
+.community-comment-list{display:grid;gap:10px;margin-top:14px}
+.community-comment{padding:12px;border-radius:12px;background:var(--soft);font-size:13px;line-height:1.5}
+.community-comment-form{display:flex;gap:8px;margin-top:12px}
+.community-comment-form input{flex:1;min-width:0}
+.community-profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:grid;place-items:center;font-size:22px;font-weight:800}
+.asset-hero{position:relative;overflow:hidden;text-align:center;padding:32px 24px;border-radius:22px;background:radial-gradient(circle at 50% 35%,rgba(255,209,46,.2),transparent 40%),linear-gradient(145deg,#07112a,#101f46);color:#fff;border:1px solid rgba(212,160,23,.32)}
+.asset-coin{width:136px;height:136px;margin:6px auto 22px;border-radius:50%;display:grid;place-items:center;color:#513900;font-size:42px;font-weight:900;background:radial-gradient(circle at 35% 30%,#fff5b4 0,#f6d54d 30%,#d89b12 62%,#7d5105 100%);border:7px double #ffe57d;box-shadow:0 12px 45px rgba(245,190,20,.25),inset 0 0 0 6px rgba(255,248,190,.38)}
+.asset-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.asset-summary .card{min-width:0}
+.asset-price{font-size:30px;font-weight:800;color:var(--gold);margin-top:8px}
+.asset-quantity{display:flex;align-items:center;justify-content:center;gap:14px;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--soft);margin:14px 0}
+.asset-quantity button{width:44px;height:44px;border:0;border-radius:12px;background:var(--gold);color:#03102E;font-size:24px;font-weight:700;cursor:pointer}
+.asset-quantity input{width:76px;text-align:center;font-size:22px;font-weight:800;background:transparent;border:0;color:var(--text)}
+.asset-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.asset-shortcuts button{padding:9px 5px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-weight:700;cursor:pointer}
+.asset-shortcuts button:hover{border-color:var(--gold);color:var(--gold)}
+.market-status{padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--soft);display:flex;align-items:center;gap:16px;margin:22px 0}
+.market-status-icon{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;background:var(--gold-soft);font-size:25px;flex-shrink:0}
+.verification-file{display:block;width:100%;padding:12px;border:1px dashed var(--border);border-radius:12px;background:var(--soft);color:var(--text)}
+.verification-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:600px){.asset-summary,.verification-grid{grid-template-columns:1fr}.asset-hero{padding:26px 18px}.asset-shortcuts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.profile-edit-row{flex-wrap:wrap}
+@media(max-width:600px){.profile-social-stats{gap:6px}.profile-social-stat{padding:10px 6px}.profile-edit-row{align-items:flex-start;flex-direction:column}.profile-edit-row>div:last-child{width:100%}.profile-settings-photo{width:100%}.profile-settings-photo .input{max-width:100%!important;min-width:0}}
 .support-hero{background:linear-gradient(135deg,var(--navy),var(--navy-l));border-radius:20px;padding:50px;color:#fff;text-align:center;margin-bottom:36px;position:relative;overflow:hidden;box-shadow:var(--shadow-xl)}
 .support-hero::before{content:"";position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,.2),transparent 70%)}
 .support-hero > *{position:relative;z-index:1}
@@ -896,7 +940,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 </svg>
 </div>
 <h3 class="feat-t">Referral Rewards</h3>
-<p class="feat-d">Earn 10 points for every active referral. Use points to renew your membership or unlock higher withdrawals.</p>
+<p class="feat-d">Earn 10 points for every active referral and unlock higher withdrawal levels.</p>
 </div>
 <div class="feat">
 <div class="feat-icon">
@@ -952,7 +996,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit TikTok</a>
+<a href="https://www.tiktok.com/@call_mhe_jaspa" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit TikTok</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -962,7 +1006,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit X</a>
+<a href="https://x.com/heis_unknow?s=11" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit X</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -972,7 +1016,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <p>C&J LIMITED Official</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit Facebook</a>
+<a href="https://www.facebook.com/share/1YpMB1ZF9c/?mibextid=wwXIfr" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit Facebook</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -982,7 +1026,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit Instagram</a>
+<a href="https://www.instagram.com/call_mhe_jaspa" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit Instagram</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -1038,11 +1082,11 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 </div>
 <div class="faq-item" onclick="this.classList.toggle('open')">
 <div class="faq-q">What are referral points? <svg class="faq-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-<div class="faq-a">You earn 10 points for every friend who registers AND activates their membership using your code. 20 points are required to renew your membership for free.</div>
+<div class="faq-a">You earn 10 points for every friend who registers AND activates their membership using your code.</div>
 </div>
 <div class="faq-item" onclick="this.classList.toggle('open')">
-<div class="faq-q">Can I renew without paying? <svg class="faq-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-<div class="faq-a">Yes! If you have 20 referral points (from 2 active referrals), you can renew your membership for another 30 days without paying the N35,000 fee again.</div>
+<div class="faq-q">Does my membership need to be renewed? <svg class="faq-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+<div class="faq-a">No. Once your membership is approved, it stays active and does not need to be renewed.</div>
 </div>
 <div class="faq-item" onclick="this.classList.toggle('open')">
 <div class="faq-q">Is my money safe? <svg class="faq-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
@@ -1278,6 +1322,10 @@ C&J Coin
 </svg>
 C&J Gold
 </div>
+<div class="nav-item" data-page="marketplace" onclick="navigateTo('marketplace')">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l2.2 11.2a2 2 0 002 1.6h8.9a2 2 0 002-1.6L22 7H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+Marketplace
+</div>
 <div class="nav-item" data-page="community" onclick="navigateTo('community')">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
@@ -1330,6 +1378,10 @@ Withdrawal queue<span class="nav-badge" id="adminWithdrawalBadge" style="display
 <div class="admin-nav-item" onclick="navigateAdminSection('admin-users', this)">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2M16 3.13a4 4 0 010 7.75M21 21v-2a4 4 0 00-3-3.87"/></svg>
 Manage users
+</div>
+<div class="admin-nav-item" onclick="navigateAdminSection('admin-verifications', this)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+ID verification<span class="nav-badge" id="adminVerificationBadge" style="display:none">0</span>
 </div>
 <div class="admin-nav-item" onclick="navigateAdminSection('admin-app-links', this)">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
@@ -1409,7 +1461,7 @@ Refresh data
 <div class="hero-amount"><span class="cur">N</span><span id="heroBalance">0.00</span></div>
 <div class="card-foot" style="color:rgba(255,255,255,.7)">
 <span class="tag tag-green">Active</span>
-<span>Membership expires in <b id="heroDays">--</b> days</span>
+<span>Your membership stays active after approval</span>
 </div>
 </div>
 <div class="hero-earn">
@@ -1552,10 +1604,6 @@ Refresh data
 </div>
 <span class="tag tag-muted" id="memTag">INACTIVE</span>
 </div>
-<div class="progress">
-<div class="progress-bar" id="memProgress" style="width:0%"></div>
-</div>
-<div style="font-size:12px;color:var(--muted);margin-top:8px" id="memProgressLabel">0 of 30 days</div>
 </div>
 <div class="card">
 <div class="card-title">Recent Activity</div>
@@ -1733,9 +1781,9 @@ Export CSV
 <div class="card-title">Standard</div>
 <div class="plan-price"><span class="cur">N</span>35,000</div>
 <ul class="plan-features">
-<li>30 days membership</li>
+<li>Membership stays active after approval</li>
 <li>N1,000 daily earning</li>
-<li>Total return: N30,000</li>
+<li>No expiry or renewal after approval</li>
 <li>Wallet access</li>
 </ul>
 <button class="btn btn-outline btn-block" onclick="activateMembership('payment')">Pay with Bank</button>
@@ -1744,7 +1792,7 @@ Export CSV
 <div class="card-title" style="color:rgba(255,255,255,.8)">Premium</div>
 <div class="plan-price"><span class="cur">N</span>35,000</div>
 <ul class="plan-features">
-<li>30 days membership</li>
+<li>Membership stays active after approval</li>
 <li>N1,000 daily earning</li>
 <li>Priority admin approval</li>
 <li>Referral bonus eligible</li>
@@ -1752,32 +1800,13 @@ Export CSV
 </ul>
 <button class="btn btn-primary btn-block" onclick="activateMembership('wallet')">Activate from Wallet</button>
 </div>
-<div class="plan">
-<div class="card-title">Renewal</div>
-<div class="plan-price"><span class="cur">20</span> pts</div>
-<ul class="plan-features">
-<li>Use referral points</li>
-<li>Requires 2 active referrals</li>
-<li>30 days extension</li>
-<li>Same N1,000 daily rate</li>
-</ul>
-<button class="btn btn-outline btn-block" onclick="renewWithPoints()">Renew with Points</button>
-</div>
 </div>
 <div class="card" style="margin-top:24px">
 <div class="card-title">Membership Details</div>
-<div class="grid grid-3" style="margin-top:14px">
+<div style="margin-top:14px">
 <div>
 <div style="font-size:12px;color:var(--muted)">Start Date</div>
 <div style="font-size:16px;font-weight:600;margin-top:4px;color:var(--navy)" id="memStart">--</div>
-</div>
-<div>
-<div style="font-size:12px;color:var(--muted)">Expiry Date</div>
-<div style="font-size:16px;font-weight:600;margin-top:4px;color:var(--navy)" id="memExpiry">--</div>
-</div>
-<div>
-<div style="font-size:12px;color:var(--muted)">Remaining Days</div>
-<div style="font-size:16px;font-weight:600;margin-top:4px;color:var(--navy)" id="memRemaining">--</div>
 </div>
 </div>
 </div>
@@ -1902,7 +1931,7 @@ Select an amount to see timing rules.
 <div>
 <div class="hero-label">Your Referral Code</div>
 <div class="ref-box" style="margin-top:10px;background:rgba(255,255,255,.1);border-color:rgba(212,160,23,.5)">
-<div class="ref-code" id="refCode">CJ-DEMO-2026</div>
+<div class="ref-code" id="refCode">CJ-FIRSTNAME-01</div>
 <button class="btn btn-primary" style="width:auto;padding:10px 18px" onclick="copyReferralCode()">Copy</button>
 </div>
 <div style="color:rgba(255,255,255,.8);font-size:13px">Share on WhatsApp, Telegram or anywhere. 1 active referral = 10 points.</div>
@@ -1966,7 +1995,7 @@ Share on WhatsApp
 <div class="how-step-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
 <div>
 <div class="how-step-title">You earn 10 points</div>
-<div class="how-step-desc">Use points for withdrawals or to renew your membership</div>
+<div class="how-step-desc">Use points toward eligible withdrawal levels</div>
 </div>
 </div>
 </div>
@@ -2034,114 +2063,120 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 </div>
 </div>
 <div class="page" id="page-coin">
-<div class="hero-balance">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-<div>
-<div class="hero-label">C&J Coin</div>
-<div style="font-size:40px;font-weight:700;margin-top:6px">CJ-COIN</div>
-<div style="color:rgba(255,255,255,.8);margin-top:6px">Digital asset backed by C&J ecosystem</div>
+<div class="asset-hero">
+<div class="asset-coin" aria-hidden="true">CJ</div>
+<div style="font-size:11px;letter-spacing:3px;color:var(--gold-l);font-weight:700">C&J MARKETPLACE</div>
+<h2 style="font-size:30px;margin:10px 0 6px">C&J Coin</h2>
+<p style="color:rgba(255,255,255,.76)">Own C&J Coins inside the C&J LIMITED ecosystem.</p>
 </div>
-<div style="text-align:right">
-<div style="font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase">Buy Price</div>
-<div style="font-size:32px;font-weight:700;color:var(--gold-l)">N5,000</div>
-<div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:4px">Buyback: N4,000</div>
-</div>
-</div>
-</div>
-<div class="grid grid-2" style="margin-top:24px">
+<div class="asset-summary">
 <div class="card">
+<div class="stat-label">Current price</div>
+<div class="asset-price">N5,000</div>
+<div style="font-size:13px;color:var(--muted);margin-top:4px">Per 1 C&J Coin</div>
+</div>
+<div class="card">
+<div class="stat-label">My holdings</div>
+<div style="font-size:28px;font-weight:800" id="coinHoldings">0 C&J</div>
+<div style="font-size:13px;color:var(--muted);margin-top:4px">Current value <b id="coinHoldingValue" style="color:var(--gold)">N0</b></div>
+</div>
+</div>
+<div class="card" style="margin-top:16px">
 <div class="card-title">Buy C&J Coin</div>
-<div class="field" style="margin-top:14px">
-<label>Amount (N)</label>
-<input class="input" type="number" placeholder="Enter amount" id="coinBuyAmt"/>
+<div style="font-size:13px;color:var(--muted);margin-top:5px">Select how many coins you want to purchase.</div>
+<div class="asset-quantity">
+<button type="button" aria-label="Remove one coin" onclick="adjustAssetQuantity('coin',-1)">−</button>
+<input id="coinBuyQty" type="number" min="1" max="1000" value="1" aria-label="Coin quantity" oninput="updateAssetQuote('coin')"/>
+<button type="button" aria-label="Add one coin" onclick="adjustAssetQuantity('coin',1)">+</button>
 </div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:14px">You'll receive: <b id="coinReceive" style="color:var(--navy)">0</b> coins</div>
-<button class="btn btn-primary btn-block" onclick="buyCoin()">Buy Now</button>
+<div class="asset-shortcuts">
+<button type="button" onclick="setAssetQuantity('coin',1)">1</button><button type="button" onclick="setAssetQuantity('coin',2)">2</button><button type="button" onclick="setAssetQuantity('coin',5)">5</button><button type="button" onclick="setAssetQuantity('coin',10)">10</button>
 </div>
-<div class="card">
-<div class="card-title">Sell / Buyback</div>
-<div class="field" style="margin-top:14px">
-<label>Coins to sell</label>
-<input class="input" type="number" placeholder="Enter coins" id="coinSellAmt"/>
+<div style="display:flex;justify-content:space-between;padding:15px;background:var(--soft);border:1px solid var(--border);border-radius:12px;margin-bottom:16px"><span style="color:var(--muted)">Total cost</span><strong id="coinBuyTotal" style="color:var(--gold)">N5,000</strong></div>
+<button class="btn btn-primary btn-block" onclick="buyCoin()">Submit coin purchase request</button>
+<p style="font-size:12px;color:var(--muted);margin-top:10px">Purchase requests are subject to review. C&J Coin is an in-app digital item and not an investment or guaranteed cash asset.</p>
 </div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:14px">You'll receive: N<b id="coinSellReceive" style="color:var(--navy)">0</b></div>
-<button class="btn btn-outline btn-block" onclick="sellCoin()">Sell Coins</button>
-</div>
+<div class="grid grid-2" style="margin-top:16px">
+<div class="card"><div class="card-title">Sell / Buyback request</div><div class="field" style="margin-top:14px"><label>Coins to sell</label><input class="input" type="number" min="1" step="1" placeholder="Enter coins" id="coinSellAmt" oninput="updateAssetQuote('coinSell')"/></div><div style="font-size:13px;color:var(--muted);margin-bottom:14px">Estimated value: <b id="coinSellReceive" style="color:var(--navy)">N0</b></div><button class="btn btn-outline btn-block" onclick="sellCoin()">Request coin buyback</button></div>
+<div class="card"><div class="card-title">Available wallet</div><div style="font-size:28px;font-weight:800;margin-top:12px;color:var(--navy)" id="coinWalletBalance">N0</div><button class="btn btn-outline btn-block" style="margin-top:16px" onclick="navigateTo('wallet')">Open wallet</button></div>
 </div>
 </div>
 <div class="page" id="page-gold">
-<div class="hero-balance">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-<div>
-<div class="hero-label">C&J Gold</div>
-<div style="font-size:40px;font-weight:700;margin-top:6px">CJ-GOLD</div>
-<div style="color:rgba(255,255,255,.8);margin-top:6px">Premium tier digital asset</div>
+<div class="asset-hero">
+<div class="asset-coin" aria-hidden="true">C&J</div>
+<div style="font-size:11px;letter-spacing:3px;color:var(--gold-l);font-weight:700">C&J PREMIUM ASSET</div>
+<h2 style="font-size:30px;margin:10px 0 6px">C&J Gold</h2>
+<p style="color:rgba(255,255,255,.76)">View your C&J Gold holdings and submit a purchase request.</p>
 </div>
-<div style="text-align:right">
-<div style="font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase">Buy Price</div>
-<div style="font-size:32px;font-weight:700;color:var(--gold-l)">N20,000</div>
-<div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:4px">Buyback: N15,000</div>
+<div class="asset-summary">
+<div class="card"><div class="stat-label">My C&J Gold balance</div><div style="font-size:28px;font-weight:800" id="goldHoldings">0</div><div style="font-size:13px;color:var(--muted)">Gold owned</div><div style="margin-top:14px;color:var(--muted)">Total gold value <b id="goldHoldingValue" style="color:var(--gold)">N0</b></div></div>
+<div class="card"><div class="stat-label">Available wallet</div><div style="font-size:28px;font-weight:800" id="goldWalletBalance">N0</div><div style="font-size:13px;color:var(--muted);margin-top:10px">Gold price <b style="color:var(--gold)">N20,000</b> per unit</div></div>
 </div>
+<div class="grid grid-2" style="margin-top:16px">
+<div class="card"><div style="font-size:22px;margin-bottom:10px">＋</div><div class="card-title">Buy Gold</div><p style="font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 16px">Purchase C&J Gold using your wallet balance.</p><button class="btn btn-primary btn-block" onclick="document.getElementById('goldBuySection').scrollIntoView({behavior:'smooth'})">Buy Gold</button></div>
+<div class="card"><div style="font-size:22px;margin-bottom:10px">−</div><div class="card-title">Sell Gold</div><p style="font-size:13px;color:var(--muted);line-height:1.5;margin:6px 0 16px">Request a C&J Gold buyback review.</p><button class="btn btn-outline btn-block" onclick="document.getElementById('goldSellSection').scrollIntoView({behavior:'smooth'})">Sell Gold</button></div>
 </div>
+<div class="card" id="goldBuySection" style="margin-top:16px">
+<div class="stat-label">Purchase quantity</div><div class="card-title">How much Gold?</div>
+<div class="asset-quantity"><button type="button" aria-label="Remove one gold unit" onclick="adjustAssetQuantity('gold',-1)">−</button><input id="goldBuyQty" type="number" min="1" max="1000" value="1" aria-label="Gold quantity" oninput="updateAssetQuote('gold')"/><button type="button" aria-label="Add one gold unit" onclick="adjustAssetQuantity('gold',1)">+</button></div>
+<div class="asset-shortcuts"><button type="button" onclick="setAssetQuantity('gold',1)">1</button><button type="button" onclick="setAssetQuantity('gold',2)">2</button><button type="button" onclick="setAssetQuantity('gold',5)">5</button><button type="button" onclick="setAssetQuantity('gold',10)">10</button></div>
+<div style="display:flex;justify-content:space-between;padding:15px;background:var(--soft);border:1px solid var(--border);border-radius:12px;margin-bottom:16px"><span>Gold price × quantity</span><strong id="goldBuyTotal" style="color:var(--gold)">N20,000</strong></div>
+<button class="btn btn-primary btn-block" onclick="buyGold()">Submit gold purchase request</button>
+<p style="font-size:12px;color:var(--muted);margin-top:10px">Requests are subject to review. C&J Gold is an in-app digital item and not an investment or guaranteed cash asset.</p>
 </div>
-<div class="grid grid-2" style="margin-top:24px">
-<div class="card">
-<div class="card-title">Buy C&J Gold</div>
-<div class="field" style="margin-top:14px">
-<label>Amount (N)</label>
-<input class="input" type="number" placeholder="Enter amount" id="goldBuyAmt"/>
+<div class="card" id="goldSellSection" style="margin-top:16px"><div class="card-title">Sell / Buyback request</div><div class="field" style="margin-top:14px"><label>Gold units to sell</label><input class="input" type="number" min="1" step="1" placeholder="Enter units" id="goldSellAmt" oninput="updateAssetQuote('goldSell')"/></div><div style="font-size:13px;color:var(--muted);margin-bottom:14px">Estimated value: N<b id="goldSellReceive" style="color:var(--navy)">0</b></div><button class="btn btn-outline btn-block" onclick="sellGold()">Request gold buyback</button></div>
 </div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:14px">You'll receive: <b id="goldReceive" style="color:var(--navy)">0</b> gold units</div>
-<button class="btn btn-primary btn-block" onclick="buyGold()">Buy Now</button>
+<div class="page" id="page-marketplace">
+<div class="asset-hero">
+<div class="asset-coin" aria-hidden="true">C&J</div>
+<div style="font-size:11px;letter-spacing:3px;color:var(--gold-l);font-weight:700">C&J LIMITED</div>
+<h2 style="font-size:30px;margin:10px 0 6px">C&J Marketplace</h2>
+<p style="color:rgba(255,255,255,.76)">Buy, sell and discover C&J assets.</p>
 </div>
-<div class="card">
-<div class="card-title">Sell / Buyback</div>
-<div class="field" style="margin-top:14px">
-<label>Gold units to sell</label>
-<input class="input" type="number" placeholder="Enter units" id="goldSellAmt"/>
-</div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:14px">You'll receive: N<b id="goldSellReceive" style="color:var(--navy)">0</b></div>
-<button class="btn btn-outline btn-block" onclick="sellGold()">Sell Gold</button>
-</div>
+<div class="market-status"><div class="market-status-icon">🚀</div><div><div class="card-title">Marketplace coming soon</div><p style="font-size:13px;color:var(--muted);line-height:1.5;margin-top:5px">The C&J Marketplace is being prepared. Member-to-member trading is not available yet. Check back for an update.</p></div><span class="tag tag-gold">SOON</span></div>
+<div class="field"><label for="marketplaceSearch">Search marketplace</label><input class="input" id="marketplaceSearch" type="search" placeholder="Marketplace listings are coming soon" disabled/></div>
+<div style="font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:700;margin:26px 0 8px">EXPLORE</div><h3 class="card-title" style="font-size:22px">Categories</h3>
+<div class="grid grid-2" style="margin-top:14px">
+<div class="card"><div style="font-size:20px">◇</div><div class="card-title" style="margin-top:10px">All assets</div><p style="font-size:12px;color:var(--muted);margin-top:4px">Browse marketplace listings</p></div>
+<div class="card" onclick="navigateTo('coin')" style="cursor:pointer"><div style="font-size:20px">◉</div><div class="card-title" style="margin-top:10px">C&J Coin</div><p style="font-size:12px;color:var(--muted);margin-top:4px">Open Coin page</p></div>
+<div class="card" onclick="navigateTo('gold')" style="cursor:pointer"><div style="font-size:20px">◆</div><div class="card-title" style="margin-top:10px">C&J Gold</div><p style="font-size:12px;color:var(--muted);margin-top:4px">Open Gold page</p></div>
+<div class="card"><div style="font-size:20px">💎</div><div class="card-title" style="margin-top:10px">Other assets</div><p style="font-size:12px;color:var(--muted);margin-top:4px">More assets coming soon</p></div>
 </div>
 </div>
 <div class="page" id="page-community">
 <div class="card" style="margin-bottom:20px">
 <div class="card-title">Create Post</div>
-<textarea class="input" style="min-height:80px;resize:vertical;margin-top:10px" placeholder="Share something with the C&J community..." id="postInput"></textarea>
+<textarea class="input" style="min-height:80px;resize:vertical;margin-top:10px" maxlength="1000" placeholder="Share something with the C&J community..." id="postInput"></textarea>
 <button class="btn btn-primary" style="margin-top:12px;width:auto;padding:12px 20px" onclick="createPost()">Post</button>
 </div>
 <div id="postsList">
-<div class="card" style="margin-bottom:14px">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-<div class="avatar">AM</div>
+<div class="card" style="color:var(--muted)">Loading community posts…</div>
+</div>
+</div>
+<div class="community-profile-overlay" id="communityProfileModal" role="dialog" aria-modal="true" aria-labelledby="communityProfileName" onclick="if(event.target===this)closeCommunityProfile()">
+<div class="community-profile-card">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div style="display:flex;align-items:center;gap:14px">
+<div class="community-profile-avatar" id="communityProfileAvatar">CJ</div>
 <div>
-<div style="font-weight:600;font-size:14px;color:var(--navy)">Ada Musa</div>
-<div style="font-size:12px;color:var(--muted)">2 hours ago</div>
+<div class="card-title" id="communityProfileName">Community member</div>
+<div class="profile-handle" id="communityProfileUsername">Username not set</div>
+<div style="font-size:12px;color:var(--muted);margin-top:4px" id="communityProfileJoined">Member</div>
 </div>
 </div>
-<div style="font-size:14px;line-height:1.6;color:var(--text)">Just hit my 5th active referral! The C&J system is real - received my first withdrawal this morning. Who else is earning daily?</div>
-<div style="display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Like (24)</span>
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Comment (8)</span>
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Share</span>
+<button class="icon-btn" type="button" onclick="closeCommunityProfile()" aria-label="Close member profile">×</button>
 </div>
+<p id="communityProfileBio" style="font-size:14px;line-height:1.6;margin:18px 0;color:var(--text)"></p>
+<div class="profile-social-stats">
+<div class="profile-social-stat"><strong id="communityProfileFollowers">0</strong><span>Followers</span></div>
+<div class="profile-social-stat"><strong id="communityProfileFollowing">0</strong><span>Following</span></div>
+<div class="profile-social-stat"><strong id="communityProfileLikes">0</strong><span>Likes</span></div>
 </div>
-<div class="card" style="margin-bottom:14px">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-<div class="avatar">KO</div>
-<div>
-<div style="font-weight:600;font-size:14px;color:var(--navy)">Kemi O.</div>
-<div style="font-size:12px;color:var(--muted)">5 hours ago</div>
+<div class="grid grid-2" style="gap:12px">
+<div class="card"><div class="stat-label">Membership</div><div id="communityProfileMembership" style="font-weight:700">--</div></div>
+<div class="card"><div class="stat-label">Active referrals</div><div id="communityProfileReferrals" style="font-weight:700">--</div></div>
 </div>
-</div>
-<div style="font-size:14px;line-height:1.6;color:var(--text)">Pro tip: Activate your membership from wallet if you have balance - approval is faster. Been earning N1,000 daily like clockwork.</div>
-<div style="display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Like (42)</span>
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Comment (15)</span>
-<span style="font-size:13px;color:var(--muted);cursor:pointer">Share</span>
-</div>
-</div>
+<button class="btn btn-primary btn-block" id="communityProfileFollow" style="margin-top:16px" type="button">Follow</button>
 </div>
 </div>
 <div class="page" id="page-help">
@@ -2370,7 +2405,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <div class="support-card-content">
 <p>The initial membership period is 30 days.</p>
 <div class="highlight-box">
-<strong>The current membership renewal requirement is 20 referral points.</strong>
+<strong>Membership stays active after approval and does not require renewal.</strong>
 </div>
 <p>Referral points are based on eligible active referrals according to the current C&J LIMITED membership rules.</p>
 </div>
@@ -2641,7 +2676,7 @@ Please play responsibly. Game results are for entertainment only.
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit TikTok</a>
+<a href="https://www.tiktok.com/@call_mhe_jaspa" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit TikTok</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -2651,7 +2686,7 @@ Please play responsibly. Game results are for entertainment only.
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit X</a>
+<a href="https://x.com/heis_unknow?s=11" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit X</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -2661,7 +2696,7 @@ Please play responsibly. Game results are for entertainment only.
 <p>C&J LIMITED Official</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit Facebook</a>
+<a href="https://www.facebook.com/share/1YpMB1ZF9c/?mibextid=wwXIfr" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit Facebook</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -2671,7 +2706,7 @@ Please play responsibly. Game results are for entertainment only.
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="#" class="contact-btn" target="_blank">Visit Instagram</a>
+<a href="https://www.instagram.com/call_mhe_jaspa" class="contact-btn" target="_blank" rel="noopener noreferrer">Visit Instagram</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -2702,10 +2737,16 @@ Please play responsibly. Game results are for entertainment only.
 <div class="profile-avatar" id="settingsAvatar">JD</div>
 <div class="profile-info">
 <div class="profile-name" id="settingsName">John Doe</div>
+<div class="profile-handle" id="settingsUsernameDisplay">Username not set</div>
 <div class="profile-email" id="settingsEmail">john@cj.com</div>
 <div class="profile-badge">Premium Member</div>
 </div>
 <button class="btn btn-outline btn-sm" onclick="openModal('editProfileModal')">Edit Profile</button>
+</div>
+<div class="profile-social-stats" aria-label="Community profile statistics">
+<div class="profile-social-stat"><strong id="profileFollowersCount">0</strong><span>Followers</span></div>
+<div class="profile-social-stat"><strong id="profileFollowingCount">0</strong><span>Following</span></div>
+<div class="profile-social-stat"><strong id="profileLikesCount">0</strong><span>Likes</span></div>
 </div>
 <div class="settings-group">
 <div class="settings-title">
@@ -2735,6 +2776,31 @@ Profile Information
 <div class="settings-desc" id="settingsPhone">+234 000 000 0000</div>
 </div>
 <button class="btn btn-outline btn-sm" onclick="openModal('editProfileModal')">Change</button>
+</div>
+<div class="settings-row profile-edit-row">
+<div>
+<div class="settings-label">Username</div>
+<div class="settings-desc">Your unique name shown to community members</div>
+</div>
+<div style="display:flex;gap:8px;align-items:center">
+<input class="input" id="profileUsernameInput" type="text" maxlength="20" autocomplete="username" placeholder="e.g. cj_member" style="max-width:190px"/>
+<button class="btn btn-outline btn-sm" type="button" onclick="saveProfileUsername()">Save</button>
+</div>
+</div>
+<div class="settings-row profile-edit-row">
+<div>
+<div class="settings-label">Profile photo</div>
+<div class="settings-desc">JPG, PNG or WebP image up to 3 MB</div>
+</div>
+<div class="profile-settings-photo">
+<input class="input" id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose profile photo" style="max-width:260px" onchange="previewProfilePhoto()"/>
+<button class="btn btn-outline btn-sm" type="button" id="uploadProfilePhotoBtn" onclick="uploadProfilePhoto()">Upload photo</button>
+</div>
+</div>
+<div class="field" style="margin-top:14px">
+<label for="communityBioInput">About me</label>
+<textarea class="input" id="communityBioInput" maxlength="240" rows="3" placeholder="Tell the community a little about yourself"></textarea>
+<button class="btn btn-outline btn-sm" style="margin-top:8px" type="button" onclick="saveCommunityBio()">Save About</button>
 </div>
 </div>
 <div class="settings-group">
@@ -2796,6 +2862,20 @@ Notifications
 </div>
 <div class="toggle" id="toggleMarketing" onclick="toggleSetting('toggleMarketing')"></div>
 </div>
+<div class="settings-row">
+<div>
+<div class="settings-label">Community activity</div>
+<div class="settings-desc">Updates about likes, comments, and follows</div>
+</div>
+<div class="toggle active" id="toggleCommunityNotif" onclick="toggleSetting('toggleCommunityNotif')"></div>
+</div>
+<div class="settings-row">
+<div>
+<div class="settings-label">Product updates &amp; changelog</div>
+<div class="settings-desc">Hear about new features and app changes</div>
+</div>
+<div class="toggle active" id="toggleProductUpdates" onclick="toggleSetting('toggleProductUpdates')"></div>
+</div>
 </div>
 <div class="settings-group">
 <div class="settings-title">
@@ -2812,6 +2892,40 @@ Appearance
 </div>
 <div class="toggle" id="toggleDark" onclick="toggleDarkMode()"></div>
 </div>
+</div>
+<div class="settings-group">
+<div class="settings-title">What's new</div>
+<div class="profile-update-notes"><strong style="color:var(--text)">Community profiles</strong><br/>Personal usernames and profile photos, with follower, following, and like totals. Visit Announcements for the latest platform updates.</div>
+<button class="btn btn-outline btn-sm" style="margin-top:12px" type="button" onclick="navigateTo('announcements')">View app updates</button>
+</div>
+<div class="settings-group">
+<div class="settings-title">Transfer PIN</div>
+<p style="font-size:13px;color:var(--muted);margin:-8px 0 14px">Create a private PIN to confirm transfer requests. Your PIN is never stored as plain text.</p>
+<div class="settings-row">
+<div><div class="settings-label">Transfer security</div><div class="settings-desc" id="transferPinStatus">No Transfer PIN set</div></div>
+<button class="btn btn-primary btn-sm" type="button" onclick="openTransferPinModal()">Create Transfer PIN</button>
+</div>
+</div>
+<div class="settings-group">
+<div class="settings-title">ID Verification</div>
+<p style="font-size:13px;color:var(--muted);margin:-8px 0 14px">Submit an identity check for administrator review. Only upload your own documents.</p>
+<div class="settings-row">
+<div><div class="settings-label">Verification status</div><div class="settings-desc" id="verificationStatusLabel">Not verified</div></div>
+<span class="tag tag-muted" id="verificationStatusTag">NOT SUBMITTED</span>
+</div>
+<form id="verificationForm" onsubmit="submitAccountVerification(event)">
+<div class="verification-grid" style="margin-top:16px">
+<div class="field"><label for="verificationFirstName">First name</label><input class="input" id="verificationFirstName" autocomplete="given-name" maxlength="60" required placeholder="Enter your first name"/></div>
+<div class="field"><label for="verificationSurname">Surname</label><input class="input" id="verificationSurname" autocomplete="family-name" maxlength="60" required placeholder="Enter your surname"/></div>
+<div class="field"><label for="verificationDob">Date of birth</label><input class="input" id="verificationDob" type="date" required/></div>
+<div class="field"><label for="verificationMethod">Select verification method</label><select class="input" id="verificationMethod" required><option value="">Choose verification method</option><option value="nin">NIN</option><option value="drivers-license">Driver's License</option><option value="passport">International Passport</option><option value="voters-card">Voter's Card</option></select></div>
+<div class="field"><label for="verificationIdNumber">ID number</label><input class="input" id="verificationIdNumber" autocomplete="off" maxlength="40" required placeholder="Enter your ID number"/></div>
+<div class="field"><label for="verificationSelfie">Upload selfie photo</label><input class="verification-file" id="verificationSelfie" type="file" accept="image/jpeg,image/png" capture="user" required/><span style="font-size:11px;color:var(--muted)">JPG or PNG, up to 5 MB</span></div>
+<div class="field" style="grid-column:1/-1"><label for="verificationDocument">Upload ID document</label><input class="verification-file" id="verificationDocument" type="file" accept="image/jpeg,image/png,application/pdf" required/><span style="font-size:11px;color:var(--muted)">JPG, PNG or PDF, up to 5 MB</span></div>
+</div>
+<div class="warning-box" style="margin:14px 0"><strong>Privacy:</strong> Identity documents contain sensitive personal information. Files are submitted for account verification review. Never upload someone else's documents.</div>
+<button class="btn btn-primary btn-block" id="verificationSubmitBtn" type="submit">Submit Verification</button>
+</form>
 </div>
 <div class="settings-group">
 <div class="settings-title">
@@ -2906,13 +3020,13 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 </div>
 <div class="card" id="admin-users" style="margin-bottom:24px">
 <div class="card-title">Manage users</div>
-<div style="font-size:13px;color:var(--muted);margin:0 0 12px">Find an account to review its status and membership details.</div>
+<div style="font-size:13px;color:var(--muted);margin:0 0 12px">Search an account to inspect its money-related activity, balance, membership and account controls.</div>
 <div class="search-box" style="margin-top:12px">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <circle cx="11" cy="11" r="8"/>
 <path d="M21 21l-4.35-4.35"/>
 </svg>
-<input class="input" placeholder="Search by name, email or user ID..." id="adminSearch" style="padding-left:46px"/>
+<input class="input" placeholder="Search by name, email or user ID..." id="adminSearch" style="padding-left:46px" onkeydown="if(event.key==='Enter')adminSearchUser()"/>
 </div>
 <button class="btn btn-primary" style="width:auto;padding:12px 20px" onclick="adminSearchUser()">Search</button>
 <div id="adminUserResult" style="display:none;padding:16px;border-radius:12px;background:var(--soft);border:1px solid var(--border);margin-top:16px">
@@ -2921,16 +3035,18 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 <div style="font-size:18px;font-weight:700;color:var(--navy)" id="adUserName">--</div>
 <div style="font-size:13px;color:var(--muted)" id="adUserEmail">--</div>
 </div>
-<div style="display:flex;gap:8px">
-<button class="btn btn-outline btn-sm" onclick="adminAction('freeze')">Freeze</button>
-<button class="btn btn-outline btn-sm" onclick="adminAction('disable')">Disable</button>
-<button class="btn btn-green btn-sm" onclick="adminAction('restore')">Restore</button>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-outline btn-sm" id="adminFreezeBtn" onclick="adminAction('freeze')">Freeze account</button>
+<button class="btn btn-green btn-sm" id="adminUnfreezeBtn" onclick="adminAction('restore')">Unfreeze account</button>
+<button class="btn btn-danger btn-sm" id="adminDisableBtn" onclick="adminAction('disable')">Disable account</button>
 </div>
 </div>
 <div class="grid grid-4" style="margin-top:16px">
 <div>
 <div style="font-size:11px;color:var(--muted)">Balance</div>
 <div style="font-weight:700;color:var(--navy)" id="adUserBal">N0</div>
+<div style="font-size:11px;color:var(--muted);margin-top:5px">Total earned</div>
+<div style="font-weight:600;color:var(--navy)" id="adUserEarned">N0</div>
 </div>
 <div>
 <div style="font-size:11px;color:var(--muted)">Membership</div>
@@ -2945,6 +3061,26 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 <div style="font-weight:700;color:var(--navy)" id="adUserStatus">Active</div>
 </div>
 </div>
+<div style="margin-top:20px">
+<div class="card-title">Financial activity</div>
+<div style="font-size:12px;color:var(--muted);margin:4px 0 10px">Membership requests, wallet transactions and withdrawal requests for this account.</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Date</th><th>Activity</th><th>Amount</th><th>Status</th><th>Details</th></tr></thead>
+<tbody id="adminUserActivity"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Search for a user to load financial activity</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="card" id="admin-verifications" style="margin-bottom:24px">
+<div class="card-title">ID verification review</div>
+<p style="font-size:13px;color:var(--muted);margin:8px 0 14px">Review submitted identity information and documents. Handle personal data only for verification purposes.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Member</th><th>Identity</th><th>Date of birth</th><th>Documents</th><th>Submitted</th><th>Action</th></tr></thead>
+<tbody id="adminVerificationTable"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Loading verification requests…</td></tr></tbody>
+</table>
 </div>
 </div>
 <div class="card" id="admin-memberships" style="margin-bottom:24px">
@@ -3076,17 +3212,31 @@ Transfer to the account below, then upload your payment receipt for admin verifi
 </div>
 <div class="field">
 <label>Recipient User ID or Email</label>
-<input class="input" type="text" placeholder="user@cj.com or CJ-XXXX"/>
+<input class="input" type="text" placeholder="user@cj.com or CJ-XXXX" id="transferRecipient"/>
 </div>
 <div class="field">
 <label>Amount (N)</label>
-<input class="input" type="number" placeholder="Enter amount"/>
+<input class="input" type="number" placeholder="Enter amount" min="1" id="transferAmount"/>
 </div>
 <div class="field">
 <label>Note (optional)</label>
-<input class="input" type="text" placeholder="What's this for?"/>
+<input class="input" type="text" placeholder="What's this for?" id="transferNote" maxlength="160"/>
 </div>
-<button class="btn btn-primary btn-block" onclick="closeModal('transferModal');showToast('Transfer submitted for review','success')">Send Transfer</button>
+<div class="field">
+<label>Transfer PIN</label>
+<input class="input" type="password" placeholder="Enter your Transfer PIN" id="transferPinInput" inputmode="numeric" autocomplete="off" maxlength="6"/>
+</div>
+<button class="btn btn-primary btn-block" onclick="submitTransferRequest()">Send Transfer Request</button>
+<div style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px">Transfer requests are recorded for administrator review.</div>
+</div>
+</div>
+<div class="modal-backdrop" id="transferPinModal">
+<div class="modal">
+<div class="modal-head"><div class="modal-title">Create Transfer PIN</div><button class="close-btn" type="button" onclick="closeModal('transferPinModal')" aria-label="Close Transfer PIN setup">×</button></div>
+<p style="font-size:13px;color:var(--muted);margin:0 0 16px">Choose a 4–6 digit PIN. Do not reuse your account password.</p>
+<div class="field"><label for="newTransferPin">New PIN</label><input class="input" id="newTransferPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" placeholder="4 to 6 digits"/></div>
+<div class="field"><label for="confirmTransferPin">Confirm PIN</label><input class="input" id="confirmTransferPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" placeholder="Re-enter your PIN"/></div>
+<button class="btn btn-primary btn-block" type="button" onclick="saveTransferPin()">Save Transfer PIN</button>
 </div>
 </div>
 <div class="modal-backdrop" id="bankModal">
@@ -3268,6 +3418,7 @@ return ADMIN_EMAILS.has(email) ? 'admin' : userData.role || 'user';
 }
 const AppState = {
 user: null,
+accountStatus: 'active',
 balance: 0,
 totalEarned: 0,
 points: 0,
@@ -3276,10 +3427,14 @@ membership: {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 },
 bank: null,
+coinHoldings: 0,
+goldHoldings: 0,
+transferPinHash: '',
+transferPinSalt: '',
+verificationStatus: 'not-submitted',
 transactions: [],
 withdrawals: [],
 lastTick: Date.now(),
@@ -3292,12 +3447,22 @@ notifications: [
 { id: 3, title: 'Refer & Earn', message: 'Invite a friend and earn 10 referral points when they activate membership.', time: '2 hours ago', read: false, type: 'referral' }
 ],
 posts: [],
+communityFollowingIds: [],
+communityLikedPostIds: [],
+communityPostsUnsubscribe: null,
+userSnapshotUnsubscribe: null,
+verificationSnapshotUnsubscribe: null,
+adminSelectedUserId: null,
+adminUsersCache: null,
+earningTickerId: null,
 settings: {
 twoFA: false,
 loginNotif: true,
 emailNotif: true,
 pushNotif: true,
 marketing: false,
+communityNotif: true,
+productUpdates: true,
 darkMode: false
 },
 chatHistory: [],
@@ -3353,6 +3518,7 @@ achievements: ['Achievements', 'Unlock badges & milestones'],
 announcements: ['Announcements', 'Latest news & updates'],
 coin: ['C&J Coin', 'Buy and sell digital coins'],
 gold: ['C&J Gold', 'Premium digital asset'],
+marketplace: ['Marketplace', 'Explore C&J digital assets'],
 community: ['Community', 'Connect with other members'],
 help: ['Help Center', 'Guides and support'],
 support: ['Support Center', 'Everything you need to know'],
@@ -3380,6 +3546,87 @@ if (forgotView) forgotView.style.display = type === 'forgot' ? 'block' : 'none';
 function showForgotPassword() {
 showAuth('forgot');
 }
+function getReferralName(name) {
+const firstName = (name || '').trim().split(/\s+/)[0] || 'MEMBER';
+return firstName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase() || 'MEMBER';
+}
+async function createUniqueReferralCode(name) {
+const prefix = 'CJ-' + getReferralName(name) + '-';
+const matchingUsers = await db.collection('users')
+.where('referralCode', '>=', prefix)
+.where('referralCode', '<=', prefix + '\uf8ff')
+.get();
+const usedNumbers = new Set(matchingUsers.docs.map(doc => {
+const match = new RegExp('^' + prefix + '(\\d+)$').exec(doc.data().referralCode || '');
+return match ? Number(match[1]) : null;
+}).filter(number => number !== null));
+let number = 1;
+while (usedNumbers.has(number)) number++;
+return prefix + String(number).padStart(2, '0');
+}
+async function ensureReferralCode(user, userData, name) {
+const existingCode = userData.referralCode || '';
+if (/^CJ-[A-Z0-9]+-\d{2,}$/.test(existingCode)) return existingCode;
+const referralCode = await createUniqueReferralCode(name);
+await db.collection('users').doc(user.uid).set({ name, referralCode }, { merge: true });
+return referralCode;
+}
+function loadAccountFeatureSettings(userData) {
+AppState.accountStatus = userData.accountStatus || 'active';
+AppState.coinHoldings = Number(userData.coinHoldings || 0);
+AppState.goldHoldings = Number(userData.goldHoldings || 0);
+AppState.transferPinHash = userData.transferPinHash || '';
+AppState.transferPinSalt = userData.transferPinSalt || '';
+AppState.communityFollowingIds = userData.followingUserIds || [];
+AppState.communityLikedPostIds = userData.likedPostIds || [];
+if (AppState.user) {
+AppState.user.bio = userData.bio || '';
+AppState.user.username = userData.username || '';
+AppState.user.usernameLower = userData.usernameLower || (userData.username || '').toLowerCase();
+AppState.user.profilePhotoUrl = userData.profilePhotoUrl || '';
+AppState.user.profilePhotoPath = userData.profilePhotoPath || '';
+AppState.user.followers = Array.isArray(userData.followers) ? userData.followers : [];
+AppState.user.followerCount = AppState.user.followers.length;
+AppState.user.followingCount = AppState.communityFollowingIds.length;
+AppState.user.likesCount = AppState.communityLikedPostIds.length;
+AppState.user.createdAt = userData.createdAt || AppState.user.createdAt || null;
+}
+}
+function setProfileAvatar(element, photoUrl, initials) {
+if (!element) return;
+element.replaceChildren();
+if (photoUrl) {
+const image = document.createElement('img');
+image.src = photoUrl;
+image.alt = 'Profile photo';
+image.referrerPolicy = 'no-referrer';
+if (photoUrl.startsWith('blob:')) image.onload = () => URL.revokeObjectURL(photoUrl);
+image.onerror = () => setProfileAvatar(element, '', initials);
+element.appendChild(image);
+} else {
+element.textContent = initials || 'CJ';
+}
+}
+function renderAccountProfile() {
+if (!AppState.user) return;
+const initials = communityInitials(AppState.user.name);
+setProfileAvatar(document.getElementById('userAvatar'), AppState.user.profilePhotoUrl, initials);
+setProfileAvatar(document.getElementById('settingsAvatar'), AppState.user.profilePhotoUrl, initials);
+const username = AppState.user.username ? '@' + AppState.user.username : 'Username not set';
+const usernameDisplay = document.getElementById('settingsUsernameDisplay');
+const usernameInput = document.getElementById('profileUsernameInput');
+if (usernameDisplay) usernameDisplay.textContent = username;
+if (usernameInput && document.activeElement !== usernameInput) usernameInput.value = AppState.user.username || '';
+const counts = {
+profileFollowersCount: AppState.user.followerCount || 0,
+profileFollowingCount: AppState.communityFollowingIds.length,
+profileLikesCount: AppState.communityLikedPostIds.length
+};
+Object.entries(counts).forEach(([id, count]) => {
+const element = document.getElementById(id);
+if (element) element.textContent = Number(count).toLocaleString();
+});
+}
 async function handleSignIn() {
 const email = document.getElementById('si_email').value.trim();
 const password = document.getElementById('si_password').value;
@@ -3394,14 +3641,17 @@ authenticationCompleted = true;
 const user = userCredential.user;
 const userDoc = await db.collection('users').doc(user.uid).get();
 const userData = userDoc.exists ? userDoc.data() : {};
+const name = userData.name || user.displayName || email.split('@')[0];
+const referralCode = await ensureReferralCode(user, userData, name);
 AppState.user = {
 uid: user.uid,
-name: userData.name || user.displayName || email.split('@')[0],
+name,
 email: user.email,
 phone: userData.phone || '',
 role: getUserRole(user, userData),
-referralCode: userData.referralCode || 'CJ-' + user.uid.substr(0, 6).toUpperCase()
+referralCode
 };
+loadAccountFeatureSettings(userData);
 AppState.balance = userData.balance || 0;
 AppState.totalEarned = userData.totalEarned || 0;
 AppState.points = userData.points || 0;
@@ -3410,11 +3660,10 @@ AppState.membership = userData.membership || {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = userData.bank || null;
-AppState.settings = userData.settings || AppState.settings;
+AppState.settings = { ...AppState.settings, ...(userData.settings || {}) };
 if (AppState.settings.darkMode) document.body.classList.add('dark');
 enterApp();
 navigateForCurrentUser();
@@ -3433,13 +3682,16 @@ const result = await auth.signInWithPopup(provider);
 const user = result.user;
 const userDoc = await db.collection('users').doc(user.uid).get();
 const userData = userDoc.exists ? userDoc.data() : {};
+const name = userData.name || user.displayName || user.email.split('@')[0];
+let referralCode = userData.referralCode || '';
 if (!userDoc.exists) {
+referralCode = await createUniqueReferralCode(name);
 await db.collection('users').doc(user.uid).set({
-name: user.displayName,
+name,
 email: user.email,
 phone: '',
 role: 'user',
-referralCode: 'CJ-' + user.uid.substr(0, 6).toUpperCase(),
+referralCode,
 balance: 0,
 totalEarned: 0,
 points: 0,
@@ -3448,7 +3700,6 @@ membership: {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 },
 bank: null,
@@ -3456,14 +3707,16 @@ settings: AppState.settings,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
 });
 }
+referralCode = await ensureReferralCode(user, { ...userData, referralCode }, name);
 AppState.user = {
 uid: user.uid,
-name: userData.name || user.displayName,
+name,
 email: user.email,
 phone: userData.phone || '',
 role: getUserRole(user, userData),
-referralCode: userData.referralCode || 'CJ-' + user.uid.substr(0, 6).toUpperCase()
+referralCode
 };
+loadAccountFeatureSettings(userData);
 AppState.balance = userData.balance || 0;
 AppState.totalEarned = userData.totalEarned || 0;
 AppState.points = userData.points || 0;
@@ -3472,11 +3725,10 @@ AppState.membership = userData.membership || {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = userData.bank || null;
-AppState.settings = userData.settings || AppState.settings;
+AppState.settings = { ...AppState.settings, ...(userData.settings || {}) };
 enterApp();
 navigateForCurrentUser();
 showToast('Signed in with Google', 'success');
@@ -3491,13 +3743,16 @@ const result = await auth.signInWithPopup(provider);
 const user = result.user;
 const userDoc = await db.collection('users').doc(user.uid).get();
 const userData = userDoc.exists ? userDoc.data() : {};
+const name = userData.name || user.displayName || user.email.split('@')[0];
+let referralCode = userData.referralCode || '';
 if (!userDoc.exists) {
+referralCode = await createUniqueReferralCode(name);
 await db.collection('users').doc(user.uid).set({
-name: user.displayName || user.email.split('@')[0],
+name,
 email: user.email,
 phone: '',
 role: 'user',
-referralCode: 'CJ-' + user.uid.substr(0, 6).toUpperCase(),
+referralCode,
 balance: 0,
 totalEarned: 0,
 points: 0,
@@ -3506,7 +3761,6 @@ membership: {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 },
 bank: null,
@@ -3514,14 +3768,16 @@ settings: AppState.settings,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
 });
 }
+referralCode = await ensureReferralCode(user, { ...userData, referralCode }, name);
 AppState.user = {
 uid: user.uid,
-name: userData.name || user.displayName || user.email.split('@')[0],
+name,
 email: user.email,
 phone: userData.phone || '',
 role: getUserRole(user, userData),
-referralCode: userData.referralCode || 'CJ-' + user.uid.substr(0, 6).toUpperCase()
+referralCode
 };
+loadAccountFeatureSettings(userData);
 AppState.balance = userData.balance || 0;
 AppState.totalEarned = userData.totalEarned || 0;
 AppState.points = userData.points || 0;
@@ -3530,11 +3786,10 @@ AppState.membership = userData.membership || {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = userData.bank || null;
-AppState.settings = userData.settings || AppState.settings;
+AppState.settings = { ...AppState.settings, ...(userData.settings || {}) };
 enterApp();
 navigateForCurrentUser();
 showToast('Signed in with GitHub', 'success');
@@ -3560,7 +3815,7 @@ try {
 const userCredential = await auth.createUserWithEmailAndPassword(email, password);
 const user = userCredential.user;
 await user.updateProfile({ displayName: name });
-const newReferralCode = 'CJ-' + user.uid.substr(0, 6).toUpperCase();
+const newReferralCode = await createUniqueReferralCode(name);
 await db.collection('users').doc(user.uid).set({
 name,
 email,
@@ -3576,7 +3831,6 @@ membership: {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 },
 bank: null,
@@ -3599,6 +3853,7 @@ phone,
 role: 'user',
 referralCode: newReferralCode
 };
+loadAccountFeatureSettings({ accountStatus: 'active' });
 AppState.balance = 0;
 AppState.totalEarned = 0;
 AppState.points = 0;
@@ -3607,7 +3862,6 @@ AppState.membership = {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = null;
@@ -3636,9 +3890,26 @@ showToast('Failed to send reset link: ' + error.message, 'error');
 }
 async function handleLogout() {
 try {
+if (AppState.userSnapshotUnsubscribe) {
+AppState.userSnapshotUnsubscribe();
+AppState.userSnapshotUnsubscribe = null;
+}
+if (AppState.verificationSnapshotUnsubscribe) {
+AppState.verificationSnapshotUnsubscribe();
+AppState.verificationSnapshotUnsubscribe = null;
+}
+if (AppState.communityPostsUnsubscribe) {
+AppState.communityPostsUnsubscribe();
+AppState.communityPostsUnsubscribe = null;
+}
+if (AppState.earningTickerId) {
+clearInterval(AppState.earningTickerId);
+AppState.earningTickerId = null;
+}
 await auth.signOut();
 document.body.classList.remove('admin-mode');
 AppState.user = null;
+AppState.accountStatus = 'active';
 AppState.balance = 0;
 AppState.totalEarned = 0;
 AppState.points = 0;
@@ -3647,7 +3918,6 @@ AppState.membership = {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = null;
@@ -3701,6 +3971,7 @@ if (settingsNameEl) settingsNameEl.textContent = name;
 if (settingsFullNameEl) settingsFullNameEl.textContent = name;
 if (settingsPhoneEl) settingsPhoneEl.textContent = phone || 'Not set';
 if (settingsAvatarEl) settingsAvatarEl.textContent = name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+renderAccountProfile();
 closeModal('editProfileModal');
 showToast('Profile updated successfully', 'success');
 } catch (error) {
@@ -3764,18 +4035,36 @@ showToast('Failed to change email: ' + error.message, 'error');
 }
 function toggleSetting(id) {
 const toggle = document.getElementById(id);
+if (!toggle) return;
 toggle.classList.toggle('active');
 const settingMap = {
 'toggle2FA': 'twoFA',
 'toggleLoginNotif': 'loginNotif',
 'toggleEmailNotif': 'emailNotif',
 'togglePushNotif': 'pushNotif',
-'toggleMarketing': 'marketing'
+'toggleMarketing': 'marketing',
+'toggleCommunityNotif': 'communityNotif',
+'toggleProductUpdates': 'productUpdates'
 };
 if (settingMap[id]) {
 AppState.settings[settingMap[id]] = toggle.classList.contains('active');
 saveSettings();
 }
+}
+function renderSettingsToggles() {
+const settingMap = {
+toggle2FA: 'twoFA',
+toggleLoginNotif: 'loginNotif',
+toggleEmailNotif: 'emailNotif',
+togglePushNotif: 'pushNotif',
+toggleMarketing: 'marketing',
+toggleCommunityNotif: 'communityNotif',
+toggleProductUpdates: 'productUpdates'
+};
+Object.entries(settingMap).forEach(([id, setting]) => {
+const toggle = document.getElementById(id);
+if (toggle) toggle.classList.toggle('active', Boolean(AppState.settings[setting]));
+});
 }
 async function saveSettings() {
 try {
@@ -3787,10 +4076,12 @@ settings: AppState.settings
 }
 } catch (error) {
 console.error('Failed to save settings:', error);
+showToast('Settings could not be saved: ' + error.message, 'error');
 }
 }
 function enterApp() {
 showView('appView');
+AppState.lastTick = Date.now();
 const userNameEl = document.getElementById('userName');
 const userEmailEl = document.getElementById('userEmail');
 const userAvatarEl = document.getElementById('userAvatar');
@@ -3808,9 +4099,13 @@ if (userAvatarEl) userAvatarEl.textContent = AppState.user.name.split(' ').map(n
 if (settingsNameEl) settingsNameEl.textContent = AppState.user.name;
 if (settingsEmailEl) settingsEmailEl.textContent = AppState.user.email;
 if (settingsFullNameEl) settingsFullNameEl.textContent = AppState.user.name;
+const communityBioInput = document.getElementById('communityBioInput');
+if (communityBioInput) communityBioInput.value = AppState.user.bio || '';
 if (settingsEmailAddrEl) settingsEmailAddrEl.textContent = AppState.user.email;
 if (settingsPhoneEl) settingsPhoneEl.textContent = AppState.user.phone || 'Not set';
 if (settingsAvatarEl) settingsAvatarEl.textContent = AppState.user.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+renderAccountProfile();
+renderSettingsToggles();
 if (AppState.bank && settingsBankInfoEl) {
 settingsBankInfoEl.textContent = AppState.bank.name + ' - ' + AppState.bank.acc;
 }
@@ -3823,24 +4118,37 @@ renderNotifications();
 renderAchievements();
 renderAnnouncements();
 updateVIP();
+setVerificationFormName();
+renderTransferPinStatus();
+renderVerificationStatus();
 startEarningTicker();
 initChatbot();
 setupRealtimeListeners();
 }
 function setupRealtimeListeners() {
 if (!AppState.user || !AppState.user.uid) return;
-db.collection('users').doc(AppState.user.uid).onSnapshot((doc) => {
+if (AppState.userSnapshotUnsubscribe) AppState.userSnapshotUnsubscribe();
+AppState.userSnapshotUnsubscribe = db.collection('users').doc(AppState.user.uid).onSnapshot((doc) => {
 if (doc.exists) {
 const data = doc.data();
+const previousStatus = AppState.accountStatus;
+loadAccountFeatureSettings(data);
 AppState.balance = data.balance || 0;
 AppState.totalEarned = data.totalEarned || 0;
 AppState.points = data.points || 0;
 AppState.referrals = data.referrals || { registered: 0, active: 0 };
 AppState.membership = data.membership || AppState.membership;
 AppState.bank = data.bank || null;
-AppState.settings = data.settings || AppState.settings;
+AppState.settings = { ...AppState.settings, ...(data.settings || {}) };
+renderAccountProfile();
+renderSettingsToggles();
 renderAll();
 updateVIP();
+updateAssetBalances();
+renderTransferPinStatus();
+if (previousStatus !== AppState.accountStatus && isAccountRestricted()) {
+showToast('Your account is ' + AppState.accountStatus + '. Earning and account actions are paused.', 'error');
+}
 if (AppState.settings.darkMode && !document.body.classList.contains('dark')) {
 document.body.classList.add('dark');
 document.getElementById('toggleDark').classList.add('active');
@@ -3849,7 +4157,19 @@ document.body.classList.remove('dark');
 document.getElementById('toggleDark').classList.remove('active');
 }
 }
+}, error => {
+console.error('Failed to monitor account status:', error);
+showToast('Account status could not be refreshed: ' + error.message, 'error');
 });
+if (AppState.verificationSnapshotUnsubscribe) AppState.verificationSnapshotUnsubscribe();
+AppState.verificationSnapshotUnsubscribe = db.collection('verifications').doc(AppState.user.uid).onSnapshot(doc => {
+AppState.verificationStatus = doc.exists ? doc.data().status || 'pending' : 'not-submitted';
+renderVerificationStatus();
+}, error => {
+console.error('Failed to monitor identity verification status:', error);
+showToast('Verification status could not be refreshed: ' + error.message, 'error');
+});
+loadCommunityPosts();
 }
 function navigateTo(page) {
 if (AppState.user && AppState.user.role === 'admin' && page !== 'admin') page = 'admin';
@@ -3910,12 +4230,21 @@ console.error('Failed to refresh admin panel data:', error);
 showToast('Admin data could not be refreshed: ' + error.message, 'error');
 });
 }
+function isAccountRestricted() {
+return AppState.accountStatus === 'frozen' || AppState.accountStatus === 'disabled';
+}
+function requireAccountActive(action) {
+if (!isAccountRestricted()) return true;
+showToast('Your account is ' + AppState.accountStatus + '. You cannot ' + action + ' until an administrator restores access.', 'error');
+return false;
+}
 function startEarningTicker() {
-setInterval(() => {
-if (!AppState.membership.active) return;
+if (AppState.earningTickerId) return;
+AppState.earningTickerId = setInterval(() => {
 const now = Date.now();
-const dt = (now - AppState.lastTick) / 1000;
+const dt = Math.max(0, (now - AppState.lastTick) / 1000);
 AppState.lastTick = now;
+if (!AppState.membership.active || isAccountRestricted()) return;
 const perSec = AppState.membership.ratePerDay / 86400;
 const earned = perSec * dt;
 AppState.balance += earned;
@@ -3964,6 +4293,7 @@ renderWithdrawalGrid();
 renderReferrals();
 renderWallet();
 renderTransactions();
+updateAssetBalances();
 }
 function renderStats() {
 document.getElementById('statPoints').textContent = AppState.points;
@@ -3976,24 +4306,18 @@ const tagEl = document.getElementById('memTag');
 const datesEl = document.getElementById('memDates');
 const heroStatus = document.getElementById('memHeroStatus');
 const heroSub = document.getElementById('memHeroSub');
+const startDateEl = document.getElementById('memStart');
 if (m.active) {
 statusEl.textContent = 'Active';
 statusEl.style.color = 'var(--green)';
 tagEl.textContent = 'ACTIVE';
 tagEl.className = 'tag tag-green';
 heroStatus.textContent = 'Premium Member';
-heroSub.textContent = 'Earning N1,000 daily - Auto-credited to wallet';
-const start = new Date(m.startAt);
-const exp = new Date(m.expiresAt);
-const daysLeft = Math.max(0, Math.ceil((m.expiresAt - Date.now()) / 86400000));
-const daysPassed = 30 - daysLeft;
-document.getElementById('memStart').textContent = start.toLocaleDateString();
-document.getElementById('memExpiry').textContent = exp.toLocaleDateString();
-document.getElementById('memRemaining').textContent = daysLeft + ' days';
-document.getElementById('heroDays').textContent = daysLeft;
-datesEl.textContent = start.toLocaleDateString() + ' to ' + exp.toLocaleDateString();
-document.getElementById('memProgress').style.width = (daysPassed / 30 * 100) + '%';
-document.getElementById('memProgressLabel').textContent = daysPassed + ' of 30 days';
+heroSub.textContent = 'Membership active - earning N1,000 daily';
+const start = m.startAt ? new Date(m.startAt) : null;
+const formattedStart = start && !Number.isNaN(start.getTime()) ? start.toLocaleDateString() : 'Not available';
+startDateEl.textContent = formattedStart;
+datesEl.textContent = 'Active since ' + formattedStart;
 } else if (m.status === 'pending') {
 statusEl.textContent = 'Pending Approval';
 statusEl.style.color = 'var(--gold)';
@@ -4001,7 +4325,8 @@ tagEl.textContent = 'PENDING';
 tagEl.className = 'tag tag-gold';
 heroStatus.textContent = 'Awaiting Admin Approval';
 heroSub.textContent = 'Your request is being reviewed';
-document.getElementById('heroDays').textContent = '--';
+startDateEl.textContent = '--';
+datesEl.textContent = 'Membership starts after approval';
 } else {
 statusEl.textContent = 'Inactive';
 statusEl.style.color = 'var(--muted)';
@@ -4009,7 +4334,80 @@ tagEl.textContent = 'INACTIVE';
 tagEl.className = 'tag tag-muted';
 heroStatus.textContent = 'No Active Plan';
 heroSub.textContent = 'Activate membership to start earning N1,000 daily';
-document.getElementById('heroDays').textContent = '--';
+startDateEl.textContent = '--';
+datesEl.textContent = 'Not activated';
+}
+}
+function updateAssetBalances() {
+const coinHoldingEl = document.getElementById('coinHoldings');
+const coinValueEl = document.getElementById('coinHoldingValue');
+const goldHoldingEl = document.getElementById('goldHoldings');
+const goldValueEl = document.getElementById('goldHoldingValue');
+const coinWalletEl = document.getElementById('coinWalletBalance');
+const goldWalletEl = document.getElementById('goldWalletBalance');
+if (coinHoldingEl) coinHoldingEl.textContent = AppState.coinHoldings.toLocaleString() + (AppState.coinHoldings === 1 ? ' C&J' : ' C&J');
+if (coinValueEl) coinValueEl.textContent = 'N' + (AppState.coinHoldings * 5000).toLocaleString();
+if (goldHoldingEl) goldHoldingEl.textContent = AppState.goldHoldings.toLocaleString();
+if (goldValueEl) goldValueEl.textContent = 'N' + (AppState.goldHoldings * 20000).toLocaleString();
+if (coinWalletEl) coinWalletEl.textContent = 'N' + AppState.balance.toLocaleString('en-NG', { maximumFractionDigits: 2 });
+if (goldWalletEl) goldWalletEl.textContent = 'N' + AppState.balance.toLocaleString('en-NG', { maximumFractionDigits: 2 });
+updateAssetQuote('coin');
+updateAssetQuote('gold');
+}
+function setAssetQuantity(asset, quantity) {
+const input = document.getElementById(asset + 'BuyQty');
+if (!input) return;
+input.value = String(Math.max(1, Math.min(1000, Math.floor(Number(quantity) || 1))));
+updateAssetQuote(asset);
+}
+function adjustAssetQuantity(asset, delta) {
+const input = document.getElementById(asset + 'BuyQty');
+if (!input) return;
+setAssetQuantity(asset, Number(input.value) + delta);
+}
+function updateAssetQuote(asset) {
+const isSell = asset === 'coinSell' || asset === 'goldSell';
+const type = asset.startsWith('coin') ? 'coin' : 'gold';
+const unitPrice = type === 'coin' ? (isSell ? 4000 : 5000) : (isSell ? 15000 : 20000);
+const input = document.getElementById(isSell ? type + 'SellAmt' : type + 'BuyQty');
+const total = Math.max(0, Math.floor(Number(input?.value) || 0) * unitPrice);
+const target = document.getElementById(isSell ? type + 'SellReceive' : type + 'BuyTotal');
+if (target) target.textContent = 'N' + total.toLocaleString();
+if (!isSell && input && (Number(input.value) < 1 || Number(input.value) > 1000)) input.setCustomValidity('Choose a quantity between 1 and 1,000.');
+else if (input) input.setCustomValidity('');
+}
+function renderTransferPinStatus() {
+const status = document.getElementById('transferPinStatus');
+const button = document.querySelector('#page-settings .settings-group button[onclick="openTransferPinModal()"]');
+if (status) status.textContent = AppState.transferPinHash ? 'Transfer PIN is set' : 'No Transfer PIN set';
+if (button) button.textContent = AppState.transferPinHash ? 'Change Transfer PIN' : 'Create Transfer PIN';
+}
+function renderVerificationStatus() {
+const labels = {
+'not-submitted': ['Not verified', 'NOT SUBMITTED', 'tag-muted'],
+pending: ['Under review', 'PENDING REVIEW', 'tag-gold'],
+approved: ['Identity verified', 'VERIFIED', 'tag-green'],
+rejected: ['Verification needs an update', 'ACTION REQUIRED', 'tag-red']
+};
+const [label, tag, className] = labels[AppState.verificationStatus] || labels['not-submitted'];
+const labelEl = document.getElementById('verificationStatusLabel');
+const tagEl = document.getElementById('verificationStatusTag');
+const form = document.getElementById('verificationForm');
+if (labelEl) labelEl.textContent = label;
+if (tagEl) {
+tagEl.textContent = tag;
+tagEl.className = 'tag ' + className;
+}
+if (form) {
+const isPending = AppState.verificationStatus === 'pending';
+form.querySelectorAll('input,select,button').forEach(element => {
+if (element.type !== 'submit') element.disabled = isPending || AppState.verificationStatus === 'approved';
+});
+const submitButton = document.getElementById('verificationSubmitBtn');
+if (submitButton) {
+submitButton.disabled = isPending || AppState.verificationStatus === 'approved';
+submitButton.textContent = isPending ? 'Verification under review' : AppState.verificationStatus === 'approved' ? 'Account verified' : 'Submit Verification';
+}
 }
 }
 function renderWithdrawalGrid() {
@@ -4025,6 +4423,7 @@ grid.appendChild(div);
 });
 }
 function selectWithdrawal(i) {
+if (!requireAccountActive('request a withdrawal')) return;
 AppState.selectedWithdraw = i;
 document.querySelectorAll('.wd-option').forEach((el, idx) => {
 el.classList.toggle('selected', idx === i);
@@ -4069,6 +4468,7 @@ const nextAllowedDate = addCalendarMonths(latestRequestDate, tier.cooldownMonths
 return nextAllowedDate > new Date() ? nextAllowedDate : null;
 }
 async function submitWithdrawal() {
+if (!requireAccountActive('request a withdrawal')) return;
 if (AppState.selectedWithdraw === null) {
 showToast('Please select an amount', 'error');
 return;
@@ -4257,6 +4657,7 @@ renderNotifications();
 showToast('All notifications marked as read', 'success');
 }
 function doDailyCheckin() {
+if (!requireAccountActive('check in or earn points')) return;
 if (AppState.checkinDay >= 7) {
 showToast('You\'ve completed this week\'s check-ins! Come back next week.', 'success');
 return;
@@ -4282,6 +4683,7 @@ showToast('Checked in! +10 points earned', 'success');
 renderStats();
 }
 async function activateMembership(method) {
+if (!requireAccountActive('activate membership')) return;
 if (AppState.membership.active) {
 showToast('Membership already active', 'error');
 return;
@@ -4402,44 +4804,18 @@ submitButton.disabled = false;
 submitButton.textContent = originalButtonText;
 }
 }
-async function renewWithPoints() {
-if (AppState.points < 20) {
-showToast('Need 20 points to renew. You have ' + AppState.points, 'error');
-return;
-}
-try {
-const user = auth.currentUser;
-const renewalRequest = {
-userId: user.uid,
-userName: AppState.user.name,
-userEmail: AppState.user.email,
-type: 'points',
-pointsUsed: 20,
-date: firebase.firestore.FieldValue.serverTimestamp(),
-status: 'pending'
-};
-await db.collection('membershipRequests').add(renewalRequest);
-AppState.points -= 20;
-AppState.membership.status = 'pending';
-addNotification('Renewal Request', 'Your membership renewal request has been submitted.', 'membership');
-showToast('Renewal request submitted (20 points)', 'success');
-renderMembership();
-renderStats();
-} catch (error) {
-showToast('Failed to submit renewal request: ' + error.message, 'error');
-}
-}
 function copyReferralCode() {
-const code = AppState.user ? AppState.user.referralCode : 'CJ-DEMO-2026';
+const code = AppState.user ? AppState.user.referralCode : 'CJ-FIRSTNAME-01';
 navigator.clipboard.writeText(code);
 showToast('Referral code copied!', 'success');
 }
 function shareOnWhatsApp() {
-const code = AppState.user ? AppState.user.referralCode : 'CJ-DEMO-2026';
+const code = AppState.user ? AppState.user.referralCode : 'CJ-FIRSTNAME-01';
 const msg = encodeURIComponent('Join me on C&J - earn N1,000 daily! Use my code: ' + code);
 window.open('https://wa.me/2348104968202?text=' + msg, '_blank');
 }
 async function submitDeposit() {
+if (!requireAccountActive('submit a deposit')) return;
 const amt = parseFloat(document.getElementById('depAmt').value);
 const ref = document.getElementById('depRef').value.trim();
 if (!amt || amt <= 0) {
@@ -4507,12 +4883,213 @@ showToast('Bank details saved', 'success');
 showToast('Failed to save bank details: ' + error.message, 'error');
 }
 }
-async function buyCoin() {
-const amt = parseFloat(document.getElementById('coinBuyAmt').value);
-if (!amt || amt <= 0) {
-showToast('Enter a valid amount', 'error');
+function openTransferPinModal() {
+document.getElementById('newTransferPin').value = '';
+document.getElementById('confirmTransferPin').value = '';
+openModal('transferPinModal');
+}
+async function deriveTransferPinHash(pin, salt) {
+const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveBits']);
+const bits = await crypto.subtle.deriveBits({
+name: 'PBKDF2',
+salt: Uint8Array.from(atob(salt), char => char.charCodeAt(0)),
+iterations: 180000,
+hash: 'SHA-256'
+}, key, 256);
+return btoa(String.fromCharCode(...new Uint8Array(bits)));
+}
+async function saveTransferPin() {
+if (!requireAccountActive('change your Transfer PIN')) return;
+const pin = document.getElementById('newTransferPin').value;
+const confirmation = document.getElementById('confirmTransferPin').value;
+if (!/^\d{4,6}$/.test(pin)) {
+showToast('Transfer PIN must contain 4 to 6 digits', 'error');
 return;
 }
+if (pin !== confirmation) {
+showToast('The Transfer PINs do not match', 'error');
+return;
+}
+try {
+const saltBytes = crypto.getRandomValues(new Uint8Array(16));
+const salt = btoa(String.fromCharCode(...saltBytes));
+const hash = await deriveTransferPinHash(pin, salt);
+await db.collection('users').doc(AppState.user.uid).update({
+transferPinSalt: salt,
+transferPinHash: hash,
+transferPinUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+AppState.transferPinSalt = salt;
+AppState.transferPinHash = hash;
+renderTransferPinStatus();
+closeModal('transferPinModal');
+showToast('Transfer PIN saved securely', 'success');
+} catch (error) {
+console.error('Failed to save Transfer PIN:', error);
+showToast('Transfer PIN could not be saved: ' + error.message, 'error');
+}
+}
+async function verifyTransferPin(pin) {
+if (!AppState.transferPinHash || !AppState.transferPinSalt) return false;
+const hash = await deriveTransferPinHash(pin, AppState.transferPinSalt);
+return hash === AppState.transferPinHash;
+}
+async function submitTransferRequest() {
+if (!requireAccountActive('submit a transfer')) return;
+const recipientQuery = document.getElementById('transferRecipient').value.trim();
+const amount = Number(document.getElementById('transferAmount').value);
+const note = document.getElementById('transferNote').value.trim();
+const pin = document.getElementById('transferPinInput').value;
+if (!AppState.transferPinHash) {
+closeModal('transferModal');
+showToast('Create a Transfer PIN in Settings before requesting a transfer', 'error');
+return;
+}
+if (!recipientQuery || !Number.isFinite(amount) || amount <= 0 || !pin) {
+showToast('Enter a recipient, valid amount and Transfer PIN', 'error');
+return;
+}
+if (amount > AppState.balance) {
+showToast('Insufficient available balance', 'error');
+return;
+}
+try {
+if (!(await verifyTransferPin(pin))) {
+showToast('Incorrect Transfer PIN', 'error');
+return;
+}
+let recipientDoc;
+if (recipientQuery.includes('@')) {
+const recipients = await db.collection('users').where('email', '==', recipientQuery.toLowerCase()).limit(1).get();
+recipientDoc = recipients.empty ? null : recipients.docs[0];
+} else {
+recipientDoc = await db.collection('users').doc(recipientQuery).get();
+if (!recipientDoc.exists) recipientDoc = null;
+}
+if (!recipientDoc || recipientDoc.id === AppState.user.uid) {
+showToast('Enter another existing C&J member as recipient', 'error');
+return;
+}
+if (recipientDoc.data().accountStatus === 'frozen' || recipientDoc.data().accountStatus === 'disabled') {
+showToast('This recipient account cannot receive transfers', 'error');
+return;
+}
+await db.collection('transactions').add({
+userId: AppState.user.uid,
+userName: AppState.user.name,
+userEmail: AppState.user.email,
+type: 'transfer_request',
+amount: -amount,
+recipientUserId: recipientDoc.id,
+recipientName: recipientDoc.data().name || 'C&J member',
+note,
+date: firebase.firestore.FieldValue.serverTimestamp(),
+status: 'pending'
+});
+closeModal('transferModal');
+document.getElementById('transferPinInput').value = '';
+showToast('Transfer request submitted for administrator review', 'success');
+await loadAdminUserFinancialActivity(AppState.user.uid).catch(error => console.error('Could not refresh transfer history:', error));
+} catch (error) {
+console.error('Failed to submit transfer request:', error);
+showToast('Transfer request failed: ' + error.message, 'error');
+}
+}
+function setVerificationFormName() {
+if (!AppState.user) return;
+const parts = AppState.user.name.trim().split(/\s+/);
+const first = document.getElementById('verificationFirstName');
+const surname = document.getElementById('verificationSurname');
+if (first && !first.value) first.value = parts[0] || '';
+if (surname && !surname.value && parts.length > 1) surname.value = parts.slice(1).join(' ');
+}
+async function submitAccountVerification(event) {
+event.preventDefault();
+if (!requireAccountActive('submit identity verification')) return;
+if (!AppState.user || !auth.currentUser) {
+showToast('Sign in before submitting verification', 'error');
+return;
+}
+if (AppState.verificationStatus === 'pending' || AppState.verificationStatus === 'approved') {
+showToast('A new verification submission is not available in the current status', 'error');
+return;
+}
+const firstName = document.getElementById('verificationFirstName').value.trim();
+const surname = document.getElementById('verificationSurname').value.trim();
+const dob = document.getElementById('verificationDob').value;
+const method = document.getElementById('verificationMethod').value;
+const idNumber = document.getElementById('verificationIdNumber').value.trim();
+const selfie = document.getElementById('verificationSelfie').files[0];
+const documentFile = document.getElementById('verificationDocument').files[0];
+const submitButton = document.getElementById('verificationSubmitBtn');
+if (!firstName || !surname || !dob || !method || !idNumber || !selfie || !documentFile) {
+showToast('Complete every verification field and select both required files', 'error');
+return;
+}
+const allowedSelfieTypes = ['image/jpeg', 'image/png'];
+const allowedDocumentTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+const maxFileSize = 5 * 1024 * 1024;
+if (!allowedSelfieTypes.includes(selfie.type) || !allowedDocumentTypes.includes(documentFile.type)) {
+showToast('Use a JPG or PNG selfie and a JPG, PNG or PDF identity document', 'error');
+return;
+}
+if (selfie.size > maxFileSize || documentFile.size > maxFileSize) {
+showToast('Each verification file must be 5 MB or smaller', 'error');
+return;
+}
+if (new Date(dob) > new Date()) {
+showToast('Date of birth cannot be in the future', 'error');
+return;
+}
+submitButton.disabled = true;
+submitButton.textContent = 'Uploading documents…';
+const timestamp = Date.now();
+const selfiePath = 'identityVerifications/' + AppState.user.uid + '/' + timestamp + '/selfie';
+const idPath = 'identityVerifications/' + AppState.user.uid + '/' + timestamp + '/identity-document';
+let selfieUploaded = false;
+let idUploaded = false;
+try {
+await storage.ref(selfiePath).put(selfie, { contentType: selfie.type });
+selfieUploaded = true;
+await storage.ref(idPath).put(documentFile, { contentType: documentFile.type });
+idUploaded = true;
+await db.collection('verifications').doc(AppState.user.uid).set({
+userId: AppState.user.uid,
+userName: AppState.user.name,
+userEmail: AppState.user.email,
+firstName,
+surname,
+dateOfBirth: dob,
+method,
+idNumber,
+selfiePath,
+documentPath: idPath,
+status: 'pending',
+submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+reviewedAt: null,
+reviewedBy: null
+});
+AppState.verificationStatus = 'pending';
+renderVerificationStatus();
+showToast('Verification documents submitted for review', 'success');
+} catch (error) {
+if (idUploaded) await storage.ref(idPath).delete().catch(cleanupError => console.error('Could not remove incomplete verification document:', cleanupError));
+if (selfieUploaded) await storage.ref(selfiePath).delete().catch(cleanupError => console.error('Could not remove incomplete verification selfie:', cleanupError));
+console.error('Failed to submit identity verification:', error);
+showToast('Verification could not be submitted: ' + error.message, 'error');
+} finally {
+submitButton.disabled = false;
+renderVerificationStatus();
+}
+}
+async function buyCoin() {
+if (!requireAccountActive('buy C&J Coin')) return;
+const quantity = Number(document.getElementById('coinBuyQty').value);
+if (!Number.isInteger(quantity) || quantity < 1 || quantity > 1000) {
+showToast('Choose a quantity between 1 and 1,000 coins', 'error');
+return;
+}
+const amt = quantity * 5000;
 if (amt > AppState.balance) {
 showToast('Insufficient balance', 'error');
 return;
@@ -4524,7 +5101,8 @@ userId: user.uid,
 userName: AppState.user.name,
 type: 'coin_buy',
 amount: amt,
-coins: Math.floor(amt / 5000),
+coins: quantity,
+asset: 'C&J Coin',
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
@@ -4538,16 +5116,16 @@ date: new Date().toISOString(),
 status: 'pending'
 });
 renderTransactions();
-showToast('Coin purchase request submitted for admin approval', 'success');
-document.getElementById('coinBuyAmt').value = '';
+showToast(quantity + ' C&J Coin purchase request submitted for admin approval', 'success');
 } catch (error) {
 showToast('Failed to submit coin purchase: ' + error.message, 'error');
 }
 }
 async function sellCoin() {
-const coins = parseFloat(document.getElementById('coinSellAmt').value);
-if (!coins || coins <= 0) {
-showToast('Enter valid coin amount', 'error');
+if (!requireAccountActive('sell C&J Coin')) return;
+const coins = Number(document.getElementById('coinSellAmt').value);
+if (!Number.isInteger(coins) || coins <= 0 || coins > AppState.coinHoldings) {
+showToast('Enter a whole number of coins up to your available holdings', 'error');
 return;
 }
 try {
@@ -4558,6 +5136,7 @@ userName: AppState.user.name,
 type: 'coin_sell',
 coins: coins,
 amount: coins * 4000,
+asset: 'C&J Coin',
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
@@ -4578,11 +5157,13 @@ showToast('Failed to submit coin sale: ' + error.message, 'error');
 }
 }
 async function buyGold() {
-const amt = parseFloat(document.getElementById('goldBuyAmt').value);
-if (!amt || amt <= 0) {
-showToast('Enter a valid amount', 'error');
+if (!requireAccountActive('buy C&J Gold')) return;
+const quantity = Number(document.getElementById('goldBuyQty').value);
+if (!Number.isInteger(quantity) || quantity < 1 || quantity > 1000) {
+showToast('Choose a quantity between 1 and 1,000 gold units', 'error');
 return;
 }
+const amt = quantity * 20000;
 if (amt > AppState.balance) {
 showToast('Insufficient balance', 'error');
 return;
@@ -4594,7 +5175,8 @@ userId: user.uid,
 userName: AppState.user.name,
 type: 'gold_buy',
 amount: amt,
-units: Math.floor(amt / 20000),
+units: quantity,
+asset: 'C&J Gold',
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
@@ -4608,16 +5190,16 @@ date: new Date().toISOString(),
 status: 'pending'
 });
 renderTransactions();
-showToast('Gold purchase request submitted for admin approval', 'success');
-document.getElementById('goldBuyAmt').value = '';
+showToast(quantity + ' C&J Gold purchase request submitted for admin approval', 'success');
 } catch (error) {
 showToast('Failed to submit gold purchase: ' + error.message, 'error');
 }
 }
 async function sellGold() {
-const units = parseFloat(document.getElementById('goldSellAmt').value);
-if (!units || units <= 0) {
-showToast('Enter valid gold units', 'error');
+if (!requireAccountActive('sell C&J Gold')) return;
+const units = Number(document.getElementById('goldSellAmt').value);
+if (!Number.isInteger(units) || units <= 0 || units > AppState.goldHoldings) {
+showToast('Enter a whole number of gold units up to your available holdings', 'error');
 return;
 }
 try {
@@ -4628,6 +5210,7 @@ userName: AppState.user.name,
 type: 'gold_sell',
 units,
 amount: units * 15000,
+asset: 'C&J Gold',
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
@@ -4647,31 +5230,468 @@ document.getElementById('goldSellAmt').value = '';
 showToast('Failed to submit gold sale: ' + error.message, 'error');
 }
 }
-async function createPost() {
-const txt = document.getElementById('postInput').value.trim();
-if (!txt) return;
+function communityInitials(name) {
+return (name || 'CJ').split(/\s+/).filter(Boolean).map(part => part[0]).slice(0, 2).join('').toUpperCase() || 'CJ';
+}
+function communityDate(value) {
+const date = value && typeof value.toDate === 'function' ? value.toDate() : value ? new Date(value) : null;
+if (!date || Number.isNaN(date.getTime())) return 'Just now';
+return date.toLocaleString();
+}
+function makeCommunityAuthor(name, userId, username) {
+const author = document.createElement(userId ? 'button' : 'span');
+author.className = 'community-post-author';
+author.textContent = (name || 'C&J member') + (username ? '  @' + username : '');
+if (userId) {
+author.type = 'button';
+author.addEventListener('click', () => viewCommunityProfile(userId));
+}
+return author;
+}
+function setCommunityFollowButton(button, userId) {
+const following = AppState.communityFollowingIds.includes(userId);
+button.dataset.followUser = userId;
+button.dataset.following = String(following);
+button.textContent = following ? 'Following' : 'Follow';
+}
+function refreshCommunityFollowButtons() {
+document.querySelectorAll('.community-follow-btn[data-follow-user]').forEach(button => setCommunityFollowButton(button, button.dataset.followUser));
+}
+function renderCommunityPosts(snapshot) {
+const list = document.getElementById('postsList');
+if (!list) return;
+AppState.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+list.replaceChildren();
+if (!AppState.posts.length) {
+const empty = document.createElement('div');
+empty.className = 'card';
+empty.style.color = 'var(--muted)';
+empty.textContent = 'No community posts yet. Start the conversation!';
+list.appendChild(empty);
+return;
+}
+AppState.posts.forEach(post => {
+const card = document.createElement('article');
+card.className = 'card';
+card.style.marginBottom = '14px';
+const header = document.createElement('div');
+header.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px';
+const avatar = document.createElement('div');
+avatar.className = 'avatar';
+setProfileAvatar(avatar, post.profilePhotoUrl || '', post.userAvatar || communityInitials(post.userName));
+const authorDetails = document.createElement('div');
+authorDetails.style.cssText = 'display:grid;gap:3px';
+authorDetails.append(makeCommunityAuthor(post.userName, post.userId, post.username));
+const date = document.createElement('div');
+date.style.cssText = 'font-size:12px;color:var(--muted)';
+date.textContent = communityDate(post.date);
+authorDetails.appendChild(date);
+header.append(avatar, authorDetails);
+if (post.userId && post.userId !== AppState.user.uid) {
+const follow = document.createElement('button');
+follow.type = 'button';
+follow.className = 'community-follow-btn';
+follow.addEventListener('click', () => toggleCommunityFollow(post.userId, follow));
+setCommunityFollowButton(follow, post.userId);
+header.appendChild(follow);
+}
+const content = document.createElement('div');
+content.style.cssText = 'font-size:14px;line-height:1.6;color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere';
+content.textContent = post.content || '';
+const actions = document.createElement('div');
+actions.className = 'community-post-actions';
+const liked = AppState.communityLikedPostIds.includes(post.id);
+const like = document.createElement('button');
+like.type = 'button';
+like.className = liked ? 'liked' : '';
+like.textContent = (liked ? '♥ Liked' : '♡ Like') + ' (' + Number(post.likeCount != null ? post.likeCount : post.likes || 0) + ')';
+like.addEventListener('click', () => toggleCommunityPostLike(post, like));
+const commentToggle = document.createElement('button');
+commentToggle.type = 'button';
+commentToggle.textContent = 'Comments (' + Number(post.commentCount != null ? post.commentCount : post.comments || 0) + ')';
+const share = document.createElement('button');
+share.type = 'button';
+share.textContent = 'Share';
+share.addEventListener('click', async () => {
 try {
+await navigator.clipboard.writeText(post.content || '');
+showToast('Post copied to clipboard', 'success');
+} catch (error) {
+console.error('Failed to copy community post:', error);
+showToast('Could not copy this post', 'error');
+}
+});
+actions.append(like, commentToggle, share);
+const discussion = document.createElement('div');
+discussion.hidden = true;
+discussion.className = 'community-discussion';
+const comments = document.createElement('div');
+comments.className = 'community-comment-list';
+const form = document.createElement('form');
+form.className = 'community-comment-form';
+const input = document.createElement('input');
+input.className = 'input';
+input.type = 'text';
+input.maxLength = 500;
+input.placeholder = 'Write a comment...';
+input.setAttribute('aria-label', 'Write a comment');
+const submit = document.createElement('button');
+submit.className = 'btn btn-primary';
+submit.type = 'submit';
+submit.textContent = 'Send';
+form.append(input, submit);
+form.addEventListener('submit', event => {
+event.preventDefault();
+addCommunityComment(post.id, input, comments);
+});
+discussion.append(comments, form);
+commentToggle.addEventListener('click', () => {
+discussion.hidden = !discussion.hidden;
+if (!discussion.hidden) loadCommunityComments(post.id, comments);
+});
+card.append(header, content, actions, discussion);
+list.appendChild(card);
+});
+}
+function loadCommunityPosts() {
+if (AppState.communityPostsUnsubscribe) AppState.communityPostsUnsubscribe();
+AppState.communityPostsUnsubscribe = db.collection('posts').orderBy('date', 'desc').limit(50).onSnapshot(renderCommunityPosts, error => {
+console.error('Failed to load community posts:', error);
+const list = document.getElementById('postsList');
+if (list) {
+list.replaceChildren();
+const message = document.createElement('div');
+message.className = 'card';
+message.textContent = 'Community posts could not be loaded: ' + error.message;
+list.appendChild(message);
+}
+});
+}
+async function loadCommunityComments(postId, container) {
+container.replaceChildren();
+try {
+const comments = await db.collection('posts').doc(postId).collection('comments').orderBy('createdAt', 'desc').limit(30).get();
+if (comments.empty) {
+const empty = document.createElement('div');
+empty.style.cssText = 'font-size:13px;color:var(--muted)';
+empty.textContent = 'No comments yet. Be the first to reply.';
+container.appendChild(empty);
+return;
+}
+comments.docs.slice().reverse().forEach(doc => {
+const comment = doc.data();
+const row = document.createElement('div');
+row.className = 'community-comment';
+const header = document.createElement('div');
+header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px';
+const author = makeCommunityAuthor(comment.userName, comment.userId, comment.username);
+header.appendChild(author);
+if (comment.userId && comment.userId !== AppState.user.uid) {
+const follow = document.createElement('button');
+follow.type = 'button';
+follow.className = 'community-follow-btn';
+follow.addEventListener('click', () => toggleCommunityFollow(comment.userId, follow));
+setCommunityFollowButton(follow, comment.userId);
+header.appendChild(follow);
+}
+const text = document.createElement('div');
+text.style.whiteSpace = 'pre-wrap';
+text.textContent = comment.content || '';
+const time = document.createElement('div');
+time.style.cssText = 'font-size:11px;color:var(--muted);margin-top:5px';
+time.textContent = communityDate(comment.createdAt);
+row.append(header, text, time);
+container.appendChild(row);
+});
+} catch (error) {
+console.error('Failed to load community comments:', error);
+const message = document.createElement('div');
+message.className = 'community-comment';
+message.textContent = 'Comments could not be loaded: ' + error.message;
+container.appendChild(message);
+}
+}
+async function toggleCommunityPostLike(post, button) {
+if (!requireAccountActive('like community posts')) return;
 const user = auth.currentUser;
-const postData = {
+if (!user) {
+showToast('Sign in to like posts', 'error');
+return;
+}
+button.disabled = true;
+const liked = AppState.communityLikedPostIds.includes(post.id);
+try {
+const batch = db.batch();
+batch.update(db.collection('posts').doc(post.id), { likeCount: firebase.firestore.FieldValue.increment(liked ? -1 : 1) });
+batch.update(db.collection('users').doc(user.uid), {
+likedPostIds: liked ? firebase.firestore.FieldValue.arrayRemove(post.id) : firebase.firestore.FieldValue.arrayUnion(post.id)
+});
+await batch.commit();
+AppState.communityLikedPostIds = liked
+? AppState.communityLikedPostIds.filter(id => id !== post.id)
+: [...AppState.communityLikedPostIds, post.id];
+if (AppState.user) AppState.user.likesCount = AppState.communityLikedPostIds.length;
+renderAccountProfile();
+} catch (error) {
+console.error('Failed to update community like:', error);
+showToast('Could not update your like: ' + error.message, 'error');
+} finally {
+button.disabled = false;
+}
+}
+async function addCommunityComment(postId, input, commentsContainer) {
+if (!requireAccountActive('comment on community posts')) return;
+const content = input.value.trim();
+if (!content) return;
+const user = auth.currentUser;
+if (!user) {
+showToast('Sign in to comment', 'error');
+return;
+}
+try {
+const batch = db.batch();
+const postRef = db.collection('posts').doc(postId);
+const commentRef = postRef.collection('comments').doc();
+batch.set(commentRef, {
 userId: user.uid,
 userName: AppState.user.name,
-userAvatar: AppState.user.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase(),
-content: txt,
-likes: 0,
-comments: 0,
-date: firebase.firestore.FieldValue.serverTimestamp()
+username: AppState.user.username || '',
+content,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+batch.update(postRef, { commentCount: firebase.firestore.FieldValue.increment(1) });
+await batch.commit();
+input.value = '';
+await loadCommunityComments(postId, commentsContainer);
+showToast('Comment posted', 'success');
+} catch (error) {
+console.error('Failed to post community comment:', error);
+showToast('Failed to post comment: ' + error.message, 'error');
+}
+}
+async function toggleCommunityFollow(userId, button) {
+if (!requireAccountActive('follow community members')) return;
+const user = auth.currentUser;
+if (!user || !userId || userId === user.uid) return;
+button.disabled = true;
+const following = AppState.communityFollowingIds.includes(userId);
+try {
+const batch = db.batch();
+batch.update(db.collection('users').doc(user.uid), {
+followingUserIds: following ? firebase.firestore.FieldValue.arrayRemove(userId) : firebase.firestore.FieldValue.arrayUnion(userId)
+});
+batch.update(db.collection('users').doc(userId), {
+followers: following ? firebase.firestore.FieldValue.arrayRemove(user.uid) : firebase.firestore.FieldValue.arrayUnion(user.uid)
+});
+await batch.commit();
+AppState.communityFollowingIds = following
+? AppState.communityFollowingIds.filter(id => id !== userId)
+: [...AppState.communityFollowingIds, userId];
+if (AppState.user) AppState.user.followingCount = AppState.communityFollowingIds.length;
+refreshCommunityFollowButtons();
+renderAccountProfile();
+} catch (error) {
+console.error('Failed to update community follow:', error);
+showToast('Could not update follow status: ' + error.message, 'error');
+} finally {
+button.disabled = false;
+}
+}
+async function viewCommunityProfile(userId) {
+if (!userId) return;
+try {
+const profileDoc = userId === AppState.user.uid ? null : await db.collection('users').doc(userId).get();
+const profile = profileDoc ? profileDoc.data() : {
+name: AppState.user.name,
+bio: AppState.user.bio || '',
+username: AppState.user.username || '',
+profilePhotoUrl: AppState.user.profilePhotoUrl || '',
+followers: AppState.user.followers || [],
+followingUserIds: AppState.communityFollowingIds,
+likedPostIds: AppState.communityLikedPostIds,
+createdAt: AppState.user.createdAt,
+membership: AppState.membership,
+referrals: AppState.referrals
 };
-await db.collection('posts').add(postData);
-const list = document.getElementById('postsList');
-const initials = AppState.user.name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
-const post = document.createElement('div');
-post.className = 'card';
-post.style.marginBottom = '14px';
-post.innerHTML = '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div class="avatar">' + initials + '</div><div><div style="font-weight:600;font-size:14px;color:var(--navy)">' + AppState.user.name + '</div><div style="font-size:12px;color:var(--muted)">Just now</div></div></div><div style="font-size:14px;line-height:1.6;color:var(--text)">' + txt.replace(/</g, '&lt;') + '</div><div style="display:flex;gap:16px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)"><span style="font-size:13px;color:var(--muted);cursor:pointer">Like (0)</span><span style="font-size:13px;color:var(--muted);cursor:pointer">Comment (0)</span><span style="font-size:13px;color:var(--muted);cursor:pointer">Share</span></div>';
-list.insertBefore(post, list.firstChild);
-document.getElementById('postInput').value = '';
+if (profileDoc && !profileDoc.exists) {
+showToast('This member profile could not be found', 'error');
+return;
+}
+document.getElementById('communityProfileName').textContent = profile.name || 'C&J member';
+setProfileAvatar(document.getElementById('communityProfileAvatar'), profile.profilePhotoUrl || '', communityInitials(profile.name));
+document.getElementById('communityProfileUsername').textContent = profile.username ? '@' + profile.username : 'Username not set';
+document.getElementById('communityProfileJoined').textContent = 'Joined ' + communityDate(profile.createdAt);
+document.getElementById('communityProfileBio').textContent = profile.bio || 'This member has not added a bio yet.';
+document.getElementById('communityProfileFollowers').textContent = Number(profile.followers?.length || 0).toLocaleString();
+document.getElementById('communityProfileFollowing').textContent = Number(profile.followingUserIds?.length || 0).toLocaleString();
+document.getElementById('communityProfileLikes').textContent = Number(profile.likedPostIds?.length || 0).toLocaleString();
+document.getElementById('communityProfileMembership').textContent = profile.membership?.active ? 'Active member' : 'Not active';
+document.getElementById('communityProfileReferrals').textContent = Number(profile.referrals?.active || 0).toLocaleString();
+const follow = document.getElementById('communityProfileFollow');
+follow.hidden = userId === AppState.user.uid;
+follow.onclick = () => toggleCommunityFollow(userId, follow);
+setCommunityFollowButton(follow, userId);
+document.getElementById('communityProfileModal').classList.add('active');
+} catch (error) {
+console.error('Failed to load community member profile:', error);
+showToast('Could not load this member profile: ' + error.message, 'error');
+}
+}
+function closeCommunityProfile() {
+document.getElementById('communityProfileModal').classList.remove('active');
+}
+async function saveCommunityBio() {
+if (!requireAccountActive('change your community profile')) return;
+const input = document.getElementById('communityBioInput');
+const bio = input.value.trim();
+if (bio.length > 240) {
+showToast('Your About section must be 240 characters or fewer', 'error');
+return;
+}
+try {
+await db.collection('users').doc(AppState.user.uid).update({ bio });
+AppState.user.bio = bio;
+showToast('Community profile updated', 'success');
+} catch (error) {
+console.error('Failed to update community profile:', error);
+showToast('Community profile could not be updated: ' + error.message, 'error');
+}
+}
+async function saveProfileUsername() {
+if (!requireAccountActive('change your username')) return;
+const input = document.getElementById('profileUsernameInput');
+const username = input.value.trim().toLowerCase();
+if (!/^[a-z0-9][a-z0-9._]{2,19}$/.test(username) || username.includes('..')) {
+showToast('Username must be 3–20 characters using letters, numbers, dots, or underscores', 'error');
+return;
+}
+const user = auth.currentUser;
+if (!user) {
+showToast('Sign in before changing your username', 'error');
+return;
+}
+const userRef = db.collection('users').doc(user.uid);
+const newUsernameRef = db.collection('usernames').doc(username);
+const oldUsername = AppState.user.usernameLower || (AppState.user.username || '').toLowerCase();
+const oldUsernameRef = oldUsername ? db.collection('usernames').doc(oldUsername) : null;
+try {
+await db.runTransaction(async transaction => {
+const [usernameDoc, oldUsernameDoc] = await Promise.all([
+transaction.get(newUsernameRef),
+oldUsernameRef && oldUsername !== username ? transaction.get(oldUsernameRef) : Promise.resolve(null)
+]);
+if (usernameDoc.exists && usernameDoc.data().uid !== user.uid) {
+throw new Error('That username is already in use');
+}
+transaction.set(newUsernameRef, { uid: user.uid, username });
+if (oldUsernameRef && oldUsername !== username && oldUsernameDoc?.exists && oldUsernameDoc.data().uid === user.uid) {
+transaction.delete(oldUsernameRef);
+}
+transaction.update(userRef, { username, usernameLower: username });
+});
+AppState.user.username = username;
+AppState.user.usernameLower = username;
+renderAccountProfile();
+showToast('Username saved', 'success');
+} catch (error) {
+console.error('Failed to save username:', error);
+showToast('Username could not be saved: ' + error.message, 'error');
+}
+}
+function previewProfilePhoto() {
+const input = document.getElementById('profilePhotoInput');
+const file = input?.files?.[0];
+if (!file) return;
+if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 3 * 1024 * 1024) {
+input.value = '';
+renderAccountProfile();
+showToast('Choose a JPG, PNG or WebP image up to 3 MB', 'error');
+return;
+}
+setProfileAvatar(document.getElementById('settingsAvatar'), URL.createObjectURL(file), communityInitials(AppState.user.name));
+}
+async function uploadProfilePhoto() {
+if (!requireAccountActive('change your profile photo')) return;
+const input = document.getElementById('profilePhotoInput');
+const file = input?.files?.[0];
+if (!file) {
+showToast('Choose a profile photo first', 'error');
+return;
+}
+if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 3 * 1024 * 1024) {
+showToast('Choose a JPG, PNG or WebP image up to 3 MB', 'error');
+return;
+}
+const button = document.getElementById('uploadProfilePhotoBtn');
+const user = auth.currentUser;
+if (!user) {
+showToast('Sign in before uploading a profile photo', 'error');
+return;
+}
+button.disabled = true;
+button.textContent = 'Uploading…';
+const path = 'profilePhotos/' + user.uid + '/' + Date.now() + '-avatar';
+let uploaded = false;
+try {
+const fileRef = storage.ref(path);
+await fileRef.put(file, { contentType: file.type });
+uploaded = true;
+const profilePhotoUrl = await fileRef.getDownloadURL();
+await db.collection('users').doc(user.uid).update({ profilePhotoUrl, profilePhotoPath: path });
+AppState.user.profilePhotoUrl = profilePhotoUrl;
+AppState.user.profilePhotoPath = path;
+renderAccountProfile();
+input.value = '';
+showToast('Profile photo updated', 'success');
+} catch (error) {
+if (uploaded) {
+try {
+await storage.ref(path).delete();
+} catch (cleanupError) {
+console.error('Could not remove incomplete profile photo upload:', cleanupError);
+}
+}
+renderAccountProfile();
+console.error('Failed to upload profile photo:', error);
+showToast('Profile photo could not be uploaded: ' + error.message, 'error');
+} finally {
+button.disabled = false;
+button.textContent = 'Upload photo';
+}
+}
+async function createPost() {
+if (!requireAccountActive('post in the community')) return;
+const input = document.getElementById('postInput');
+const content = input.value.trim();
+if (!content) {
+showToast('Write something before posting', 'error');
+return;
+}
+if (content.length > 1000) {
+showToast('Posts must be 1,000 characters or fewer', 'error');
+return;
+}
+try {
+const user = auth.currentUser;
+if (!user) {
+showToast('Sign in to create a post', 'error');
+return;
+}
+await db.collection('posts').add({
+userId: user.uid,
+userName: AppState.user.name,
+username: AppState.user.username || '',
+profilePhotoUrl: AppState.user.profilePhotoUrl || '',
+userAvatar: communityInitials(AppState.user.name),
+content,
+likeCount: 0,
+commentCount: 0,
+date: firebase.firestore.FieldValue.serverTimestamp()
+});
+input.value = '';
 showToast('Post published', 'success');
 } catch (error) {
+console.error('Failed to create community post:', error);
 showToast('Failed to create post: ' + error.message, 'error');
 }
 }
@@ -4798,6 +5818,96 @@ row.appendChild(actions);
 table.appendChild(row);
 });
 }
+function renderAdminVerifications(requests) {
+const table = document.getElementById('adminVerificationTable');
+if (!table) return;
+table.replaceChildren();
+if (!requests.length) {
+setAdminTableMessage('adminVerificationTable', 6, 'No identity verification requests are awaiting review.');
+return;
+}
+requests.forEach(doc => {
+const verification = doc.data();
+const row = document.createElement('tr');
+const member = document.createElement('td');
+const name = document.createElement('div');
+name.style.fontWeight = '700';
+name.textContent = verification.userName || 'C&J member';
+const email = document.createElement('div');
+email.style.cssText = 'font-size:12px;color:var(--muted)';
+email.textContent = verification.userEmail || '';
+member.append(name, email);
+row.appendChild(member);
+appendAdminCell(row, (verification.firstName || '') + ' ' + (verification.surname || '') + ' · ' + (verification.method || 'ID'));
+appendAdminCell(row, verification.dateOfBirth || '—');
+const files = document.createElement('td');
+['selfiePath', 'documentPath'].forEach((key, index) => {
+const link = document.createElement('button');
+link.type = 'button';
+link.className = 'btn btn-outline btn-sm';
+link.textContent = index === 0 ? 'View selfie' : 'View ID';
+link.disabled = !verification[key];
+link.addEventListener('click', () => openVerificationFile(doc.id, key));
+if (index) files.appendChild(document.createTextNode(' '));
+files.appendChild(link);
+});
+row.appendChild(files);
+appendAdminCell(row, formatAdminDate(verification.submittedAt));
+const actionCell = document.createElement('td');
+const approve = document.createElement('button');
+approve.type = 'button';
+approve.className = 'btn btn-green btn-sm';
+approve.textContent = 'Approve';
+approve.addEventListener('click', () => reviewAccountVerification(doc.id, 'approved'));
+const reject = document.createElement('button');
+reject.type = 'button';
+reject.className = 'btn btn-danger btn-sm';
+reject.textContent = 'Reject';
+reject.addEventListener('click', () => reviewAccountVerification(doc.id, 'rejected'));
+actionCell.append(approve, document.createTextNode(' '), reject);
+row.appendChild(actionCell);
+table.appendChild(row);
+});
+}
+async function openVerificationFile(userId, field) {
+const popup = window.open('about:blank', '_blank');
+if (!popup) {
+showToast('Allow pop-ups to view the verification file', 'error');
+return;
+}
+try {
+const doc = await db.collection('verifications').doc(userId).get();
+if (!doc.exists) throw new Error('Verification request not found');
+const path = doc.data()[field];
+if (!path) throw new Error('Verification file is not available');
+const file = await storage.ref(path).getBlob(5 * 1024 * 1024);
+const url = URL.createObjectURL(file);
+popup.location.href = url;
+window.setTimeout(() => URL.revokeObjectURL(url), 120000);
+} catch (error) {
+popup.close();
+console.error('Failed to access verification document:', error);
+showToast('Verification document could not be opened: ' + error.message, 'error');
+}
+}
+async function reviewAccountVerification(userId, status) {
+if (AppState.user?.role !== 'admin' || !['approved', 'rejected'].includes(status)) {
+showToast('Administrator access is required', 'error');
+return;
+}
+try {
+await db.collection('verifications').doc(userId).update({
+status,
+reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+reviewedBy: AppState.user.uid
+});
+showToast(status === 'approved' ? 'Identity verification approved' : 'Identity verification rejected', 'success');
+await loadAdminPanelData();
+} catch (error) {
+console.error('Failed to review identity verification:', error);
+showToast('Verification review failed: ' + error.message, 'error');
+}
+}
 function refreshAdminPanelAfterAction() {
 loadAdminPanelData().catch(error => {
 console.error('Failed to refresh admin panel data:', error);
@@ -4806,12 +5916,14 @@ showToast('The request was processed, but admin statistics could not be refreshe
 }
 async function loadAdminPanelData() {
 const users = db.collection('users');
-const [usersSnapshot, membershipRequests, withdrawals, appLinks] = await Promise.all([
+const [usersSnapshot, membershipRequests, withdrawals, appLinks, verificationRequests] = await Promise.all([
 users.get(),
 db.collection('membershipRequests').where('status', '==', 'pending').get(),
 db.collection('withdrawals').where('status', '==', 'pending').get(),
-db.collection('settings').doc('appLinks').get()
+db.collection('settings').doc('appLinks').get(),
+db.collection('verifications').where('status', '==', 'pending').get()
 ]);
+AppState.adminUsersCache = usersSnapshot.docs;
 const activeUsers = usersSnapshot.docs.filter(doc => doc.data().membership?.active).length;
 document.getElementById('adUsers').textContent = usersSnapshot.size.toLocaleString();
 document.getElementById('adActive').textContent = activeUsers.toLocaleString();
@@ -4819,6 +5931,7 @@ document.getElementById('adMemCount').textContent = membershipRequests.size.toLo
 document.getElementById('adWd').textContent = withdrawals.size.toLocaleString();
 const membershipBadge = document.getElementById('adminMembershipBadge');
 const withdrawalBadge = document.getElementById('adminWithdrawalBadge');
+const verificationBadge = document.getElementById('adminVerificationBadge');
 if (membershipBadge) {
 membershipBadge.textContent = membershipRequests.size.toLocaleString();
 membershipBadge.style.display = membershipRequests.size ? 'inline-block' : 'none';
@@ -4827,8 +5940,13 @@ if (withdrawalBadge) {
 withdrawalBadge.textContent = withdrawals.size.toLocaleString();
 withdrawalBadge.style.display = withdrawals.size ? 'inline-block' : 'none';
 }
+if (verificationBadge) {
+verificationBadge.textContent = verificationRequests.size.toLocaleString();
+verificationBadge.style.display = verificationRequests.size ? 'inline-block' : 'none';
+}
 renderAdminMembershipRequests(membershipRequests.docs);
 renderAdminWithdrawals(withdrawals.docs);
+renderAdminVerifications(verificationRequests.docs);
 if (appLinks.exists) {
 const data = appLinks.data();
 if (isHttpUrl(data.android)) AppState.androidDownloadLink = data.android;
@@ -4843,56 +5961,144 @@ setHrefIfExists('iosDownloadBtn', AppState.iosDownloadLink);
 setHrefIfExists('currentAndroidLink', AppState.androidDownloadLink);
 setHrefIfExists('currentIosLink', AppState.iosDownloadLink);
 }
+function setAdminAccountStatus(status) {
+const normalizedStatus = status || 'active';
+const statusEl = document.getElementById('adUserStatus');
+statusEl.textContent = normalizedStatus.toUpperCase();
+statusEl.style.color = normalizedStatus === 'active' ? 'var(--green)' : 'var(--red)';
+document.getElementById('adminFreezeBtn').hidden = normalizedStatus !== 'active';
+document.getElementById('adminUnfreezeBtn').hidden = normalizedStatus === 'active';
+document.getElementById('adminUnfreezeBtn').textContent = normalizedStatus === 'disabled' ? 'Restore account' : 'Unfreeze account';
+document.getElementById('adminDisableBtn').hidden = normalizedStatus === 'disabled';
+}
+async function loadAdminUserFinancialActivity(userId) {
+const table = document.getElementById('adminUserActivity');
+setAdminTableMessage('adminUserActivity', 5, 'Loading financial activity…');
+const [transactions, withdrawals, membershipRequests] = await Promise.all([
+db.collection('transactions').where('userId', '==', userId).get(),
+db.collection('withdrawals').where('userId', '==', userId).get(),
+db.collection('membershipRequests').where('userId', '==', userId).get()
+]);
+const records = [];
+transactions.docs.forEach(doc => {
+const data = doc.data();
+records.push({
+date: data.date,
+label: data.type || 'Wallet transaction',
+amount: Number(data.amount || 0),
+status: data.status || 'recorded',
+details: data.ref || data.units && data.units + ' units' || data.coins && data.coins + ' coins' || 'Wallet activity'
+});
+});
+withdrawals.docs.forEach(doc => {
+const data = doc.data();
+records.push({
+date: data.date,
+label: 'Withdrawal request',
+amount: Number(data.req || 0),
+status: data.status || 'unknown',
+details: 'Net payout N' + Number(data.net || 0).toLocaleString()
+});
+});
+membershipRequests.docs.forEach(doc => {
+const data = doc.data();
+records.push({
+date: data.date,
+label: 'Membership ' + (data.type || 'request'),
+amount: Number(data.amount || 0),
+status: data.status || 'unknown',
+details: data.type === 'payment' ? 'Bank payment activation' : 'Wallet activation'
+});
+});
+records.sort((a, b) => {
+const dateA = a.date && typeof a.date.toDate === 'function' ? a.date.toDate().getTime() : new Date(a.date || 0).getTime();
+const dateB = b.date && typeof b.date.toDate === 'function' ? b.date.toDate().getTime() : new Date(b.date || 0).getTime();
+return dateB - dateA;
+});
+table.replaceChildren();
+if (!records.length) {
+setAdminTableMessage('adminUserActivity', 5, 'No financial activity records found for this account.');
+return;
+}
+records.forEach(record => {
+const row = document.createElement('tr');
+appendAdminCell(row, formatAdminDate(record.date));
+appendAdminCell(row, record.label);
+appendAdminCell(row, 'N' + record.amount.toLocaleString());
+appendAdminCell(row, record.status);
+appendAdminCell(row, record.details);
+table.appendChild(row);
+});
+}
 async function adminSearchUser() {
-const q = document.getElementById('adminSearch').value.trim().toLowerCase();
-if (!q) {
-showToast('Enter a search query', 'error');
+if (AppState.user?.role !== 'admin') {
+showToast('Administrator access is required', 'error');
+return;
+}
+const query = document.getElementById('adminSearch').value.trim().toLowerCase();
+if (!query) {
+showToast('Enter a name, email or user ID', 'error');
 return;
 }
 try {
-const userQuery = await db.collection('users')
-.where('email', '>=', q)
-.where('email', '<=', q + '\uf8ff')
-.limit(1)
-.get();
-if (userQuery.empty) {
+if (!AppState.adminUsersCache) {
+const snapshot = await db.collection('users').get();
+AppState.adminUsersCache = snapshot.docs;
+}
+const target = AppState.adminUsersCache.find(doc => {
+const data = doc.data();
+return doc.id.toLowerCase() === query ||
+(data.email || '').toLowerCase().includes(query) ||
+(data.name || '').toLowerCase().includes(query);
+});
+if (!target) {
+AppState.adminSelectedUserId = null;
+document.getElementById('adminUserResult').style.display = 'none';
 showToast('User not found', 'error');
 return;
 }
-const userData = userQuery.docs[0].data();
+const userData = target.data();
+AppState.adminSelectedUserId = target.id;
 document.getElementById('adminUserResult').style.display = 'block';
 document.getElementById('adUserName').textContent = userData.name || 'Unknown';
-document.getElementById('adUserEmail').textContent = userData.email;
-document.getElementById('adUserBal').textContent = 'N' + (userData.balance || 0).toLocaleString();
+document.getElementById('adUserEmail').textContent = userData.email || target.id;
+document.getElementById('adUserBal').textContent = 'N' + Number(userData.balance || 0).toLocaleString();
+document.getElementById('adUserEarned').textContent = 'N' + Number(userData.totalEarned || 0).toLocaleString();
 document.getElementById('adUserMem').textContent = userData.membership?.status || 'inactive';
-document.getElementById('adUserPts').textContent = userData.points || 0;
-document.getElementById('adUserStatus').textContent = userData.membership?.active ? 'Active' : 'Inactive';
-showToast('User loaded', 'success');
+document.getElementById('adUserPts').textContent = Number(userData.points || 0).toLocaleString();
+setAdminAccountStatus(userData.accountStatus);
+await loadAdminUserFinancialActivity(target.id);
+showToast('User account and financial activity loaded', 'success');
 } catch (error) {
-showToast('Search failed: ' + error.message, 'error');
+console.error('Failed to search for user account:', error);
+showToast('User search failed: ' + error.message, 'error');
 }
 }
 async function adminAction(type) {
-try {
-const q = document.getElementById('adminSearch').value.trim().toLowerCase();
-const userQuery = await db.collection('users')
-.where('email', '>=', q)
-.where('email', '<=', q + '\uf8ff')
-.limit(1)
-.get();
-if (userQuery.empty) {
-showToast('User not found', 'error');
+if (AppState.user?.role !== 'admin') {
+showToast('Administrator access is required', 'error');
 return;
 }
-const userId = userQuery.docs[0].id;
+const userId = AppState.adminSelectedUserId;
+const statusByAction = { freeze: 'frozen', disable: 'disabled', restore: 'active' };
+const nextStatus = statusByAction[type];
+if (!userId || !nextStatus) {
+showToast('Search for a user before changing account access', 'error');
+return;
+}
+try {
 await db.collection('users').doc(userId).update({
-accountStatus: type,
-updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+accountStatus: nextStatus,
+accountStatusUpdatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+accountStatusUpdatedBy: AppState.user.uid
 });
-const labels = { freeze: 'Account frozen', disable: 'Account disabled', restore: 'Account restored' };
+setAdminAccountStatus(nextStatus);
+AppState.adminUsersCache = null;
+const labels = { freeze: 'Account frozen; earning and money actions are paused', disable: 'Account disabled', restore: 'Account unfrozen and restored' };
 showToast(labels[type], 'success');
 } catch (error) {
-showToast('Action failed: ' + error.message, 'error');
+console.error('Failed to change account status:', error);
+showToast('Account status could not be changed: ' + error.message, 'error');
 }
 }
 async function adminApproveMembership(btn, txId, userId, amount) {
@@ -4905,7 +6111,6 @@ if (!txDoc.exists || txDoc.data().status !== 'pending') {
 throw new Error('Request already processed');
 }
 const now = new Date();
-const expiresAt = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 transaction.update(txRef, {
 status: 'approved',
 approvedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -4914,7 +6119,6 @@ transaction.update(userRef, {
 'membership.active': true,
 'membership.status': 'active',
 'membership.startAt': now.toISOString(),
-'membership.expiresAt': expiresAt.toISOString(),
 'membership.ratePerDay': 1000
 });
 const notifRef = db.collection('notifications').doc();
@@ -5521,7 +6725,7 @@ if (descEl) {
 if (cycles === 1) {
 descEl.textContent = 'First cycle: Pay N35,000, earn N30,000. Renew with 20 points (2 referrals) to continue!';
 } else {
-descEl.textContent = 'Over ' + cycles + ' cycles: Pay N35,000 once, then renew FREE with referral points. Total profit: N' + profit.toLocaleString() + '!';
+descEl.textContent = 'Estimated earnings over ' + cycles + ' cycles after one N35,000 activation: N' + profit.toLocaleString() + '.';
 }
 }
 }
@@ -5585,7 +6789,7 @@ return "Withdrawals are processed within 24 hours after admin approval. You rece
 } else if (lower.includes('membership') || lower.includes('join') || lower.includes('activate')) {
 return "Membership costs N35,000 for 30 days. Once approved by admin, you earn N1,000 daily automatically. You can pay via bank transfer or use your wallet balance.";
 } else if (lower.includes('referral') || lower.includes('points') || lower.includes('invite')) {
-return "You earn 10 points for every friend who registers AND activates their membership using your code. 20 points are needed to renew your membership for free.";
+return "You earn 10 points for every friend who registers AND activates their membership using your code. Membership stays active after approval and does not need renewal.";
 } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
 return "Hello! Welcome to C&J. How can I help you today?";
 } else if (lower.includes('coin') || lower.includes('gold')) {
@@ -5631,17 +6835,6 @@ document.querySelectorAll('.modal-backdrop.active').forEach(m => m.classList.rem
 closeSidebar();
 }
 });
-['coinBuyAmt', 'coinSellAmt', 'goldBuyAmt', 'goldSellAmt'].forEach(id => {
-const el = document.getElementById(id);
-if (!el) return;
-el.addEventListener('input', () => {
-const v = parseFloat(el.value) || 0;
-if (id === 'coinBuyAmt') document.getElementById('coinReceive').textContent = Math.floor(v / 5000);
-if (id === 'coinSellAmt') document.getElementById('coinSellReceive').textContent = (v * 4000).toLocaleString();
-if (id === 'goldBuyAmt') document.getElementById('goldReceive').textContent = Math.floor(v / 20000);
-if (id === 'goldSellAmt') document.getElementById('goldSellReceive').textContent = (v * 15000).toLocaleString();
-});
-});
 const setTextIfExists = (id, value) => {
 const el = document.getElementById(id);
 if (el) el.textContent = value;
@@ -5673,7 +6866,7 @@ const iosInput = document.getElementById('iosDownloadLink');
 if (androidInput) androidInput.value = AppState.androidDownloadLink;
 if (iosInput) iosInput.value = AppState.iosDownloadLink;
 }
-setTextIfExists('refCode', 'CJ-DEMO-2026');
+setTextIfExists('refCode', 'CJ-FIRSTNAME-01');
 setHrefIfExists('androidDownloadBtn', AppState.androidDownloadLink);
 setHrefIfExists('iosDownloadBtn', AppState.iosDownloadLink);
 setHrefIfExists('currentAndroidLink', AppState.androidDownloadLink);
@@ -5696,17 +6889,20 @@ showToast('Admin panel data could not be loaded: ' + error.message, 'error');
 }
 auth.onAuthStateChanged(user => {
 if (user) {
-db.collection('users').doc(user.uid).get().then(doc => {
+db.collection('users').doc(user.uid).get().then(async doc => {
 if (doc.exists) {
 const userData = doc.data();
+const name = userData.name || user.displayName || user.email.split('@')[0];
+const referralCode = await ensureReferralCode(user, userData, name);
 AppState.user = {
 uid: user.uid,
-name: userData.name || user.displayName || user.email.split('@')[0],
+name,
 email: user.email,
 phone: userData.phone || '',
 role: getUserRole(user, userData),
-referralCode: userData.referralCode || 'CJ-' + user.uid.substr(0, 6).toUpperCase()
+referralCode
 };
+loadAccountFeatureSettings(userData);
 AppState.balance = userData.balance || 0;
 AppState.totalEarned = userData.totalEarned || 0;
 AppState.points = userData.points || 0;
@@ -5715,11 +6911,10 @@ AppState.membership = userData.membership || {
 active: false,
 status: 'inactive',
 startAt: null,
-expiresAt: null,
 ratePerDay: 1000
 };
 AppState.bank = userData.bank || null;
-AppState.settings = userData.settings || AppState.settings;
+AppState.settings = { ...AppState.settings, ...(userData.settings || {}) };
 enterApp();
 navigateForCurrentUser();
 }
