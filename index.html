@@ -29,8 +29,9 @@ body.dark{
 --border:#1E293B;--soft:#1E293B;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden}
+html{min-height:100%;overflow-y:scroll;scroll-behavior:smooth}
+html,body{min-height:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden;overflow-y:auto}
 h1,h2,h3,.brand-name,.page-title,.card-value,.hero-amount,.plan-price,.calc-val,.hv-val,.footer-brand,.nav-brand,.section-t,.support-card-title{font-family:'Space Grotesk',sans-serif}
 a{color:var(--gold);text-decoration:none;cursor:pointer}
 button{font-family:inherit;cursor:pointer}
@@ -167,13 +168,18 @@ body.dark .auth-title{color:#fff}
 .switch-auth{text-align:center;color:var(--muted);font-size:14px;margin-top:18px}
 .app{display:none;min-height:100vh}
 .app.active{display:block}
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px 14px 100px;z-index:100;transition:transform .3s;overflow-y:auto}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:260px;background:var(--card);border-right:1px solid var(--border);padding:20px 14px 14px;z-index:100;transition:transform .3s;overflow-y:auto}
 .side-brand{display:flex;align-items:center;gap:10px;padding:0 8px 20px;border-bottom:1px solid var(--border);margin-bottom:14px}
 .side-brand .brand-logo{width:40px;height:40px;font-size:18px;border-radius:10px}
 .side-brand .brand-name{font-size:18px}
 .sidebar-close{display:none;margin-left:auto}
 .sidebar-overlay{display:none}
 .admin-nav-group{display:none}
+body:not(.admin-mode) #adminNavGroup{
+display:none!important;
+visibility:hidden!important;
+}
+body:not(.admin-mode) #page-admin[aria-hidden="true"],body:not(.admin-mode) #adminNavGroup[aria-hidden="true"]{display:none!important}
 .admin-nav-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:14px 12px 8px;font-weight:600}
 .admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;margin-bottom:2px;transition:all .15s}
 .admin-nav-item:hover{background:var(--soft);color:var(--text)}
@@ -186,11 +192,13 @@ body.dark .auth-title{color:#fff}
 .nav-item.active{background:var(--gold-soft);color:var(--gold);font-weight:600}
 .nav-item svg{width:18px;height:18px;flex-shrink:0}
 .nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center}
-.side-footer{position:absolute;bottom:14px;left:14px;right:14px;padding:12px;border-radius:10px;background:var(--soft);border:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.side-footer{position:sticky;bottom:0;left:auto;right:auto;margin-top:18px;padding:12px;border-radius:10px;background:var(--soft);border:1px solid var(--border);display:flex;align-items:center;gap:10px;z-index:2;box-shadow:0 -8px 18px rgba(15,23,42,.06)}
+.side-profile-trigger{display:flex;align-items:center;gap:10px;flex:1;min-width:0;border:0;background:transparent;text-align:left;padding:0;color:inherit}
+.side-profile-trigger:hover .nm{color:var(--gold)}
 .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));display:grid;place-items:center;color:#03102E;font-weight:700;font-size:14px}
 .side-footer .nm{font-size:13px;font-weight:600;color:var(--text)}
 .side-footer .em{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.main{margin-left:260px;padding:32px 40px 80px}
+.main{margin-left:260px;padding:32px 40px 100px;min-height:100vh}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;gap:14px;flex-wrap:wrap}
 .page-title{font-size:28px;font-weight:700;letter-spacing:-.5px;color:var(--navy)}
 body.dark .page-title{color:#fff}
@@ -289,6 +297,10 @@ body.dark .modal-title{color:#fff}
 @keyframes toastIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
 .page{display:none;animation:fadeIn .3s ease}
 .page.active{display:block}
+body:not(.admin-mode) #page-admin{
+display:none!important;
+visibility:hidden!important;
+}
 body.admin-mode .sidebar>.nav-section,body.admin-mode .sidebar>.nav-item{display:none!important}
 body.admin-mode #adminNavGroup{display:block!important}
 body.admin-mode #page-admin{display:block}
@@ -296,6 +308,9 @@ body.admin-mode main .page:not(#page-admin){display:none!important}
 body.admin-mode .chat-wrap,body.admin-mode .wa-float{display:none!important}
 body.admin-mode{background:#f3f6fb}
 body.admin-mode .sidebar{background:#fff;border-right-color:#e8edf5;box-shadow:8px 0 32px rgba(15,35,70,.035)}
+body.admin-mode .sidebar{overflow-y:scroll}
+body.admin-mode .main{min-height:100vh;overflow:visible}
+body.admin-mode #page-admin{min-height:calc(100vh - 1px);overflow:visible}
 body.admin-mode .side-brand{padding:4px 8px 22px}
 body.admin-mode .admin-nav-label{padding:20px 12px 10px;color:#8b96a9;letter-spacing:1.4px}
 body.admin-mode .admin-nav-item{padding:11px 12px;margin:4px 0;border-radius:11px;color:#65728a;font-weight:550}
@@ -303,6 +318,9 @@ body.admin-mode .admin-nav-item:hover{background:#f5f7fb;color:#263653}
 body.admin-mode .admin-nav-item.active{color:#a87900;background:linear-gradient(100deg,rgba(244,196,48,.2),rgba(244,196,48,.07));box-shadow:inset 3px 0 #d4a017}
 body.admin-mode .side-footer{background:#f7f9fc;border-color:#e8edf5}
 body.admin-mode .main{max-width:1640px}
+body.admin-mode #admin-recent-layout{grid-template-columns:1fr!important}
+body.admin-mode #admin-recent-layout>.card{width:100%;min-width:0}
+body.admin-mode #page-admin{overflow-x:hidden}
 body.admin-mode .main>.topbar{padding:4px 0 22px;margin-bottom:24px;border-bottom:1px solid #e5eaf2}
 body.admin-mode .page-title{font-size:30px;letter-spacing:-.8px}
 body.admin-mode .page-sub{font-size:13px;color:#7a879b}
@@ -370,19 +388,33 @@ body.dark .membership-payment-intro strong{color:#fff}
 .membership-account-number{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,38px);font-weight:700;letter-spacing:1.5px;line-height:1.3;color:#0a2560;margin:3px 0 7px}
 .membership-account-name{font-size:17px;font-weight:700;color:#172640;line-height:1.45}
 .membership-payment-note{font-size:13px;color:var(--muted);text-align:center;line-height:1.6;margin-top:14px}
+.deposit-actions{display:flex;gap:10px;margin-top:18px}
+.deposit-actions .btn{flex:1}
 .receipt-upload{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;clip-path:inset(50%);border:0}
 .receipt-upload:focus-visible+.receipt-picker{outline:3px solid rgba(212,160,23,.4);outline-offset:3px}
-.receipt-picker{display:flex;align-items:center;gap:14px;min-height:76px;padding:13px 15px;border:1.5px dashed #cbd5e1;border-radius:14px;background:linear-gradient(135deg,#f8faff,#f4f7fc);cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
+.receipt-picker{position:relative;display:flex;flex-wrap:nowrap;align-items:center;gap:12px;min-height:76px;padding:13px 100px 13px 15px;border:1.5px dashed #cbd5e1;border-radius:14px;background:linear-gradient(135deg,#f8faff,#f4f7fc);cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
 .receipt-picker:hover{border-color:var(--gold);background:#fffaf0;transform:translateY(-1px)}
 .receipt-picker-icon{flex:0 0 42px;width:42px;height:42px;border-radius:12px;background:#fff0c2;color:#8a6200;display:grid;place-items:center}
 .receipt-picker-icon svg{width:21px;height:21px}
-.receipt-picker-copy{min-width:0;flex:1}
-.receipt-picker-title{display:block;font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
-.receipt-picker-hint{display:block;font-size:12px;color:var(--muted);line-height:1.4;overflow-wrap:anywhere}
-.receipt-picker-action{flex:0 0 auto;padding:9px 12px;border-radius:10px;background:#0a2560;color:white;font-size:12px;font-weight:700}
+.receipt-picker-copy{min-width:0;flex:1 1 auto;display:block;overflow:hidden}
+.receipt-picker-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.receipt-picker-hint{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--muted);line-height:1.4}
+.receipt-picker-action{position:absolute;right:15px;top:50%;transform:translateY(-50%);white-space:nowrap;padding:9px 12px;border-radius:10px;background:#0a2560;color:white;font-size:12px;font-weight:700}
 .receipt-picker.has-file{border-style:solid;border-color:#22a06b;background:linear-gradient(135deg,#f0fdf7,#f8fffb)}
 .receipt-picker.has-file .receipt-picker-icon{background:#d9f8e9;color:#087443}
 .receipt-picker.has-file .receipt-picker-action{background:#087443}
+@media(max-width:430px){
+.receipt-picker{gap:9px;padding:11px 84px 11px 11px}
+.receipt-picker-icon{width:38px;height:38px;flex-basis:38px}
+.receipt-picker-title{font-size:13px}
+.receipt-picker-hint{font-size:11px}
+.receipt-picker-action{right:11px;padding:8px 10px;font-size:11px}
+}
+.profile-photo-file,.verification-file{width:100%;padding:8px;border:1.5px solid var(--border);border-radius:12px;background:var(--soft);color:var(--muted);font-size:12px;cursor:pointer}
+.profile-photo-file:hover,.verification-file:hover{border-color:var(--gold);background:var(--gold-soft)}
+.profile-photo-file::file-selector-button,.verification-file::file-selector-button{margin-right:10px;padding:9px 13px;border:0;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--navy-l));color:#fff;font:700 12px Inter,sans-serif;cursor:pointer;transition:background .2s,transform .2s}
+.profile-photo-file::file-selector-button:hover,.verification-file::file-selector-button:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-1px)}
+body.dark .profile-photo-file,body.dark .verification-file{background:#111e33;color:#aab6c9}
 .game-choice-btn{position:relative;text-align:left;display:flex;align-items:center;gap:12px;background:var(--card);border-color:#dbe4f0;color:var(--text)}
 .game-choice-btn[hidden]{display:none}
 .game-choice-letter{width:30px;height:30px;flex:0 0 30px;border-radius:50%;display:grid;place-items:center;background:#edf2fa;color:#42516a;font-size:13px;font-weight:800}
@@ -401,9 +433,13 @@ body.dark .membership-payment-intro strong{color:#fff}
 .quiz-timer.urgent{color:#b42332}
 .quiz-timer.urgent .quiz-timer-count{background:#fff0f0}
 .wheel-stage{position:relative;width:min(264px,72vw);aspect-ratio:1;margin:10px auto 22px}
-.wheel-disc{width:100%;height:100%;border-radius:50%;border:8px solid #fff;box-shadow:0 8px 26px rgba(17,38,72,.2),inset 0 0 0 2px rgba(255,255,255,.55);background:conic-gradient(#f3c844 0deg 45deg,#244ba5 45deg 90deg,#ec6672 90deg 135deg,#29a881 135deg 180deg,#7c5bd6 180deg 225deg,#f28b34 225deg 270deg,#29a881 270deg 315deg,#244ba5 315deg 360deg);transition:transform 4s cubic-bezier(.12,.75,.12,1);display:grid;place-items:center;will-change:transform}
+.wheel-disc{position:relative;width:100%;height:100%;border-radius:50%;border:8px solid #fff;box-shadow:0 8px 26px rgba(17,38,72,.2),inset 0 0 0 2px rgba(255,255,255,.55);background:conic-gradient(#f3c844 0deg 45deg,#244ba5 45deg 90deg,#ec6672 90deg 135deg,#29a881 135deg 180deg,#7c5bd6 180deg 225deg,#f28b34 225deg 270deg,#29a881 270deg 315deg,#244ba5 315deg 360deg);transition:transform 4s cubic-bezier(.12,.75,.12,1);display:grid;place-items:center;will-change:transform}
 .wheel-disc::after{content:"";width:54px;height:54px;border:6px solid white;border-radius:50%;background:#0a2560;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.wheel-pointer{position:absolute;z-index:2;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:28px solid #0a2560;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.wheel-labels{position:absolute;inset:0;z-index:1;pointer-events:none}
+.wheel-label{position:absolute;left:50%;top:50%;width:58px;margin:-12px 0 0 -29px;text-align:center;color:#fff;font-size:12px;font-weight:900;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.55);transform:rotate(var(--angle)) translateY(-84px) rotate(calc(var(--angle) * -1))}
+.wheel-pointer{position:absolute;z-index:3;top:-11px;left:50%;transform:translateX(-50%);width:30px;height:35px;border-radius:0 0 16px 16px;background:#0a2560;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22))}
+.wheel-pointer::after{content:"";position:absolute;left:7px;bottom:-13px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:17px solid #0a2560}
+.wheel-pointer::before{content:"";position:absolute;left:12px;top:7px;width:6px;height:6px;border-radius:50%;background:#f4c430;box-shadow:0 0 0 3px rgba(255,255,255,.75)}
 .wheel-spin-btn{display:block;width:100%;max-width:320px;margin:0 auto}
 body.dark .quiz-timer{color:#f4c430}
 body.dark .quiz-timer-count{background:#26364e}
@@ -411,6 +447,7 @@ body.dark .quiz-timer.urgent{color:#ff8790}
 body.dark .quiz-timer.urgent .quiz-timer-count{background:#3a1c24}
 body.dark .wheel-disc{border-color:#dbe4f0}
 body.dark .wheel-pointer{border-top-color:#f4c430}
+body.dark .wheel-pointer,body.dark .wheel-pointer::after{background:#f4c430;border-top-color:#f4c430}
 .quiz-question{font-size:17px;font-weight:700;line-height:1.55;color:var(--text);margin-bottom:18px}
 .quiz-category{display:inline-flex;padding:5px 9px;border-radius:99px;background:var(--gold-soft);color:#805b00;font-size:11px;font-weight:750;margin:0 0 10px}
 .quiz-ladder{display:flex;gap:5px;margin:0 0 18px}
@@ -546,16 +583,36 @@ body.dark .how-step-title{color:#fff}
 .how-step-desc{font-size:13px;color:var(--muted);line-height:1.5}
 .notif-panel{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--card);border-left:1px solid var(--border);box-shadow:var(--shadow-xl);z-index:200;transition:right .3s;overflow-y:auto}
 .notif-panel.active{right:0}
-.notif-header{padding:22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.notif-header{position:sticky;top:0;z-index:2;padding:20px 22px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;background:var(--card)}
+.notif-heading{display:flex;align-items:center;gap:11px}
+.notif-heading-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--gold-soft);color:var(--gold);font-size:19px}
+.notif-subtitle{margin-top:4px;font-size:11px;color:var(--muted)}
 .notif-title{font-size:20px;font-weight:700;color:var(--navy)}
 body.dark .notif-title{color:#fff}
 .notif-actions{display:flex;gap:8px}
-.notif-item{padding:18px 22px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s}
+.notif-filters{display:flex;gap:7px;padding:12px 22px;border-bottom:1px solid var(--border);background:var(--soft);overflow-x:auto}
+.notif-filter{border:1px solid transparent;border-radius:999px;padding:7px 12px;background:transparent;color:var(--muted);font:700 11px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.notif-filter:hover{color:var(--navy);background:var(--card)}
+.notif-filter.active{background:var(--navy);color:#fff;box-shadow:0 4px 10px rgba(6,27,74,.18)}
+.notif-filter-count{display:inline-grid;place-items:center;min-width:18px;height:18px;margin-left:4px;padding:0 4px;border-radius:99px;background:rgba(255,255,255,.2);font-size:10px}
+.notif-filter:not(.active) .notif-filter-count{background:var(--border);color:var(--text)}
+.notif-item{position:relative;display:flex;gap:12px;padding:17px 22px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s,transform .2s}
 .notif-item:hover{background:var(--soft)}
-.notif-item.unread{background:var(--gold-soft);border-left:3px solid var(--gold)}
-.notif-text{font-size:14px;color:var(--text);margin-bottom:6px;font-weight:500}
-.notif-time{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
-.notif-read{font-size:10px;color:var(--gold);font-weight:600;cursor:pointer}
+.notif-item.unread{background:linear-gradient(90deg,var(--gold-soft),transparent);border-left:3px solid var(--gold);padding-left:19px}
+.notif-item.unread::after{content:"";position:absolute;top:18px;right:22px;width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+.notif-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;border-radius:11px;background:var(--soft);color:var(--navy);font-size:16px;font-weight:800}
+.notif-icon.success,.notif-icon.earning{background:var(--green-soft);color:#13834b}
+.notif-icon.error,.notif-icon.withdrawal{background:var(--red-soft);color:#c53030}
+.notif-icon.membership,.notif-icon.deposit{background:var(--gold-soft);color:#9a6b00}
+.notif-body{min-width:0;flex:1}
+.notif-text{font-size:14px;color:var(--text);margin-bottom:5px;font-weight:700;padding-right:10px}
+.notif-message{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:9px}
+.notif-time{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.notif-read{border:0;background:transparent;font-size:10px;color:var(--gold);font-weight:700;cursor:pointer;padding:0}
+.notif-empty{padding:70px 28px;text-align:center;color:var(--muted)}
+.notif-empty-icon{width:54px;height:54px;margin:0 auto 13px;display:grid;place-items:center;border-radius:17px;background:var(--gold-soft);color:var(--gold);font-size:24px}
+.notif-empty-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px}
+.notif-empty-copy{font-size:12px;line-height:1.5}
 @media(max-width:700px){.notif-panel{width:100%;right:-100%}}
 .settings-group{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px}
 .settings-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
@@ -934,9 +991,7 @@ Preview
 <p class="section-s">Enjoy various games available on C&J LIMITED.</p>
 </div>
 <div class="service-grid">
-<button class="service-card game-card" onclick="openGame('lucky-pick')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg></span><span class="service-name">Lucky Pick</span><span class="game-play-label">Play free</span></button>
-<button class="service-card game-card" onclick="openGame('prediction')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><span class="service-name">Match Prediction</span><span class="game-play-label">Play free</span></button>
-<button class="service-card game-card" onclick="openGame('wheel')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span><span class="service-name">Try Your Luck</span><span class="game-play-label">Play free</span></button>
+<button class="service-card game-card" onclick="openGame('wheel')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span><span class="service-name">Try Your Luck</span><span class="game-play-label">Spin wheel</span></button>
 <button class="service-card game-card" onclick="openGame('quiz')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="service-name">Question & Answer</span><span class="game-play-label">Play free</span></button>
 </div>
 <div class="game-access-note">Quiz stakes use your normal withdrawable balance. Complete all 10 questions for a 2× payout; unfinished rounds forfeit the stake.</div>
@@ -1077,7 +1132,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="mailto:support@cjlimited.com" class="contact-btn">Send Email</a>
+<a href="mailto:cjlimitednigeria@gmail.com" class="contact-btn">Send Email</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -1400,7 +1455,7 @@ Support Center
 </svg>
 Settings
 </div>
-<div class="admin-nav-group" id="adminNavGroup">
+<template id="adminNavTemplate"><div class="admin-nav-group" id="adminNavGroup">
 <div class="admin-nav-label">Administration</div>
 <div class="admin-nav-item active" onclick="navigateAdminSection('admin-overview', this)">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1460,13 +1515,15 @@ App settings
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0111.55-2L20 12M4 12l2.85 5a7 7 0 0011.55-2"/></svg>
 Refresh data
 </div>
-</div>
+</div></template>
 <div class="side-footer">
+<button class="side-profile-trigger" type="button" onclick="navigateTo('settings')" title="Open profile settings">
 <div class="avatar" id="userAvatar">JD</div>
 <div style="flex:1;min-width:0">
 <div class="nm" id="userName">John Doe</div>
 <div class="em" id="userEmail">john@cj.com</div>
 </div>
+</button>
 <button class="icon-btn" onclick="handleLogout()" title="Logout" style="width:32px;height:32px">
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
@@ -1541,7 +1598,7 @@ Refresh data
 <div class="hero-actions">
 <button class="btn btn-primary" onclick="navigateTo('withdraw')">Withdraw</button>
 <button class="btn btn-outline" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)" onclick="openModal('depositModal')">Deposit</button>
-<button class="btn btn-outline" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)" onclick="navigateTo('membership')">Activate Membership</button>
+<button class="btn btn-outline" id="activateMembershipHeroBtn" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)" onclick="navigateTo('membership')">Activate Membership</button>
 </div>
 <div class="hero-stats">
 <div class="hero-stat">
@@ -1658,12 +1715,10 @@ Refresh data
 <span class="tag tag-gold">Members</span>
 </div>
 <div class="service-grid">
-<button class="service-card game-card" onclick="openGame('lucky-pick')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg></span><span class="service-name">Lucky Pick</span><span class="game-play-label">Play</span></button>
-<button class="service-card game-card" onclick="openGame('prediction')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><span class="service-name">Match Prediction</span><span class="game-play-label">Play</span></button>
 <button class="service-card game-card" onclick="openGame('wheel')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span><span class="service-name">Try Your Luck</span><span class="game-play-label">Play</span></button>
 <button class="service-card game-card" onclick="openGame('quiz')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="service-name">Question & Answer</span><span class="game-play-label">10 rounds</span></button>
 </div>
-<div class="game-access-note">Quiz stakes use your normal withdrawable balance. Complete all 10 questions for a 2× payout; leaving an unfinished round forfeits its stake.</div>
+<div class="game-access-note">Games use C&J currency from your normal balance. Stakes are N500 to N5,000; the wheel also gives one free spin for each new registered referral.</div>
 </div>
 <div class="grid grid-2" style="margin-bottom:22px">
 <div class="card">
@@ -2146,12 +2201,10 @@ Share on WhatsApp
 <p class="section-s">Enjoy various games available on C&J LIMITED</p>
 </div>
 <div class="service-grid">
-<button class="service-card game-card" onclick="openGame('lucky-pick')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M8 10v4M15 13h.01M18 11h.01"/></svg></span><span class="service-name">Lucky Pick</span><span class="game-play-label">Play free</span></button>
-<button class="service-card game-card" onclick="openGame('prediction')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span><span class="service-name">Match Prediction</span><span class="game-play-label">Play free</span></button>
-<button class="service-card game-card" onclick="openGame('wheel')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span><span class="service-name">Try Your Luck</span><span class="game-play-label">Play free</span></button>
+<button class="service-card game-card" onclick="openGame('wheel')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span><span class="service-name">Try Your Luck</span><span class="game-play-label">Spin wheel</span></button>
 <button class="service-card game-card" onclick="openGame('quiz')"><span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span class="service-name">Question & Answer</span><span class="game-play-label">Play free</span></button>
 </div>
-<div class="game-access-note">These are free entertainment games. No money or C&J points are wagered, deducted, or awarded.</div>
+<div class="game-access-note">Games use C&J currency. Stakes are N500 to N5,000; the wheel gives one free spin for each new registered referral.</div>
 <div class="game-warning">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -2380,7 +2433,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <h4 style="font-size:15px;margin-bottom:6px;color:var(--navy)">Security</h4>
 <p style="font-size:13px;color:var(--muted);line-height:1.5">Account protection, freezing, and restoration.</p>
 </div>
-<div class="card" style="cursor:pointer" onclick="showToast('Opening: Support','success')">
+<div class="card" style="cursor:pointer" onclick="navigateTo('support')">
 <div style="font-size:32px;margin-bottom:8px;color:var(--gold)">
 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
@@ -2389,6 +2442,16 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <h4 style="font-size:15px;margin-bottom:6px;color:var(--navy)">Support</h4>
 <p style="font-size:13px;color:var(--muted);line-height:1.5">Contact the C&J team via WhatsApp or email.</p>
 </div>
+</div>
+<div class="card" style="margin-top:14px;background:linear-gradient(135deg,#061b4a,#0a2560);color:#fff;border-color:#d4a017">
+<div style="display:flex;align-items:center;gap:12px">
+<div style="width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:rgba(244,196,48,.18);color:#f4c430;font-size:22px">CJ</div>
+<div>
+<div style="font-size:17px;font-weight:800">C&J AI Assistant</div>
+<div style="font-size:12px;color:rgba(255,255,255,.72);margin-top:3px">Get instant help with C&J features</div>
+</div>
+</div>
+<button class="btn btn-primary btn-block" type="button" style="margin-top:16px" onclick="toggleChat();navigateTo('support')">Open C&J AI Assistant</button>
 </div>
 </div>
 <div class="page" id="page-support">
@@ -2550,7 +2613,7 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 <h2 class="support-card-title">Games & Entertainment</h2>
 </div>
 <div class="support-card-content">
-<p>Open the Games page from the navigation and choose a game card to start. Available games include Lucky Pick, Match Prediction, Try Your Luck, and Question & Answer.</p>
+<p>Open the Games page from the navigation and choose a game card to start. Available games include Try Your Luck and Question & Answer.</p>
 <p>These are free-play games for entertainment only. They do not use or award money or C&J points.</p>
 <div class="warning-box">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2834,7 +2897,7 @@ Please play responsibly. Game results are for entertainment only.
 <p>C&J LIMITED</p>
 </div>
 </div>
-<a href="mailto:support@cjlimited.com" class="contact-btn">Send Email</a>
+<a href="mailto:cjlimitednigeria@gmail.com" class="contact-btn">Send Email</a>
 </div>
 <div class="contact-item">
 <div class="contact-info">
@@ -2860,6 +2923,16 @@ Please play responsibly. Game results are for entertainment only.
 <div class="field"><label for="supportMessage">Message</label><textarea class="input" id="supportMessage" rows="4" maxlength="2000" placeholder="Describe the issue"></textarea></div>
 <button class="btn btn-primary" type="button" onclick="submitSupportMessage()">Send message</button>
 <div id="memberSupportMessages" style="margin-top:16px"><div style="font-size:13px;color:var(--muted)">Your support messages will appear here.</div></div>
+</div>
+</div>
+<div class="support-card" id="supportContactCard">
+<div class="support-card-header">
+<div class="support-card-icon">CJ</div>
+<h2 class="support-card-title">C&J AI Assistant</h2>
+</div>
+<div class="support-card-content">
+<p>Get quick answers about membership, earning, referrals, deposits, withdrawals, transfers, and account settings.</p>
+<button class="btn btn-primary" type="button" onclick="openSupportAssistant()">Open C&J AI Assistant</button>
 </div>
 </div>
 </div>
@@ -2924,7 +2997,7 @@ Profile Information
 <div class="settings-desc">JPG, PNG or WebP image up to 3 MB</div>
 </div>
 <div class="profile-settings-photo">
-<input class="input" id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose profile photo" style="max-width:260px" onchange="previewProfilePhoto()"/>
+<input class="profile-photo-file" id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose profile photo" onchange="previewProfilePhoto()"/>
 <button class="btn btn-outline btn-sm" type="button" id="uploadProfilePhotoBtn" onclick="uploadProfilePhoto()">Upload photo</button>
 </div>
 </div>
@@ -3097,7 +3170,7 @@ Danger Zone
 </div>
 </div>
 </div>
-<div class="page" id="page-admin">
+<template id="adminPageTemplate"><div class="page" id="page-admin">
 <div class="admin-page-heading">
 <div>
 <h2>Platform overview</h2>
@@ -3135,7 +3208,7 @@ Refresh data
 <div class="stat-card"><div class="stat-label">Pending Memberships</div><div class="stat-value" id="adMemCount">—</div><div class="stat-change">Awaiting review</div></div>
 <div class="stat-card"><div class="stat-label">Pending Withdrawals</div><div class="stat-value" id="adWd">—</div><div class="stat-change">Requires action</div></div>
 </div>
-<div class="grid grid-2" style="margin-bottom:24px">
+<div class="grid grid-2" id="admin-recent-layout" style="margin-bottom:24px">
 <div class="card" id="admin-recent-users">
 <div class="card-title">Recent users</div>
 <div class="table-wrap">
@@ -3345,7 +3418,7 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 </div>
 </div>
 </div>
-</div>
+</div></template>
 </main>
 </div>
 </div>
@@ -3359,20 +3432,22 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 </svg>
 </button>
 </div>
+<div class="membership-payment-intro">
+<strong>Add funds to your wallet</strong>
+Transfer the amount below, then upload your payment receipt for admin approval.
+</div>
+<div class="membership-account-card">
+<div class="membership-account-label">Deposit payment account</div>
+<div class="membership-account-bank">Bank: <b>OPay</b></div>
+<div class="membership-account-number">6569097252</div>
+<div class="membership-account-name">CLINTON AIRENOGBUAN</div>
+</div>
 <div class="field">
-<label>Amount (N)</label>
+<label for="depAmt">Amount (N)</label>
 <input class="input" type="number" placeholder="Enter amount" id="depAmt"/>
 </div>
-<div style="padding:14px;border-radius:12px;background:var(--soft);border:1px solid var(--border);margin-bottom:16px;font-size:13px">
-<b style="color:var(--gold)">Payment Instructions:</b><br>
-<span style="color:var(--muted)">Bank: <b style="color:var(--navy)">OPay</b><br>Account Number: <b style="color:var(--navy)">6569097252</b><br>Account Name: <b style="color:var(--navy)">CLINTON AIRENOGBUAN</b></span>
-</div>
 <div class="field">
-<label>Payment Receipt / Reference</label>
-<input class="input" type="text" placeholder="Transaction reference" id="depRef"/>
-</div>
-<div class="field">
-<label>Upload Payment Receipt</label>
+<label>Payment receipt</label>
 <input class="receipt-upload" id="depositReceiptFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onchange="updateDepositReceiptName(this)"/>
 <label class="receipt-picker" id="depositReceiptPicker" for="depositReceiptFile">
 <span class="receipt-picker-icon" aria-hidden="true">↑</span>
@@ -3383,8 +3458,11 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 <span class="receipt-picker-action" id="depositReceiptAction">Browse</span>
 </label>
 </div>
-<button class="btn btn-primary btn-block" onclick="submitDeposit()">Submit for Approval</button>
-<div style="font-size:12px;color:var(--muted);text-align:center;margin-top:12px">Admin will review the reference and receipt before crediting your wallet</div>
+<div class="deposit-actions">
+<button class="btn btn-outline" type="button" onclick="closeModal('depositModal')">Cancel</button>
+<button class="btn btn-primary deposit-submit-btn" type="button" onclick="submitDeposit()">Submit for approval</button>
+</div>
+<div class="membership-payment-note">Your wallet is credited after an admin verifies your deposit.</div>
 </div>
 </div>
 <div class="modal-backdrop" id="membershipPaymentModal">
@@ -3397,7 +3475,7 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 </div>
 <div class="membership-payment-intro">
 <strong>Pay N35,000 to activate</strong>
-Transfer to the account below, then upload your payment receipt for admin verification.
+Transfer to the account below, then submit your request. You can attach a receipt if available.
 </div>
 <div class="membership-account-card">
 <div class="membership-account-label">Membership payment account</div>
@@ -3406,11 +3484,11 @@ Transfer to the account below, then upload your payment receipt for admin verifi
 <div class="membership-account-name">CLINTON AIRENOGBUAN</div>
 </div>
 <div class="field">
-<label for="membershipReceiptFile">Payment receipt</label>
+<label for="membershipReceiptFile">Payment receipt (optional)</label>
 <input class="receipt-upload" id="membershipReceiptFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" aria-describedby="membershipReceiptHelp" onchange="updateMembershipReceiptName(this)"/>
 <label class="receipt-picker" id="membershipReceiptPicker" for="membershipReceiptFile">
 <span class="receipt-picker-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0L7 9m5-5 5 5"/><path d="M4 15v4a1 1 0 001 1h14a1 1 0 001-1v-4"/></svg></span>
-<span class="receipt-picker-copy"><span class="receipt-picker-title" id="membershipReceiptTitle">Choose payment receipt</span><span class="receipt-picker-hint" id="membershipReceiptHelp">JPG, PNG, WEBP, or PDF · Maximum 8 MB</span></span>
+<span class="receipt-picker-copy"><span class="receipt-picker-title" id="membershipReceiptTitle">Choose payment receipt (optional)</span><span class="receipt-picker-hint" id="membershipReceiptHelp">JPG, PNG, WEBP, or PDF · Maximum 8 MB</span></span>
 <span class="receipt-picker-action" id="membershipReceiptAction">Browse</span>
 </label>
 </div>
@@ -3560,6 +3638,29 @@ Transfer to the account below, then upload your payment receipt for admin verifi
 <button class="btn btn-primary btn-block" onclick="changeEmail()">Update Email</button>
 </div>
 </div>
+<div class="modal-backdrop" id="deleteAccountModal">
+<div class="modal">
+<div class="modal-head">
+<div class="modal-title">Delete account</div>
+<button class="close-btn" type="button" onclick="cancelDeleteAccount()" aria-label="Cancel account deletion">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M18 6L6 18M6 6l12 12"/>
+</svg>
+</button>
+</div>
+<p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">This permanently deletes your C&J account and cannot be undone. Enter your password to continue.</p>
+<form onsubmit="submitDeleteAccountPassword(event)">
+<div class="field">
+<label for="deleteAccountPassword">Password</label>
+<input class="input" id="deleteAccountPassword" type="password" autocomplete="current-password" placeholder="Enter your password" required/>
+</div>
+<div style="display:flex;gap:10px">
+<button class="btn btn-outline btn-block" type="button" onclick="cancelDeleteAccount()">Cancel</button>
+<button class="btn btn-danger btn-block" type="submit">Delete permanently</button>
+</div>
+</form>
+</div>
+</div>
 <div class="chat-wrap">
 <div class="chat-win" id="chatWindow">
 <div class="chat-h">
@@ -3615,7 +3716,13 @@ Transfer to the account below, then upload your payment receipt for admin verifi
 <div class="toast-wrap" id="toastWrap"></div>
 <div class="notif-panel" id="notifPanel">
 <div class="notif-header">
+<div class="notif-heading">
+<div class="notif-heading-icon" aria-hidden="true">⌁</div>
+<div>
 <div class="notif-title">Notifications</div>
+<div class="notif-subtitle" id="notifSubtitle">Stay up to date with your account</div>
+</div>
+</div>
 <div class="notif-actions">
 <button class="btn btn-ghost btn-sm" onclick="markAllNotifRead()">Mark all read</button>
 <button class="close-btn" onclick="toggleNotifications()">
@@ -3624,6 +3731,11 @@ Transfer to the account below, then upload your payment receipt for admin verifi
 </svg>
 </button>
 </div>
+</div>
+<div class="notif-filters" role="tablist" aria-label="Notification filters">
+<button class="notif-filter active" type="button" role="tab" aria-selected="true" data-notif-filter="all" onclick="setNotificationFilter('all', this)">All <span class="notif-filter-count" id="notifAllCount">0</span></button>
+<button class="notif-filter" type="button" role="tab" aria-selected="false" data-notif-filter="unread" onclick="setNotificationFilter('unread', this)">Unread <span class="notif-filter-count" id="notifUnreadCount">0</span></button>
+<button class="notif-filter" type="button" role="tab" aria-selected="false" data-notif-filter="read" onclick="setNotificationFilter('read', this)">Read</button>
 </div>
 <div id="notifList"></div>
 </div>
@@ -3643,6 +3755,54 @@ const storage = firebase.storage();
 const ADMIN_EMAILS = new Set(['admin@cj.com']);
 function isAdminEmail(email) {
 return ADMIN_EMAILS.has(String(email || '').trim().toLowerCase());
+}
+function isCurrentAdmin() {
+return Boolean(AppState.user && isAdminEmail(AppState.user.email));
+}
+function setAdminVisibility(isAdmin) {
+let adminPage = document.getElementById('page-admin');
+let adminNavGroup = document.getElementById('adminNavGroup');
+const adminPageTemplate = document.getElementById('adminPageTemplate');
+const adminNavTemplate = document.getElementById('adminNavTemplate');
+if (!isAdmin) {
+document.querySelectorAll('[id^="admin-"]').forEach(element => {
+if (!element.closest('template')) element.remove();
+});
+if (adminPage && !adminPage.closest('template')) adminPage.remove();
+if (adminNavGroup && !adminNavGroup.closest('template')) adminNavGroup.remove();
+adminPage = null;
+adminNavGroup = null;
+}
+if (isAdmin) {
+if (!adminPage && adminPageTemplate) {
+const main = document.querySelector('main');
+if (main) {
+main.appendChild(adminPageTemplate.content.cloneNode(true));
+adminPage = document.getElementById('page-admin');
+}
+}
+if (!adminNavGroup && adminNavTemplate) {
+const sidebar = document.getElementById('sidebar');
+if (sidebar) {
+const footer = sidebar.querySelector('.side-footer');
+sidebar.insertBefore(adminNavTemplate.content.firstElementChild.cloneNode(true), footer || null);
+adminNavGroup = document.getElementById('adminNavGroup');
+}
+}
+}
+document.body.classList.toggle('admin-mode', isAdmin);
+if (adminPage) {
+adminPage.hidden = !isAdmin;
+adminPage.setAttribute('aria-hidden', String(!isAdmin));
+adminPage.style.display = isAdmin ? '' : 'none';
+adminPage.style.visibility = isAdmin ? '' : 'hidden';
+}
+if (adminNavGroup) {
+adminNavGroup.hidden = !isAdmin;
+adminNavGroup.setAttribute('aria-hidden', String(!isAdmin));
+adminNavGroup.style.display = isAdmin ? '' : 'none';
+adminNavGroup.style.visibility = isAdmin ? '' : 'hidden';
+}
 }
 function getUserRole(user, userData) {
 const email = (user?.email || userData?.email || '').trim().toLowerCase();
@@ -3684,7 +3844,9 @@ marketplaceUnsubscribe: null,
 communityMessageUnsubscribe: null,
 communityMessageConversationId: null,
 notifications: [],
+notificationFilter: 'all',
 notificationsUnsubscribe: null,
+transactionsUnsubscribe: null,
 announcements: [],
 announcementsUnsubscribe: null,
 adminPostsUnsubscribe: null,
@@ -3715,6 +3877,7 @@ lastCheckinAt: null,
 lastCheckinAt: null,
 checkinBusy: false,
 earningClaimBusy: false,
+freeSpinsUsed: 0,
 vipTier: 'Bronze',
 achievements: [
 { id: 1, title: 'First Steps', desc: 'Create your account', icon: 'user', unlocked: true },
@@ -3832,6 +3995,7 @@ AppState.checkinDay = Number(userData.dailyCheckin?.day || 1);
 AppState.lastCheckinAt = userData.dailyCheckin?.lastCheckinAt || null;
 AppState.communityFollowingIds = userData.followingUserIds || [];
 AppState.communityLikedPostIds = userData.likedPostIds || [];
+AppState.freeSpinsUsed = Number(userData.freeSpinsUsed || 0);
 if (AppState.user) {
 AppState.user.role = getUserRole(AppState.user, userData);
 AppState.user.bio = userData.bio || '';
@@ -3881,6 +4045,17 @@ const element = document.getElementById(id);
 if (element) element.textContent = Number(count).toLocaleString();
 });
 }
+function getAuthenticationErrorMessage(error, fallback) {
+const credentialErrors = new Set([
+'auth/invalid-credential',
+'auth/invalid-login-credentials',
+'auth/wrong-password',
+'auth/user-not-found',
+'auth/invalid-email'
+]);
+if (credentialErrors.has(error?.code)) return 'Incorrect credentials. Check your email and password and try again.';
+return fallback + (error?.message ? ': ' + error.message : '');
+}
 async function handleSignIn() {
 const email = document.getElementById('si_email').value.trim();
 const password = document.getElementById('si_password').value;
@@ -3926,7 +4101,7 @@ showToast('Welcome back, ' + AppState.user.name, 'success');
 console.error('Email sign-in failed:', error);
 showToast(authenticationCompleted
 ? 'Signed in, but the account profile could not be loaded from Firestore. Enable Firestore and check the users collection permissions.'
-: 'Sign in failed: ' + error.message, 'error');
+: getAuthenticationErrorMessage(error, 'Sign in failed'), 'error');
 }
 }
 async function handleGoogleSignIn() {
@@ -4078,6 +4253,7 @@ if (!referrerQuery.empty && referrerQuery.docs[0].id !== user.uid) referredByUse
 await db.collection('users').doc(user.uid).set({
 name,
 email,
+emailLower: email.toLowerCase(),
 phone,
 role: 'user',
 referralCode: newReferralCode,
@@ -4165,6 +4341,10 @@ if (AppState.notificationsUnsubscribe) {
 AppState.notificationsUnsubscribe();
 AppState.notificationsUnsubscribe = null;
 }
+if (AppState.transactionsUnsubscribe) {
+AppState.transactionsUnsubscribe();
+AppState.transactionsUnsubscribe = null;
+}
 if (AppState.announcementsUnsubscribe) {
 AppState.announcementsUnsubscribe();
 AppState.announcementsUnsubscribe = null;
@@ -4220,18 +4400,74 @@ showToast('Signed out successfully', 'success');
 showToast('Logout failed: ' + error.message, 'error');
 }
 }
-async function handleDeleteAccount() {
-if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-return;
+let pendingAccountDeletionResolve = null;
+function requestDeleteAccountPassword() {
+return new Promise(resolve => {
+pendingAccountDeletionResolve = resolve;
+const input = document.getElementById('deleteAccountPassword');
+if (input) input.value = '';
+openModal('deleteAccountModal');
+setTimeout(() => input?.focus(), 0);
+});
 }
+function cancelDeleteAccount() {
+closeModal('deleteAccountModal');
+if (pendingAccountDeletionResolve) {
+pendingAccountDeletionResolve(null);
+pendingAccountDeletionResolve = null;
+}
+}
+function submitDeleteAccountPassword(event) {
+event.preventDefault();
+const input = document.getElementById('deleteAccountPassword');
+const password = input ? input.value : '';
+closeModal('deleteAccountModal');
+if (pendingAccountDeletionResolve) {
+pendingAccountDeletionResolve(password);
+pendingAccountDeletionResolve = null;
+}
+}
+async function handleDeleteAccount() {
 try {
 const user = auth.currentUser;
+if (!user) {
+showToast('Please sign in again before deleting your account', 'error');
+return;
+}
+const providers = user.providerData || [];
+const passwordProvider = providers.find(provider => provider.providerId === 'password');
+if (passwordProvider) {
+const password = await requestDeleteAccountPassword();
+if (!password) {
+showToast('Account deletion cancelled', 'error');
+return;
+}
+const credential = firebase.auth.EmailAuthProvider.credential(user.email, password);
+await user.reauthenticateWithCredential(credential);
+} else {
+const providerId = providers[0]?.providerId;
+if (providerId === 'google.com') {
+await user.reauthenticateWithPopup(new firebase.auth.GoogleAuthProvider());
+} else if (providerId === 'github.com') {
+await user.reauthenticateWithPopup(new firebase.auth.GithubAuthProvider());
+} else {
+throw new Error('Please sign in again with your account provider before deleting your account');
+}
+}
 await db.collection('users').doc(user.uid).delete();
 await user.delete();
 showToast('Account deleted successfully', 'success');
 showView('landingView');
 } catch (error) {
-showToast('Failed to delete account: ' + error.message, 'error');
+console.error('Failed to delete account:', error);
+const message = error.code === 'auth/wrong-password' ||
+error.code === 'auth/invalid-credential' ||
+error.code === 'auth/invalid-login-credentials'
+? 'Incorrect credentials. Account was not deleted.'
+: error.code === 'auth/popup-closed-by-user'
+? 'Account deletion cancelled.'
+: 'Failed to delete account: ' + error.message;
+showToast(message, 'error');
 }
 }
 async function saveProfile() {
@@ -4311,7 +4547,7 @@ const user = auth.currentUser;
 const credential = firebase.auth.EmailAuthProvider.credential(user.email, password);
 await user.reauthenticateWithCredential(credential);
 await user.updateEmail(newEmail);
-await db.collection('users').doc(user.uid).update({ email: newEmail });
+await db.collection('users').doc(user.uid).update({ email: newEmail, emailLower: newEmail.toLowerCase() });
 AppState.user.email = newEmail;
 document.getElementById('userEmail').textContent = newEmail;
 document.getElementById('settingsEmail').textContent = newEmail;
@@ -4464,9 +4700,10 @@ showToast('Verification status could not be refreshed: ' + error.message, 'error
 });
 loadCommunityPosts();
 loadUserNotifications();
+loadUserTransactions();
 loadPlatformAnnouncements();
 loadUserSupportMessages();
-if (AppState.user.role === 'admin') {
+if (isCurrentAdmin()) {
 loadAdminCommunityPosts();
 loadAdminSupportMessages();
 }
@@ -4485,6 +4722,27 @@ console.error('Failed to monitor notifications:', error);
 showToast('Notifications could not be loaded: ' + error.message, 'error');
 });
 }
+function loadUserTransactions() {
+if (AppState.transactionsUnsubscribe) AppState.transactionsUnsubscribe();
+AppState.transactionsUnsubscribe = db.collection('transactions')
+.where('userId', '==', AppState.user.uid)
+.limit(100)
+.onSnapshot(snapshot => {
+AppState.transactions = snapshot.docs.map(doc => {
+const data = doc.data();
+return {
+id: doc.id,
+...data,
+date: asDate(data.date)?.toISOString() || new Date().toISOString(),
+description: data.description || data.type || 'Transaction'
+};
+}).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+renderTransactions();
+}, error => {
+console.error('Failed to monitor transactions:', error);
+showToast('Transaction history could not be loaded: ' + error.message, 'error');
+});
+}
 function loadPlatformAnnouncements() {
 if (AppState.announcementsUnsubscribe) AppState.announcementsUnsubscribe();
 AppState.announcementsUnsubscribe = db.collection('announcements')
@@ -4499,7 +4757,11 @@ showToast('Announcements could not be loaded: ' + error.message, 'error');
 });
 }
 function navigateTo(page) {
-const isAdminUser = AppState.user && (AppState.user.role === 'admin' || isAdminEmail(AppState.user.email));
+const isAdminUser = isCurrentAdmin();
+setAdminVisibility(isAdminUser);
+if (!isAdminUser && page === 'admin') {
+page = 'dashboard';
+}
 if (isAdminUser && page !== 'admin') page = 'admin';
 if (!isAdminUser && page === 'admin') page = 'dashboard';
 if (page === 'marketplace' && AppState.user) loadMarketplaceListings();
@@ -4541,10 +4803,23 @@ document.getElementById('sidebarToggle')?.setAttribute('aria-expanded', 'false')
 document.getElementById('sidebarToggle')?.setAttribute('aria-label', 'Open navigation');
 }
 function navigateAdminSection(sectionId, navItem) {
+if (!isCurrentAdmin()) {
+setAdminVisibility(false);
+return;
+}
+if (!document.getElementById('page-admin')) {
+setAdminVisibility(true);
+}
 const section = document.getElementById(sectionId);
 if (!section) {
-showToast('Admin section could not be found', 'error');
+console.error('Admin navigation section is unavailable:', sectionId);
+showToast('This admin section is still loading. Please try again.', 'error');
 return;
+}
+const adminPage = document.getElementById('page-admin');
+if (adminPage) {
+document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+adminPage.classList.add('active');
 }
 document.querySelectorAll('.admin-nav-item').forEach(item => item.classList.remove('active'));
 if (navItem) navItem.classList.add('active');
@@ -4729,6 +5004,8 @@ wrapper.appendChild(button);
 }
 function updateBalanceDisplays() {
 const fmt = n => n.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const activateMembershipButton = document.getElementById('activateMembershipHeroBtn');
+if (activateMembershipButton) activateMembershipButton.hidden = Boolean(AppState.membership.active);
 document.getElementById('heroBalance').textContent = fmt(AppState.balance);
 document.getElementById('walletBalance').textContent = fmt(AppState.balance);
 document.getElementById('wdBalance').textContent = fmt(AppState.balance);
@@ -4737,8 +5014,8 @@ if (AppState.membership.active && AppState.membership.startAt) {
 const todayStart = new Date();
 todayStart.setHours(0, 0, 0, 0);
 const dailyRate = getReferralEarningRate();
-const earnedToday = Math.max(0, Math.min(dailyRate,
-((Date.now() - Math.max(AppState.membership.startAt, todayStart.getTime())) / 86400000) * dailyRate));
+const lastCheckin = asDate(AppState.lastCheckinAt);
+const earnedToday = lastCheckin && lastCheckin.getTime() >= todayStart.getTime() ? dailyRate : 0;
 document.getElementById('heroEarned').textContent = fmt(Math.min(earnedToday, dailyRate));
 }
 const liveRate = document.getElementById('liveEarnRate');
@@ -5114,7 +5391,7 @@ showToast('Asset prices could not be refreshed: ' + error.message, 'error');
 });
 }
 async function saveAssetPrices() {
-if (AppState.user?.role !== 'admin' || !isAdminEmail(AppState.user.email)) {
+if (!isCurrentAdmin()) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -5515,27 +5792,53 @@ function renderNotifications() {
 const list = document.getElementById('notifList');
 if (!list) return;
 const unread = AppState.notifications.filter(n => !n.read).length;
+const filterCounts = {
+all: AppState.notifications.length,
+unread,
+read: AppState.notifications.length - unread
+};
+Object.entries(filterCounts).forEach(([filter, value]) => {
+const element = document.getElementById('notif' + filter.charAt(0).toUpperCase() + filter.slice(1) + 'Count');
+if (element) element.textContent = value;
+});
 const count = document.getElementById('notifCount');
 if (count) {
 count.textContent = unread;
 count.style.display = unread > 0 ? 'grid' : 'none';
 }
+const subtitle = document.getElementById('notifSubtitle');
+if (subtitle) subtitle.textContent = unread ? unread + ' unread update' + (unread === 1 ? '' : 's') : 'You are all caught up';
 list.replaceChildren();
-if (!AppState.notifications.length) {
+const visibleNotifications = AppState.notifications.filter(notification => {
+if (AppState.notificationFilter === 'unread') return !notification.read;
+if (AppState.notificationFilter === 'read') return notification.read;
+return true;
+});
+if (!visibleNotifications.length) {
 const empty = document.createElement('div');
-empty.style.cssText = 'padding:40px;text-align:center;color:var(--muted)';
-empty.textContent = 'No notifications yet';
+empty.className = 'notif-empty';
+const emptyTitle = AppState.notificationFilter === 'unread' ? 'No unread notifications' : AppState.notificationFilter === 'read' ? 'No read notifications' : 'You are all caught up';
+const emptyCopy = AppState.notificationFilter === 'unread' ? 'You have no pending updates right now.' : 'New account and platform updates will appear here.';
+empty.innerHTML = '<div class="notif-empty-icon" aria-hidden="true">✓</div><div class="notif-empty-title">' + emptyTitle + '</div><div class="notif-empty-copy">' + emptyCopy + '</div>';
 list.appendChild(empty);
 return;
 }
-AppState.notifications.forEach(notification => {
+visibleNotifications.forEach(notification => {
 const item = document.createElement('div');
+const type = String(notification.type || 'general').toLowerCase();
+const iconMap = { success: '✓', earning: '₦', withdrawal: '↗', deposit: '+', membership: '★', error: '!', transfer: '↔', announcement: '◆' };
 item.className = 'notif-item ' + (notification.read ? '' : 'unread');
+const icon = document.createElement('div');
+icon.className = 'notif-icon ' + type;
+icon.textContent = iconMap[type] || '•';
+icon.setAttribute('aria-hidden', 'true');
+const body = document.createElement('div');
+body.className = 'notif-body';
 const title = document.createElement('div');
 title.className = 'notif-text';
 title.textContent = notification.title || 'C&J notification';
 const message = document.createElement('div');
-message.style.cssText = 'font-size:12px;color:var(--muted);margin-bottom:6px';
+message.className = 'notif-message';
 message.textContent = notification.message || '';
 const footer = document.createElement('div');
 footer.className = 'notif-time';
@@ -5550,10 +5853,20 @@ event.stopPropagation();
 markNotifRead(notification.id);
 });
 footer.append(time, read);
-item.append(title, message, footer);
+body.append(title, message, footer);
+item.append(icon, body);
 item.addEventListener('click', () => markNotifRead(notification.id));
 list.appendChild(item);
 });
+}
+function setNotificationFilter(filter, button) {
+AppState.notificationFilter = filter;
+document.querySelectorAll('.notif-filter').forEach(item => {
+const active = item === button;
+item.classList.toggle('active', active);
+item.setAttribute('aria-selected', active ? 'true' : 'false');
+});
+renderNotifications();
 }
 function addNotification(title, message, type) {
 const notification = {
@@ -5719,19 +6032,14 @@ action.textContent = file ? 'Change' : 'Browse';
 async function submitMembershipPayment() {
 const receiptInput = document.getElementById('membershipReceiptFile');
 const file = receiptInput.files && receiptInput.files[0];
-if (!file) {
-showToast('Upload your payment receipt before submitting', 'error');
-receiptInput.focus();
-return;
-}
 const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-if (!allowedTypes.includes(file.type)) {
+if (file && !allowedTypes.includes(file.type)) {
 showToast('Choose a JPG, PNG, WEBP, or PDF receipt', 'error');
 receiptInput.value = '';
 updateMembershipReceiptName(receiptInput);
 return;
 }
-if (file.size > 8 * 1024 * 1024) {
+if (file && file.size > 8 * 1024 * 1024) {
 showToast('Receipt file must be 8 MB or smaller', 'error');
 receiptInput.value = '';
 updateMembershipReceiptName(receiptInput);
@@ -5742,24 +6050,17 @@ const originalButtonText = submitButton.textContent;
 let receiptRef = null;
 let receiptUploaded = false;
 submitButton.disabled = true;
-submitButton.textContent = 'Uploading receipt...';
+submitButton.textContent = 'Submitting for review...';
 try {
 const user = auth.currentUser;
-if (!user) throw new Error('Sign in again before uploading your receipt.');
-const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-receiptRef = storage.ref('membershipReceipts/' + user.uid + '/' + Date.now() + '-' + safeFileName);
-await receiptRef.put(file, { contentType: file.type });
-receiptUploaded = true;
-const receiptUrl = await receiptRef.getDownloadURL();
-submitButton.textContent = 'Submitting for review...';
+if (!user) throw new Error('Sign in again before submitting your request.');
 const membershipRequest = {
 userId: user.uid,
 userName: AppState.user.name,
 userEmail: AppState.user.email,
 type: 'payment',
 amount: 35000,
-receiptUrl,
-receiptName: file.name,
+...(file ? { receiptName: file.name } : {}),
 paymentBank: 'OPay',
 paymentAccountName: 'CLINTON AIRENOGBUAN',
 paymentAccountNumber: '6569097252',
@@ -5815,30 +6116,24 @@ window.open('https://wa.me/?text=' + msg, '_blank', 'noopener,noreferrer');
 async function submitDeposit() {
 if (!requireAccountActive('submit a deposit')) return;
 const amt = Number(document.getElementById('depAmt').value);
-const ref = document.getElementById('depRef').value.trim();
 const receiptInput = document.getElementById('depositReceiptFile');
 const file = receiptInput.files && receiptInput.files[0];
 if (!Number.isSafeInteger(amt) || amt <= 0) {
 showToast('Enter a whole-number deposit amount in naira', 'error');
 return;
 }
-if (!ref) {
-showToast('Enter payment reference', 'error');
-return;
-}
 if (!file) {
 showToast('Upload your payment receipt before submitting', 'error');
-receiptInput.focus();
 return;
 }
 const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
-if (!allowedTypes.includes(file.type)) {
+if (file && !allowedTypes.includes(file.type)) {
 showToast('Choose a JPG, PNG, WEBP, or PDF receipt', 'error');
 receiptInput.value = '';
 updateDepositReceiptName(receiptInput);
 return;
 }
-if (file.size > 8 * 1024 * 1024) {
+if (file && file.size > 8 * 1024 * 1024) {
 showToast('Receipt file must be 8 MB or smaller', 'error');
 receiptInput.value = '';
 updateDepositReceiptName(receiptInput);
@@ -5849,31 +6144,40 @@ const originalButtonText = submitButton.textContent;
 let receiptRef = null;
 let receiptUploaded = false;
 submitButton.disabled = true;
-submitButton.textContent = 'Uploading receipt...';
+submitButton.textContent = 'Submitting for approval...';
 try {
 const user = auth.currentUser;
-const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-receiptRef = storage.ref('depositReceipts/' + user.uid + '/' + Date.now() + '-' + safeFileName);
-await receiptRef.put(file, { contentType: file.type });
-receiptUploaded = true;
-const receiptUrl = await receiptRef.getDownloadURL();
-submitButton.textContent = 'Submitting for approval...';
+if (!user) throw new Error('Sign in again before submitting your deposit.');
+const depositRef = db.collection('transactions').doc();
 const depositData = {
 userId: user.uid,
 userName: AppState.user.name,
 userEmail: AppState.user.email,
 type: 'deposit',
 amount: amt,
-ref,
-receiptUrl,
-receiptPath: receiptRef.fullPath,
-receiptName: file.name,
+...(file ? { receiptName: file.name } : {}),
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
-await db.collection('transactions').add(depositData);
+await depositRef.set(depositData);
+if (file) {
+submitButton.textContent = 'Attaching receipt...';
+const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+receiptRef = storage.ref('depositReceipts/' + user.uid + '/' + Date.now() + '-' + safeFileName);
+try {
+await receiptRef.put(file, { contentType: file.type });
+receiptUploaded = true;
+await depositRef.update({
+receiptUrl: await receiptRef.getDownloadURL(),
+receiptPath: receiptRef.fullPath
+});
+} catch (uploadError) {
+console.error('Deposit was submitted but receipt upload failed:', uploadError);
+showToast('Deposit sent, but the receipt could not be attached. Please contact support.', 'error');
+}
+}
 AppState.transactions.unshift({
-id: 'DEP' + Date.now(),
+id: depositRef.id,
 type: 'deposit',
 description: 'Deposit request - N' + amt.toLocaleString(),
 amount: amt,
@@ -5883,7 +6187,6 @@ status: 'pending'
 renderTransactions();
 closeModal('depositModal');
 document.getElementById('depAmt').value = '';
-document.getElementById('depRef').value = '';
 receiptInput.value = '';
 updateDepositReceiptName(receiptInput);
 addNotification('Deposit Submitted', 'Your deposit of N' + amt.toLocaleString() + ' is pending admin approval.', 'deposit');
@@ -6023,7 +6326,14 @@ return;
 }
 let recipientDoc;
 if (recipientQuery.includes('@')) {
-const recipients = await db.collection('users').where('email', '==', recipientQuery.toLowerCase()).limit(1).get();
+const emailQuery = recipientQuery.toLowerCase();
+let recipients = await db.collection('users').where('emailLower', '==', emailQuery).limit(1).get();
+if (recipients.empty) {
+recipients = await db.collection('users').where('email', '==', emailQuery).limit(1).get();
+}
+if (recipients.empty && recipientQuery !== emailQuery) {
+recipients = await db.collection('users').where('email', '==', recipientQuery).limit(1).get();
+}
 recipientDoc = recipients.empty ? null : recipients.docs[0];
 } else {
 recipientDoc = await db.collection('users').doc(recipientQuery).get();
@@ -6087,6 +6397,9 @@ document.getElementById('transferRecipient').value = '';
 document.getElementById('transferAmount').value = '';
 document.getElementById('transferNote').value = '';
 document.getElementById('transferPinInput').value = '';
+AppState.balance = Math.max(0, Number(AppState.balance || 0) - amount);
+updateBalanceDisplays();
+renderTransactions();
 showToast('N' + amount.toLocaleString() + ' transferred to ' + recipientName, 'success');
 } catch (error) {
 console.error('Failed to submit transfer request:', error);
@@ -6933,7 +7246,7 @@ showToast('Support messages could not be loaded: ' + error.message, 'error');
 });
 }
 function loadAdminSupportMessages() {
-if (AppState.user?.role !== 'admin' || !isAdminEmail(AppState.user.email)) return;
+if (!isCurrentAdmin()) return;
 if (AppState.adminSupportUnsubscribe) AppState.adminSupportUnsubscribe();
 AppState.adminSupportUnsubscribe = db.collection('supportMessages')
 .where('status', '==', 'open')
@@ -6988,7 +7301,7 @@ queue.appendChild(card);
 });
 }
 async function replyToSupportMessage(messageId, replyInput) {
-if (AppState.user?.role !== 'admin' || !isAdminEmail(AppState.user.email)) {
+if (!isCurrentAdmin()) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7024,7 +7337,7 @@ showToast('Reply could not be sent: ' + error.message, 'error');
 }
 }
 function loadAdminCommunityPosts() {
-if (AppState.user?.role !== 'admin') return;
+if (!isCurrentAdmin()) return;
 if (AppState.adminPostsUnsubscribe) AppState.adminPostsUnsubscribe();
 AppState.adminPostsUnsubscribe = db.collection('posts')
 .where('status', '==', 'pending')
@@ -7079,7 +7392,7 @@ queue.appendChild(card);
 });
 }
 async function reviewCommunityPost(postId, userId, status) {
-if (AppState.user?.role !== 'admin' || !['approved', 'rejected'].includes(status)) {
+if (!isCurrentAdmin() || !['approved', 'rejected'].includes(status)) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7110,7 +7423,7 @@ showToast('Community post review failed: ' + error.message, 'error');
 }
 }
 async function publishAdminAnnouncement() {
-if (AppState.user?.role !== 'admin' || !auth.currentUser) {
+if (!isCurrentAdmin() || !auth.currentUser) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7301,7 +7614,7 @@ table.appendChild(row);
 });
 }
 async function reviewAdminDeposit(depositId, decision) {
-if (AppState.user?.role !== 'admin' || !isAdminEmail(AppState.user.email) || !['approved', 'rejected'].includes(decision)) {
+if (!isCurrentAdmin() || !['approved', 'rejected'].includes(decision)) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7540,7 +7853,7 @@ table.appendChild(row);
 });
 }
 async function reviewAdminAssetRequest(requestId, decision) {
-if (AppState.user?.role !== 'admin' || !isAdminEmail(AppState.user.email) || !['approved', 'rejected'].includes(decision)) {
+if (!isCurrentAdmin() || !['approved', 'rejected'].includes(decision)) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7613,7 +7926,7 @@ showToast('Verification document could not be opened: ' + error.message, 'error'
 }
 }
 async function reviewAccountVerification(userId, status) {
-if (AppState.user?.role !== 'admin' || !['approved', 'rejected'].includes(status)) {
+if (!isCurrentAdmin() || !['approved', 'rejected'].includes(status)) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7637,8 +7950,12 @@ showToast('The request was processed, but admin statistics could not be refreshe
 });
 }
 async function loadAdminPanelData() {
+if (!AppState.user || !isAdminEmail(AppState.user.email)) {
+setAdminVisibility(false);
+return;
+}
 const users = db.collection('users');
-const [usersSnapshot, membershipRequests, withdrawalsSnapshot, appLinks, verificationRequests, assetRequestSnapshot, depositSnapshot, transactionSnapshot] = await Promise.all([
+const queryResults = await Promise.allSettled([
 users.get(),
 db.collection('membershipRequests').where('status', '==', 'pending').get(),
 db.collection('withdrawals').get(),
@@ -7648,6 +7965,23 @@ db.collection('transactions').where('type', 'in', ['coin_buy', 'coin_sell', 'gol
 db.collection('transactions').where('type', '==', 'deposit').get(),
 db.collection('transactions').orderBy('date', 'desc').limit(100).get()
 ]);
+const [usersResult, membershipResult, withdrawalsResult, appLinksResult, verificationResult, assetResult, depositResult, transactionResult] = queryResults;
+const failedQueries = queryResults.filter(result => result.status === 'rejected');
+if (failedQueries.length) {
+const errorMessage = failedQueries.map(result => result.reason?.message || 'Unknown Firebase query error').join('; ');
+console.error('Some admin data queries failed:', errorMessage);
+showToast('Some admin data could not load: ' + errorMessage, 'error');
+}
+const emptySnapshot = { docs: [], size: 0, empty: true, exists: false };
+const getSnapshot = result => result.status === 'fulfilled' ? result.value : emptySnapshot;
+const usersSnapshot = getSnapshot(usersResult);
+const membershipRequests = getSnapshot(membershipResult);
+const withdrawalsSnapshot = getSnapshot(withdrawalsResult);
+const appLinks = getSnapshot(appLinksResult);
+const verificationRequests = getSnapshot(verificationResult);
+const assetRequestSnapshot = getSnapshot(assetResult);
+const depositSnapshot = getSnapshot(depositResult);
+const transactionSnapshot = getSnapshot(transactionResult);
 AppState.adminUsersCache = usersSnapshot.docs;
 const activeUsers = usersSnapshot.docs.filter(doc => doc.data().membership?.active).length;
 const withdrawals = withdrawalsSnapshot.docs.filter(doc => doc.data().status === 'pending');
@@ -7784,7 +8118,7 @@ table.appendChild(row);
 });
 }
 async function adminSearchUser() {
-if (AppState.user?.role !== 'admin') {
+if (!isCurrentAdmin()) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7840,7 +8174,7 @@ showToast('User search failed: ' + error.message, 'error');
 }
 }
 async function adminAction(type) {
-if (AppState.user?.role !== 'admin') {
+if (!isCurrentAdmin()) {
 showToast('Administrator access is required', 'error');
 return;
 }
@@ -7871,6 +8205,8 @@ try {
 await db.runTransaction(async (transaction) => {
 const txRef = db.collection('membershipRequests').doc(txId);
 const userRef = db.collection('users').doc(userId);
+const membershipLedgerRef = db.collection('transactions').doc();
+const membershipNotificationRef = db.collection('notifications').doc();
 const txDoc = await transaction.get(txRef);
 if (!txDoc.exists || txDoc.data().status !== 'pending') {
 throw new Error('Request already processed');
@@ -7878,6 +8214,13 @@ throw new Error('Request already processed');
 const userDoc = await transaction.get(userRef);
 if (!userDoc.exists) throw new Error('Member account could not be found');
 const memberData = userDoc.data();
+const requestData = txDoc.data();
+const walletActivation = requestData.type === 'wallet';
+const walletActivationAmount = 35000;
+const currentBalance = Number(memberData.balance || 0);
+if (walletActivation && currentBalance < walletActivationAmount) {
+throw new Error('The member no longer has enough wallet balance for activation');
+}
 const referrerId = memberData.referredByUserId;
 const referrerRef = referrerId && referrerId !== userId ? db.collection('users').doc(referrerId) : null;
 const referrerDoc = referrerRef ? await transaction.get(referrerRef) : null;
@@ -7887,6 +8230,7 @@ status: 'approved',
 approvedAt: firebase.firestore.FieldValue.serverTimestamp()
 });
 transaction.update(userRef, {
+'balance': walletActivation ? currentBalance - walletActivationAmount : currentBalance,
 'membership.active': true,
 'membership.status': 'active',
 'membership.startAt': now.toISOString(),
@@ -7896,6 +8240,18 @@ transaction.update(userRef, {
 'dailyCheckin.day': 0,
 ...(referrerDoc?.exists && !memberData.referralActivated ? { referralActivated: true } : {})
 });
+if (walletActivation) {
+transaction.set(membershipLedgerRef, {
+userId,
+userName: memberData.name || 'C&J member',
+userEmail: memberData.email || '',
+type: 'membership_debit',
+description: 'Membership activation',
+amount: -walletActivationAmount,
+date: firebase.firestore.FieldValue.serverTimestamp(),
+status: 'completed'
+});
+}
 if (referrerDoc?.exists && !memberData.referralActivated) {
 transaction.update(referrerRef, {
 'referrals.active': firebase.firestore.FieldValue.increment(1),
@@ -7910,6 +8266,15 @@ message: 'Your membership has been approved. Your daily earning cycle is active.
 read: false,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
 });
+if (walletActivation) {
+transaction.set(membershipNotificationRef, {
+userId,
+title: 'Membership payment',
+message: 'You have spent N' + walletActivationAmount.toLocaleString() + ' on membership activation.',
+read: false,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+}
 });
 btn.closest('tr').style.background = 'rgba(32,199,101,.08)';
 btn.closest('tr').querySelector('td:last-child').innerHTML = '<span class="tag tag-green">APPROVED</span>';
@@ -8147,8 +8512,6 @@ document.getElementById('gameModalBody').appendChild(result);
 }
 function openGame(type) {
 const titles = {
-'lucky-pick': 'Lucky Pick',
-prediction: 'Match Prediction',
 wheel: 'Try Your Luck',
 quiz: 'Question & Answer'
 };
@@ -8166,57 +8529,39 @@ showToast('Activate your membership to access games', 'error');
 navigateTo('membership');
 return;
 }
+if (type === 'wheel' && Number(AppState.referrals.registered || 0) < 1) {
+showToast('Refer at least one member before spinning the wheel', 'error');
+return;
+}
 document.getElementById('gameModalTitle').textContent = titles[type];
 const body = document.getElementById('gameModalBody');
 body.replaceChildren();
 if (type === 'quiz') {
 renderQuizStakePrompt();
-} else if (type === 'lucky-pick') {
-const intro = document.createElement('p');
-intro.className = 'game-modal-copy';
-intro.textContent = 'Free entertainment only — this game does not use or award real money.';
-body.appendChild(intro);
-const prompt = document.createElement('p');
-prompt.className = 'game-modal-copy';
-prompt.textContent = 'Choose heads or tails and see what the coin lands on.';
-body.appendChild(prompt);
-const choices = document.createElement('div');
-choices.className = 'game-choice-grid';
-['Heads', 'Tails'].forEach(choice => choices.appendChild(createGameChoice(choice, () => {
-choices.querySelectorAll('button').forEach(button => { button.disabled = true; });
-const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
-showGameResult((choice === result ? 'Nice pick!' : 'Not this time.') + ' The coin landed on ' + result + '. No stakes or rewards.');
-body.appendChild(createGameChoice('Play again', () => openGame(type)));
-})));
-body.appendChild(choices);
-} else if (type === 'prediction') {
-const intro = document.createElement('p');
-intro.className = 'game-modal-copy';
-intro.textContent = 'Free entertainment only — this game does not use or award real money.';
-body.appendChild(intro);
-const prompt = document.createElement('p');
-prompt.className = 'game-modal-copy';
-prompt.textContent = 'Make a free prediction for a fictional match. This is not a real fixture or a bet.';
-body.appendChild(prompt);
-const choices = document.createElement('div');
-choices.className = 'game-choice-grid';
-const outcomes = ['Home win', 'Draw', 'Away win'];
-outcomes.forEach(choice => choices.appendChild(createGameChoice(choice, () => {
-choices.querySelectorAll('button').forEach(button => { button.disabled = true; });
-const result = outcomes[Math.floor(Math.random() * outcomes.length)];
-showGameResult((choice === result ? 'Correct prediction!' : 'Good try.') + ' The simulated result was: ' + result + '. No money or points are involved.');
-body.appendChild(createGameChoice('Try again', () => openGame(type)));
-})));
-body.appendChild(choices);
 } else {
 const intro = document.createElement('p');
 intro.className = 'game-modal-copy';
-intro.textContent = 'Free entertainment only — this game does not use or award real money.';
+intro.textContent = 'Spin for C&J currency rewards. Stakes must be between N500 and N5,000. A new registered referral gives you one free spin.';
 body.appendChild(intro);
-const prompt = document.createElement('p');
-prompt.className = 'game-modal-copy';
-prompt.textContent = 'Spin the wheel for a fun result. This game does not use or award real money.';
-body.appendChild(prompt);
+const stakeField = document.createElement('div');
+stakeField.className = 'field';
+const stakeLabel = document.createElement('label');
+stakeLabel.textContent = 'Stake amount (N500 - N5,000)';
+const stakeInput = document.createElement('input');
+stakeInput.className = 'input';
+stakeInput.id = 'wheelStake';
+stakeInput.type = 'number';
+stakeInput.min = '500';
+stakeInput.max = '5000';
+stakeInput.step = '500';
+stakeInput.placeholder = 'Enter wheel stake';
+stakeField.append(stakeLabel, stakeInput);
+body.appendChild(stakeField);
+const freeSpins = Math.max(0, Number(AppState.referrals.registered || 0) - Number(AppState.freeSpinsUsed || 0));
+const freeSpinNote = document.createElement('p');
+freeSpinNote.className = 'game-modal-copy';
+freeSpinNote.textContent = 'Free referral spins available: ' + freeSpins;
+body.appendChild(freeSpinNote);
 const stage = document.createElement('div');
 stage.className = 'wheel-stage';
 const pointer = document.createElement('div');
@@ -8225,9 +8570,20 @@ pointer.setAttribute('aria-hidden', 'true');
 const wheel = document.createElement('div');
 wheel.className = 'wheel-disc';
 wheel.setAttribute('aria-label', 'Colorful spinning wheel');
+const rewards = [500, 500, 750, 1000, 1000, 1500, 2000, 5000];
+const labels = document.createElement('div');
+labels.className = 'wheel-labels';
+rewards.forEach((reward, index) => {
+const label = document.createElement('span');
+label.className = 'wheel-label';
+label.style.setProperty('--angle', (index * 45 + 22.5) + 'deg');
+label.textContent = 'N' + reward.toLocaleString();
+labels.appendChild(label);
+});
+wheel.appendChild(labels);
 stage.append(pointer, wheel);
 body.appendChild(stage);
-const spin = createGameChoice('Spin the wheel', () => spinGameWheel(wheel, spin));
+const spin = createGameChoice('Spin the wheel', () => spinGameWheel(wheel, spin, stakeInput, freeSpins > 0));
 spin.classList.add('wheel-spin-btn', 'btn', 'btn-primary');
 body.appendChild(spin);
 }
@@ -8262,20 +8618,20 @@ const input = document.createElement('input');
 input.className = 'input';
 input.id = 'quizStake';
 input.type = 'number';
-input.min = '1';
+input.min = '500';
 input.step = '1';
 input.placeholder = 'Enter amount to bet';
 field.append(label, input);
 body.appendChild(field);
-const start = createGameChoice('Start quiz', () => beginQuizWithStake(input));
+const start = createGameChoice('Start quiz', () => beginQuizWithStake(input, start));
 start.classList.add('btn', 'btn-primary');
 start.style.width = '100%';
 body.appendChild(start);
 }
-async function beginQuizWithStake(input) {
+async function beginQuizWithStake(input, startButton) {
 const stake = Number(input.value);
-if (!Number.isSafeInteger(stake) || stake <= 0) {
-showToast('Enter a whole-number stake in naira', 'error');
+if (!Number.isSafeInteger(stake) || stake < 500 || stake > 5000) {
+showToast('Quiz stakes must be between N500 and N5,000', 'error');
 return;
 }
 if (stake > Number(AppState.balance || 0)) {
@@ -8287,7 +8643,6 @@ if (!user) {
 showToast('Sign in again before starting a game', 'error');
 return;
 }
-const startButton = input.parentElement.parentElement.nextElementSibling;
 startButton.disabled = true;
 startButton.textContent = 'Starting quiz...';
 try {
@@ -8340,15 +8695,66 @@ updateQuizTimer();
 if (quizState.timeRemaining <= 0) failQuizQuestion('Time is up. This question counts as incorrect.');
 }, 1000);
 }
-function spinGameWheel(wheel, button) {
+async function spinGameWheel(wheel, button, stakeInput, hasFreeSpin) {
+if (Number(AppState.referrals.registered || 0) < 1) {
+showToast('Refer at least one member before spinning the wheel', 'error');
+return;
+}
+const requestedStake = Number(stakeInput.value);
+const useFreeSpin = hasFreeSpin && (!requestedStake || requestedStake < 500);
+if (!useFreeSpin && (!Number.isSafeInteger(requestedStake) || requestedStake < 500 || requestedStake > 5000)) {
+showToast('Wheel stakes must be between N500 and N5,000', 'error');
+return;
+}
 button.disabled = true;
-const outcomes = ['Bright start!', 'Good vibes!', 'Keep smiling!', 'Try again for fun!', 'Great energy!', 'Stay curious!', 'You got this!', 'Nice spin!'];
-const resultIndex = Math.floor(Math.random() * outcomes.length);
+const rewards = [500, 500, 750, 1000, 1000, 1500, 2000, 5000];
+const resultIndex = Math.floor(Math.random() * rewards.length);
+const reward = rewards[resultIndex];
 const degrees = 1800 + (360 - (resultIndex * 45 + 22.5));
 wheel.style.transform = 'rotate(' + degrees + 'deg)';
-window.setTimeout(() => {
+window.setTimeout(async () => {
 if (!document.getElementById('gameModal').classList.contains('active')) return;
-showGameResult(outcomes[resultIndex] + ' This is just for fun.');
+const stake = useFreeSpin ? 0 : requestedStake;
+try {
+const user = auth.currentUser;
+const userRef = db.collection('users').doc(user.uid);
+const ledgerRef = db.collection('transactions').doc();
+await db.runTransaction(async transaction => {
+const snapshot = await transaction.get(userRef);
+if (!snapshot.exists) throw new Error('Your account record could not be found');
+const data = snapshot.data();
+const balance = Number(data.balance || 0);
+const registeredReferrals = Number(data.referrals?.registered || 0);
+if (registeredReferrals < 1) throw new Error('Refer at least one member before spinning the wheel');
+const freeAvailable = Math.max(0, Number(data.referrals?.registered || 0) - Number(data.freeSpinsUsed || 0));
+if (useFreeSpin && freeAvailable < 1) throw new Error('No free referral spin is available');
+if (!useFreeSpin && balance < stake) throw new Error('Insufficient available balance');
+transaction.update(userRef, {
+balance: balance - stake + reward,
+...(useFreeSpin ? { freeSpinsUsed: Number(data.freeSpinsUsed || 0) + 1 } : {})
+});
+transaction.set(ledgerRef, {
+userId: user.uid,
+userName: AppState.user.name,
+type: 'game_spin',
+description: useFreeSpin ? 'Free referral wheel spin reward' : 'Wheel spin stake and reward',
+amount: reward - stake,
+stake,
+reward,
+game: 'wheel',
+date: firebase.firestore.FieldValue.serverTimestamp(),
+status: 'completed'
+});
+});
+AppState.balance += reward - stake;
+if (useFreeSpin) AppState.freeSpinsUsed++;
+updateBalanceDisplays();
+renderTransactions();
+showGameResult('The wheel landed on N' + reward.toLocaleString() + ' C&J currency. ' + (useFreeSpin ? 'Free referral spin used.' : 'Stake: N' + stake.toLocaleString() + '.'));
+} catch (error) {
+console.error('Failed to settle wheel spin:', error);
+showToast('Wheel spin failed: ' + error.message, 'error');
+}
 const spinAgain = createGameChoice('Spin again', () => openGame('wheel'));
 spinAgain.classList.add('wheel-spin-btn', 'btn', 'btn-primary');
 document.getElementById('gameModalBody').appendChild(spinAgain);
@@ -8669,6 +9075,16 @@ function toggleChat() {
 document.getElementById('chatWindow').classList.toggle('active');
 document.getElementById('chatBadge').style.display = 'none';
 }
+function openSupportAssistant() {
+const chatWindow = document.getElementById('chatWindow');
+if (!chatWindow) {
+showToast('C&J AI Assistant is unavailable right now', 'error');
+return;
+}
+if (!chatWindow.classList.contains('active')) toggleChat();
+const input = document.getElementById('chatInput');
+if (input) input.focus();
+}
 function appendChatMessage(text, type) {
 const container = document.getElementById('chatMessages');
 const msg = document.createElement('div');
@@ -8699,7 +9115,7 @@ input.value = '';
 AppState.chatHistory.push({ role: 'user', content: msg });
 showTypingIndicator();
 try {
-const reply = await getAIResponse(msg);
+const reply = sanitizeAssistantReply(await getAIResponse(msg));
 removeTypingIndicator();
 appendChatMessage(reply, 'bot');
 AppState.chatHistory.push({ role: 'assistant', content: reply });
@@ -8713,10 +9129,24 @@ try {
 const apiUrl = 'https://prexzyapis.com/ai/askgpt5?prompt=' + encodeURIComponent(userMessage) + '&state=test';
 const response = await fetch(apiUrl);
 const data = await response.json();
-return data.response || data.message || data.reply || "I am here to help!";
+return sanitizeAssistantReply(data.response || data.message || data.reply || "I am here to help!");
 } catch (error) {
 return getFallbackResponse(userMessage);
 }
+}
+function sanitizeAssistantReply(reply) {
+let text = String(reply || '').trim();
+if (!text) return 'I am C&J AI Assistant. How can I help you today?';
+if (/\b(?:who\s+(?:made|created|developed|built)|creator|developer|owner|owned\s+by)\b/i.test(text) &&
+/\b(?:do not|don't|does not|doesn't|no information|not sure|unknown|cannot|can't|unable)\b/i.test(text)) {
+return 'I am C&J AI Assistant, created for and owned by C&J LIMITED. How can I help you today?';
+}
+text = text
+.replace(/\bI\s+am\s+Qwen[\w.\s-]*(?:\([^)]*\))?[.!]?/gi, 'I am C&J AI Assistant.')
+.replace(/\bQwen[\w.-]*(?:\s+\d+[A-Za-z]+)?(?:\s+[a-z]\d+)?(?:\s*\([^)]*\))?/gi, 'C&J AI Assistant')
+.replace(/\b(?:ChatGPT|OpenAI|GPT[-\s]?\d+(?:\.\d+)?|Claude|Gemini|Llama)\b/gi, 'C&J AI Assistant')
+.replace(/\b(as an ai|i am an ai|i'm an ai)\b/gi, 'As C&J AI Assistant');
+return text.trim() || 'I am C&J AI Assistant. How can I help you today?';
 }
 function getFallbackResponse(msg) {
 const lower = msg.toLowerCase();
@@ -8747,7 +9177,7 @@ appendChatMessage(msg, 'user');
 AppState.chatHistory.push({ role: 'user', content: msg });
 showTypingIndicator();
 setTimeout(() => {
-const reply = getFallbackResponse(msg);
+const reply = sanitizeAssistantReply(getFallbackResponse(msg));
 removeTypingIndicator();
 appendChatMessage(reply, 'bot');
 AppState.chatHistory.push({ role: 'assistant', content: reply });
@@ -8810,11 +9240,9 @@ setHrefIfExists('currentIosLink', AppState.iosDownloadLink);
 loadConfiguredAppLinks().catch(error => {
 console.error('Failed to load configured app download links:', error);
 });
-const adminNavGroup = document.getElementById('adminNavGroup');
 function navigateForCurrentUser() {
-const isAdmin = AppState.user && (AppState.user.role === 'admin' || isAdminEmail(AppState.user.email));
-document.body.classList.toggle('admin-mode', Boolean(isAdmin));
-if (adminNavGroup) adminNavGroup.style.display = isAdmin ? 'block' : 'none';
+const isAdmin = isCurrentAdmin();
+setAdminVisibility(isAdmin);
 navigateTo(isAdmin ? 'admin' : 'dashboard');
 if (isAdmin) {
 loadAdminPanelData().catch(error => {
@@ -8824,8 +9252,16 @@ showToast('Admin panel data could not be loaded: ' + error.message, 'error');
 }
 }
 auth.onAuthStateChanged(user => {
+AppState.user = null;
+setAdminVisibility(false);
 if (user) {
 db.collection('users').doc(user.uid).get().then(async doc => {
+if (!doc.exists) {
+await auth.signOut();
+showView('landingView');
+showToast('Your account profile could not be found. Please sign in again.', 'error');
+return;
+}
 if (doc.exists) {
 const userData = doc.data();
 const name = userData.name || user.displayName || user.email.split('@')[0];
@@ -8856,6 +9292,8 @@ navigateForCurrentUser();
 }
 }).catch(error => {
 console.error('Failed to load the signed-in user profile from Firestore:', error);
+showView('landingView');
+showToast('Your account could not be loaded. Please try signing in again.', 'error');
 });
 } else {
 showView('landingView');
