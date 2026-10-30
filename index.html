@@ -655,6 +655,29 @@ body.dark .profile-name{color:#fff}
 .typing-dot:nth-child(3){animation-delay:.4s}
 @keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-7px);opacity:1}}
 .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
+@media(max-width:600px){
+#txTable th:nth-child(2),#txTable td:nth-child(2),
+#txTable th:nth-child(4),#txTable td:nth-child(4),
+#fullTxTable th:nth-child(1),#fullTxTable td:nth-child(1),
+#fullTxTable th:nth-child(3),#fullTxTable td:nth-child(3),
+#fullTxTable th:nth-child(5),#fullTxTable td:nth-child(5),
+#wdTable th:nth-child(3),#wdTable td:nth-child(3),
+#wdTable th:nth-child(4),#wdTable td:nth-child(4),
+#adminTransactionTable th:nth-child(1),#adminTransactionTable td:nth-child(1),
+#adminTransactionTable th:nth-child(5),#adminTransactionTable td:nth-child(5),
+#adminTransactionTable th:nth-child(6),#adminTransactionTable td:nth-child(6),
+#adminRecentWithdrawals th:nth-child(1),#adminRecentWithdrawals td:nth-child(1),
+#adminUserActivity th:nth-child(1),#adminUserActivity td:nth-child(1),
+#adminUserActivity th:nth-child(5),#adminUserActivity td:nth-child(5){display:none}
+#walletTable th:nth-child(3),#walletTable td:nth-child(3){display:none}
+#txTable th,#txTable td,#fullTxTable th,#fullTxTable td,#wdTable th,#wdTable td,
+#adminTransactionTable th,#adminTransactionTable td,#adminRecentWithdrawals th,#adminRecentWithdrawals td,
+#adminUserActivity th,#adminUserActivity td,#walletTable th,#walletTable td{padding:10px 7px;font-size:11px}
+#txTable td:last-child,#fullTxTable td:last-child,#wdTable td:last-child,
+#adminTransactionTable td:last-child,#adminRecentWithdrawals td:last-child,#adminUserActivity td:last-child,#walletTable td:last-child{white-space:nowrap;width:1%}
+#txTable .btn,#fullTxTable .btn,#wdTable .btn,#adminTransactionTable .btn,#adminRecentWithdrawals .btn,#adminUserActivity .btn,#walletTable .btn{padding:8px 9px;font-size:11px}
+#txTable .tag,#fullTxTable .tag,#wdTable .tag,#adminTransactionTable .tag{font-size:9px;padding:4px 6px}
+}
 @media(max-width:900px){.service-grid{grid-template-columns:repeat(2,1fr)}}
 .service-card{background:var(--soft);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all .2s;cursor:pointer}
 .service-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-md)}
@@ -1767,7 +1790,10 @@ Refresh data
 </div>
 </div>
 <div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Transaction History</div>
+<button class="btn btn-outline btn-sm" type="button" onclick="navigateTo('transactions')">View all</button>
+</div>
 <div class="table-wrap" style="margin-top:10px">
 <table>
 <thead>
@@ -1777,11 +1803,12 @@ Refresh data
 <th>Amount</th>
 <th>Date</th>
 <th>Status</th>
+<th></th>
 </tr>
 </thead>
 <tbody id="txTable">
 <tr>
-<td colspan="5" style="text-align:center;padding:28px;color:var(--muted)">No transactions yet</td>
+<td colspan="6" style="text-align:center;padding:28px;color:var(--muted)">No transactions yet</td>
 </tr>
 </tbody>
 </table>
@@ -1859,11 +1886,12 @@ Export CSV
 <th>Amount</th>
 <th>Date</th>
 <th>Status</th>
+<th></th>
 </tr>
 </thead>
 <tbody id="fullTxTable">
 <tr>
-<td colspan="6" style="text-align:center;padding:28px;color:var(--muted)">No transactions yet</td>
+<td colspan="7" style="text-align:center;padding:28px;color:var(--muted)">No transactions yet</td>
 </tr>
 </tbody>
 </table>
@@ -1968,7 +1996,10 @@ Export CSV
 </div>
 </div>
 <div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Wallet Transactions</div>
+<button class="btn btn-outline btn-sm" type="button" onclick="navigateTo('transactions')">View all</button>
+</div>
 <div class="table-wrap" style="margin-top:10px">
 <table>
 <thead>
@@ -1977,11 +2008,12 @@ Export CSV
 <th>Amount</th>
 <th>Date</th>
 <th>Status</th>
+<th></th>
 </tr>
 </thead>
 <tbody id="walletTable">
 <tr>
-<td colspan="4" style="text-align:center;padding:28px;color:var(--muted)">No wallet activity yet</td>
+<td colspan="5" style="text-align:center;padding:28px;color:var(--muted)">No wallet activity yet</td>
 </tr>
 </tbody>
 </table>
@@ -2030,7 +2062,10 @@ Select an amount to see timing rules.
 <button class="btn btn-primary btn-block" style="margin-top:20px" onclick="submitWithdrawal()">Submit Withdrawal Request</button>
 </div>
 <div class="card" style="margin-top:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Withdrawal History</div>
+<button class="btn btn-outline btn-sm" id="withdrawalHistoryToggle" type="button" onclick="toggleWithdrawalHistory()">View all</button>
+</div>
 <div class="table-wrap" style="margin-top:10px">
 <table>
 <thead>
@@ -2044,7 +2079,7 @@ Select an amount to see timing rules.
 </thead>
 <tbody id="wdTable">
 <tr>
-<td colspan="5" style="text-align:center;padding:28px;color:var(--muted)">No withdrawals yet</td>
+<td colspan="6" style="text-align:center;padding:28px;color:var(--muted)">No withdrawals yet</td>
 </tr>
 </tbody>
 </table>
@@ -3220,8 +3255,8 @@ Refresh data
 <div class="card" id="admin-recent-withdrawals">
 <div class="card-title">Recent withdrawals</div>
 <div class="table-wrap">
-<table><thead><tr><th>Name</th><th>Amount</th><th>Status</th></tr></thead>
-<tbody id="adminRecentWithdrawals"><tr><td colspan="3" style="text-align:center;padding:20px;color:var(--muted)">Loading withdrawals…</td></tr></tbody></table>
+<table><thead><tr><th>Name</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+<tbody id="adminRecentWithdrawals"><tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">Loading withdrawals…</td></tr></tbody></table>
 </div>
 <button class="btn btn-outline btn-sm" type="button" style="margin-top:14px" onclick="navigateAdminSection('admin-withdrawals', document.querySelector('.admin-nav-item[onclick*=admin-withdrawals]'))">View withdrawals</button>
 </div>
@@ -3330,8 +3365,8 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 <div style="font-size:12px;color:var(--muted);margin:4px 0 10px">Membership requests, wallet transactions and withdrawal requests for this account.</div>
 <div class="table-wrap">
 <table>
-<thead><tr><th>Date</th><th>Activity</th><th>Amount</th><th>Status</th><th>Details</th></tr></thead>
-<tbody id="adminUserActivity"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Search for a user to load financial activity</td></tr></tbody>
+<thead><tr><th>Date</th><th>Activity</th><th>Amount</th><th>Status</th><th>Details</th><th></th></tr></thead>
+<tbody id="adminUserActivity"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">Search for a user to load financial activity</td></tr></tbody>
 </table>
 </div>
 </div>
@@ -3346,8 +3381,8 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 <div class="card" id="admin-transactions" style="margin-bottom:24px">
 <div class="card-title">Recent transactions</div>
 <p style="font-size:13px;color:var(--muted);margin:8px 0 14px">Latest wallet activity across member accounts.</p>
-<div class="table-wrap"><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th>Details</th></tr></thead>
-<tbody id="adminTransactionTable"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--muted)">Loading transactions…</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th>Details</th><th></th></tr></thead>
+<tbody id="adminTransactionTable"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Loading transactions…</td></tr></tbody></table></div>
 </div>
 <div class="card" id="admin-deposits" style="margin-bottom:24px">
 <div class="card-title">Deposit requests</div>
@@ -3661,6 +3696,22 @@ Transfer to the account below, then submit your request. You can attach a receip
 </form>
 </div>
 </div>
+<div class="modal-backdrop" id="transactionDetailModal">
+<div class="modal">
+<div class="modal-head">
+<div class="modal-title">Transaction details</div>
+<button class="close-btn" type="button" onclick="closeModal('transactionDetailModal')" aria-label="Close transaction details">×</button>
+</div>
+<div style="display:grid;gap:14px">
+<div><div class="stat-label">Type</div><div style="font-weight:700;color:var(--navy)" id="transactionDetailType">—</div></div>
+<div><div class="stat-label">Description</div><div style="font-weight:600;overflow-wrap:anywhere" id="transactionDetailDescription">—</div></div>
+<div><div class="stat-label">Amount</div><div style="font-size:24px;font-weight:800;color:var(--green)" id="transactionDetailAmount">—</div></div>
+<div><div class="stat-label">Date</div><div style="font-weight:600" id="transactionDetailDate">—</div></div>
+<div><div class="stat-label">Status</div><div class="tag tag-gold" style="display:inline-flex;margin-top:4px" id="transactionDetailStatus">—</div></div>
+<div><div class="stat-label">Transaction ID</div><div style="font-size:12px;color:var(--muted);overflow-wrap:anywhere" id="transactionDetailId">—</div></div>
+</div>
+</div>
+</div>
 <div class="chat-wrap">
 <div class="chat-win" id="chatWindow">
 <div class="chat-h">
@@ -3818,6 +3869,7 @@ balance: 0,
 totalEarned: 0,
 points: 0,
 referrals: { registered: 0, active: 0 },
+referralRecords: [],
 membership: {
 active: false,
 status: 'inactive',
@@ -3833,6 +3885,7 @@ hasUsedIntroWithdrawal: false,
 verificationStatus: 'not-submitted',
 transactions: [],
 withdrawals: [],
+showAllWithdrawals: false,
 lastTick: Date.now(),
 selectedWithdraw: null,
 androidDownloadLink: 'https://example.com/cj-android',
@@ -3847,10 +3900,12 @@ notifications: [],
 notificationFilter: 'all',
 notificationsUnsubscribe: null,
 transactionsUnsubscribe: null,
+withdrawalsUnsubscribe: null,
 announcements: [],
 announcementsUnsubscribe: null,
 adminPostsUnsubscribe: null,
 adminSupportUnsubscribe: null,
+adminWithdrawalsUnsubscribe: null,
 supportMessagesUnsubscribe: null,
 posts: [],
 communityFollowingIds: [],
@@ -3858,6 +3913,7 @@ communityLikedPostIds: [],
 communityPostsUnsubscribe: null,
 userSnapshotUnsubscribe: null,
 verificationSnapshotUnsubscribe: null,
+referralsUnsubscribe: null,
 adminSelectedUserId: null,
 adminUsersCache: null,
 earningTickerId: null,
@@ -4293,6 +4349,8 @@ AppState.balance = 0;
 AppState.totalEarned = 0;
 AppState.points = 0;
 AppState.referrals = { registered: 0, active: 0 };
+AppState.referralRecords = [];
+AppState.freeSpinsUsed = 0;
 AppState.membership = {
 active: false,
 status: 'inactive',
@@ -4333,6 +4391,10 @@ if (AppState.verificationSnapshotUnsubscribe) {
 AppState.verificationSnapshotUnsubscribe();
 AppState.verificationSnapshotUnsubscribe = null;
 }
+if (AppState.referralsUnsubscribe) {
+AppState.referralsUnsubscribe();
+AppState.referralsUnsubscribe = null;
+}
 if (AppState.communityPostsUnsubscribe) {
 AppState.communityPostsUnsubscribe();
 AppState.communityPostsUnsubscribe = null;
@@ -4345,6 +4407,10 @@ if (AppState.transactionsUnsubscribe) {
 AppState.transactionsUnsubscribe();
 AppState.transactionsUnsubscribe = null;
 }
+if (AppState.withdrawalsUnsubscribe) {
+AppState.withdrawalsUnsubscribe();
+AppState.withdrawalsUnsubscribe = null;
+}
 if (AppState.announcementsUnsubscribe) {
 AppState.announcementsUnsubscribe();
 AppState.announcementsUnsubscribe = null;
@@ -4352,6 +4418,10 @@ AppState.announcementsUnsubscribe = null;
 if (AppState.adminPostsUnsubscribe) {
 AppState.adminPostsUnsubscribe();
 AppState.adminPostsUnsubscribe = null;
+}
+if (AppState.adminWithdrawalsUnsubscribe) {
+AppState.adminWithdrawalsUnsubscribe();
+AppState.adminWithdrawalsUnsubscribe = null;
 }
 if (AppState.adminSupportUnsubscribe) {
 AppState.adminSupportUnsubscribe();
@@ -4394,6 +4464,7 @@ ratePerDay: 1000
 AppState.bank = null;
 AppState.transactions = [];
 AppState.withdrawals = [];
+AppState.showAllWithdrawals = false;
 showView('authView');
 showToast('Signed out successfully', 'success');
 } catch (error) {
@@ -4700,12 +4771,14 @@ showToast('Verification status could not be refreshed: ' + error.message, 'error
 });
 loadCommunityPosts();
 loadUserNotifications();
+loadUserReferrals();
 loadUserTransactions();
 loadPlatformAnnouncements();
 loadUserSupportMessages();
 if (isCurrentAdmin()) {
 loadAdminCommunityPosts();
 loadAdminSupportMessages();
+loadAdminWithdrawalQueue();
 }
 }
 function loadUserNotifications() {
@@ -4722,13 +4795,58 @@ console.error('Failed to monitor notifications:', error);
 showToast('Notifications could not be loaded: ' + error.message, 'error');
 });
 }
+function loadUserReferrals() {
+if (AppState.referralsUnsubscribe) AppState.referralsUnsubscribe();
+const referralQuery = db.collection('users')
+.where('referredByUserId', '==', AppState.user.uid)
+.limit(200);
+AppState.referralsUnsubscribe = referralQuery.onSnapshot(snapshot => {
+const referrals = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+.sort((a, b) => (asDate(b.createdAt)?.getTime() || 0) - (asDate(a.createdAt)?.getTime() || 0));
+AppState.referralRecords = referrals;
+const active = referrals.filter(referral => referral.membership?.active);
+AppState.referrals = {
+registered: referrals.length,
+active: active.length
+};
+AppState.points = active.length * 10;
+renderReferrals(referrals);
+renderStats();
+}, error => {
+console.error('Failed to monitor referrals:', error);
+showToast('Referrals could not be loaded: ' + error.message, 'error');
+});
+}
 function loadUserTransactions() {
 if (AppState.transactionsUnsubscribe) AppState.transactionsUnsubscribe();
+if (AppState.withdrawalsUnsubscribe) AppState.withdrawalsUnsubscribe();
+let transactionRecords = [];
+let withdrawalRecords = [];
+const renderCombinedTransactions = () => {
+const withdrawalTransactions = withdrawalRecords.map(withdrawal => ({
+id: withdrawal.id,
+type: 'withdrawal',
+description: 'Withdrawal request - N' + Number(withdrawal.req || 0).toLocaleString(),
+amount: -Number(withdrawal.req || 0),
+date: getWithdrawalDate(withdrawal.date)?.toISOString() || new Date().toISOString(),
+status: withdrawal.status || 'pending'
+}));
+const withdrawalIds = new Set(withdrawalRecords.map(withdrawal => withdrawal.id));
+const standaloneTransactions = transactionRecords.filter(transaction =>
+transaction.type !== 'withdrawal' || !transaction.withdrawalId || !withdrawalIds.has(transaction.withdrawalId)
+);
+AppState.withdrawals = withdrawalRecords;
+AppState.transactions = [...standaloneTransactions, ...withdrawalTransactions]
+.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+renderTransactions();
+renderWithdrawals();
+renderWallet();
+};
 AppState.transactionsUnsubscribe = db.collection('transactions')
 .where('userId', '==', AppState.user.uid)
 .limit(100)
 .onSnapshot(snapshot => {
-AppState.transactions = snapshot.docs.map(doc => {
+transactionRecords = snapshot.docs.map(doc => {
 const data = doc.data();
 return {
 id: doc.id,
@@ -4736,11 +4854,28 @@ id: doc.id,
 date: asDate(data.date)?.toISOString() || new Date().toISOString(),
 description: data.description || data.type || 'Transaction'
 };
-}).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-renderTransactions();
+});
+renderCombinedTransactions();
 }, error => {
 console.error('Failed to monitor transactions:', error);
 showToast('Transaction history could not be loaded: ' + error.message, 'error');
+});
+AppState.withdrawalsUnsubscribe = db.collection('withdrawals')
+.where('userId', '==', AppState.user.uid)
+.limit(100)
+.onSnapshot(snapshot => {
+withdrawalRecords = snapshot.docs.map(doc => {
+const data = doc.data();
+return {
+id: doc.id,
+...data,
+date: getWithdrawalDate(data.date)?.toISOString() || new Date().toISOString()
+};
+}).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+renderCombinedTransactions();
+}, error => {
+console.error('Failed to monitor withdrawal history:', error);
+showToast('Withdrawal history could not be loaded: ' + error.message, 'error');
 });
 }
 function loadPlatformAnnouncements() {
@@ -5047,6 +5182,7 @@ renderWallet();
 renderTransactions();
 updateAssetBalances();
 renderDailyCheckin();
+updateAchievements();
 }
 function renderStats() {
 document.getElementById('statPoints').textContent = AppState.points;
@@ -5578,9 +5714,24 @@ bank: AppState.bank,
 date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'pending'
 };
-await db.collection('withdrawals').add(withdrawalData);
+const withdrawalRef = db.collection('withdrawals').doc();
+const transactionRef = db.collection('transactions').doc();
+withdrawalData.transactionId = transactionRef.id;
+const writeBatch = db.batch();
+writeBatch.set(withdrawalRef, withdrawalData);
+writeBatch.set(transactionRef, {
+userId: user.uid,
+userName: AppState.user.name,
+type: 'withdrawal',
+description: 'Withdrawal request - N' + t.req.toLocaleString(),
+amount: -t.req,
+date: firebase.firestore.FieldValue.serverTimestamp(),
+status: 'pending',
+withdrawalId: withdrawalRef.id
+});
+await writeBatch.commit();
 AppState.withdrawals.unshift({
-id: Date.now().toString(),
+id: withdrawalRef.id,
 req: t.req,
 net,
 fee: t.req - net,
@@ -5590,7 +5741,7 @@ date: new Date().toISOString(),
 status: 'pending'
 });
 AppState.transactions.unshift({
-id: 'WD' + Date.now(),
+id: transactionRef.id,
 type: 'withdrawal',
 description: 'Withdrawal request - N' + t.req.toLocaleString(),
 amount: -t.req,
@@ -5599,6 +5750,7 @@ status: 'pending'
 });
 renderTransactions();
 renderWithdrawals();
+renderAchievements();
 addNotification('Withdrawal Submitted', 'Your withdrawal of N' + t.req.toLocaleString() + ' is pending admin approval.', 'withdrawal');
 showToast('Withdrawal request submitted - pending admin approval', 'success');
 } catch (error) {
@@ -5607,20 +5759,55 @@ showToast('Failed to submit withdrawal: ' + error.message, 'error');
 }
 function renderWithdrawals() {
 const tb = document.getElementById('wdTable');
+const toggle = document.getElementById('withdrawalHistoryToggle');
+if (toggle) {
+toggle.style.display = AppState.withdrawals.length > 5 ? '' : 'none';
+toggle.textContent = AppState.showAllWithdrawals ? 'Show less' : 'View all';
+}
 if (!AppState.withdrawals.length) {
 tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:28px;color:var(--muted)">No withdrawals yet</td></tr>';
 return;
 }
-tb.innerHTML = AppState.withdrawals.map(w => '<tr><td>N' + w.req.toLocaleString() + '</td><td style="color:var(--green)">N' + w.net.toLocaleString() + '</td><td>' + w.points + '</td><td>' + new Date(w.date).toLocaleDateString() + '</td><td><span class="tag ' + (w.status === 'pending' ? 'tag-gold' : ['approved','paid'].includes(w.status) ? 'tag-green' : 'tag-red') + '">' + (w.status === 'approved' ? 'PAID' : w.status.toUpperCase()) + '</span></td></tr>').join('');
+const visibleWithdrawals = AppState.showAllWithdrawals ? AppState.withdrawals : AppState.withdrawals.slice(0, 5);
+tb.innerHTML = visibleWithdrawals.map(w => {
+const transaction = AppState.transactions.find(item => item.id === w.transactionId) || {
+id: w.transactionId || w.id,
+type: 'withdrawal',
+description: 'Withdrawal request - N' + Number(w.req || 0).toLocaleString(),
+amount: -Number(w.req || 0),
+date: w.date,
+status: w.status
+};
+return '<tr><td>N' + w.req.toLocaleString() + '</td><td style="color:var(--green)">N' + w.net.toLocaleString() + '</td><td>' + w.points + '</td><td>' + new Date(w.date).toLocaleDateString() + '</td><td><span class="tag ' + (w.status === 'pending' ? 'tag-gold' : ['approved','paid'].includes(w.status) ? 'tag-green' : 'tag-red') + '">' + (w.status === 'approved' ? 'PAID' : w.status.toUpperCase()) + '</span></td><td><button class="btn btn-outline btn-sm" type="button" onclick="viewWithdrawal(\'' + escapeTransactionText(w.id) + '\')">View</button></td></tr>';
+}).join('');
 }
-function renderReferrals() {
+function toggleWithdrawalHistory() {
+AppState.showAllWithdrawals = !AppState.showAllWithdrawals;
+renderWithdrawals();
+}
+function renderReferrals(referrals = AppState.referralRecords) {
 const codeEl = document.getElementById('refCode');
 if (codeEl) codeEl.textContent = AppState.user?.referralCode || 'Sign in to view your code';
 const link = document.getElementById('referralInviteLink');
 if (link) link.value = AppState.user?.referralCode ? buildReferralLink(AppState.user.referralCode) : '';
-document.getElementById('refRegistered').textContent = AppState.referrals.registered;
-document.getElementById('refActive').textContent = AppState.referrals.active;
-document.getElementById('refPoints').textContent = AppState.points;
+const registeredEl = document.getElementById('refRegistered');
+const activeEl = document.getElementById('refActive');
+const pointsEl = document.getElementById('refPoints');
+if (registeredEl) registeredEl.textContent = AppState.referrals.registered;
+if (activeEl) activeEl.textContent = AppState.referrals.active;
+if (pointsEl) pointsEl.textContent = AppState.points;
+const table = document.getElementById('refTable');
+if (table) {
+if (!referrals.length) {
+table.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:28px;color:var(--muted)">No referrals yet - start sharing!</td></tr>';
+} else {
+table.innerHTML = referrals.map(referral => {
+const active = Boolean(referral.membership?.active);
+const joined = asDate(referral.createdAt);
+return '<tr><td>' + escapeTransactionText(referral.name || referral.email || 'C&J member') + '</td><td><span class="tag ' + (active ? 'tag-green' : 'tag-gold') + '">' + (active ? 'ACTIVE' : 'REGISTERED') + '</span></td><td>' + escapeTransactionText(joined ? joined.toLocaleDateString() : '—') + '</td><td>' + (active ? '10' : '0') + '</td></tr>';
+}).join('');
+}
+}
 renderPromotionCertificate();
 }
 function buildReferralLink(code) {
@@ -5692,11 +5879,51 @@ window.setTimeout(finish, 1000);
 }
 function renderWallet() {
 const deps = AppState.transactions.filter(t => t.type === 'deposit' && t.status === 'approved').reduce((a, b) => a + b.amount, 0);
-const wds = AppState.withdrawals.filter(w => ['approved','paid'].includes(w.status)).reduce((a, b) => a + b.net, 0);
+const wds = AppState.withdrawals
+.filter(w => ['approved', 'paid'].includes(w.status))
+.reduce((sum, withdrawal) => sum + Number(withdrawal.net ?? withdrawal.req ?? 0), 0);
 const pending = AppState.withdrawals.filter(w => w.status === 'pending').reduce((a, b) => a + b.req, 0);
 document.getElementById('walletDeposits').textContent = 'N' + deps.toLocaleString();
 document.getElementById('walletWithdrawn').textContent = 'N' + wds.toLocaleString();
 document.getElementById('walletPending').textContent = 'N' + pending.toLocaleString();
+const table = document.getElementById('walletTable');
+if (!table) return;
+if (!AppState.transactions.length) {
+table.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:28px;color:var(--muted)">No wallet activity yet</td></tr>';
+return;
+}
+table.innerHTML = AppState.transactions.slice(0, 5).map(transaction => {
+const type = String(transaction.type || 'transaction').toLowerCase();
+const status = String(transaction.status || 'unknown').toLowerCase();
+const amount = Number(transaction.amount || 0);
+const typeClass = type === 'deposit' ? 'tag-green' : type === 'withdrawal' ? 'tag-red' : type.includes('transfer') ? 'tag-blue' : type === 'earning' ? 'tag-gold' : 'tag-blue';
+const statusClass = ['approved', 'completed', 'paid'].includes(status) ? 'tag-green' : status === 'pending' ? 'tag-gold' : 'tag-red';
+return '<tr><td><span class="tag ' + typeClass + '">' + escapeTransactionText(type.replace(/_/g, ' ').toUpperCase()) + '</span></td><td style="color:' + (amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + (amount >= 0 ? '+' : '') + 'N' + Math.abs(amount).toLocaleString() + '</td><td>' + escapeTransactionText(new Date(transaction.date).toLocaleDateString()) + '</td><td><span class="tag ' + statusClass + '">' + escapeTransactionText(status.toUpperCase()) + '</span></td><td><button class="btn btn-outline btn-sm" type="button" onclick="viewTransaction(\'' + escapeTransactionText(transaction.id) + '\')">View</button></td></tr>';
+}).join('');
+}
+function escapeTransactionText(value) {
+return String(value ?? '').replace(/[&<>"']/g, character => ({
+'&': '&amp;',
+'<': '&lt;',
+'>': '&gt;',
+'"': '&quot;',
+"'": '&#39;'
+}[character]));
+}
+function transactionRowHtml(transaction, includeId = false, rowNumber = 0) {
+const type = String(transaction.type || 'transaction').toLowerCase();
+const status = String(transaction.status || 'unknown').toLowerCase();
+const amount = Number(transaction.amount || 0);
+const typeClass = type === 'deposit' ? 'tag-green' : type === 'withdrawal' ? 'tag-red' : type === 'earning' ? 'tag-gold' : 'tag-blue';
+const statusClass = ['approved', 'completed', 'paid'].includes(status) ? 'tag-green' : status === 'pending' ? 'tag-gold' : 'tag-red';
+const id = escapeTransactionText(transaction.id);
+return (includeId ? '<td>#' + String(rowNumber + 1).padStart(4, '0') + '</td>' : '') +
+'<td><span class="tag ' + typeClass + '">' + escapeTransactionText(type.toUpperCase()) + '</span></td>' +
+'<td>' + escapeTransactionText(transaction.description || type) + '</td>' +
+'<td style="color:' + (amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + (amount >= 0 ? '+' : '') + 'N' + Math.abs(amount).toLocaleString() + '</td>' +
+'<td>' + escapeTransactionText(new Date(transaction.date).toLocaleDateString()) + '</td>' +
+'<td><span class="tag ' + statusClass + '">' + escapeTransactionText(status.toUpperCase()) + '</span></td>' +
+'<td><button class="btn btn-outline btn-sm" type="button" onclick="viewTransaction(\'' + id + '\')">View</button></td>';
 }
 function renderTransactions() {
 const tb = document.getElementById('txTable');
@@ -5709,9 +5936,9 @@ if (ftb) ftb.innerHTML = emptyFullRow;
 return;
 }
 const recentTx = AppState.transactions.slice(0, 5);
-tb.innerHTML = recentTx.map(t => '<tr><td><span class="tag ' + (t.type === 'deposit' ? 'tag-green' : t.type === 'withdrawal' ? 'tag-red' : t.type === 'earning' ? 'tag-gold' : 'tag-blue') + '">' + t.type.toUpperCase() + '</span></td><td>' + t.description + '</td><td style="color:' + (t.amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + (t.amount >= 0 ? '+' : '') + 'N' + Math.abs(t.amount).toLocaleString() + '</td><td>' + new Date(t.date).toLocaleDateString() + '</td><td><span class="tag ' + (['approved', 'completed', 'paid'].includes(t.status) ? 'tag-green' : t.status === 'pending' ? 'tag-gold' : 'tag-red') + '">' + t.status.toUpperCase() + '</span></td></tr>').join('');
+tb.innerHTML = recentTx.map(t => '<tr>' + transactionRowHtml(t) + '</tr>').join('');
 if (ftb) {
-ftb.innerHTML = AppState.transactions.map((t, i) => '<tr><td>#' + (i + 1).toString().padStart(4, '0') + '</td><td><span class="tag ' + (t.type === 'deposit' ? 'tag-green' : t.type === 'withdrawal' ? 'tag-red' : t.type === 'earning' ? 'tag-gold' : 'tag-blue') + '">' + t.type.toUpperCase() + '</span></td><td>' + t.description + '</td><td style="color:' + (t.amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + (t.amount >= 0 ? '+' : '') + 'N' + Math.abs(t.amount).toLocaleString() + '</td><td>' + new Date(t.date).toLocaleDateString() + '</td><td><span class="tag ' + (['approved', 'completed', 'paid'].includes(t.status) ? 'tag-green' : t.status === 'pending' ? 'tag-gold' : 'tag-red') + '">' + t.status.toUpperCase() + '</span></td></tr>').join('');
+ftb.innerHTML = AppState.transactions.map((t, i) => '<tr>' + transactionRowHtml(t, true, i) + '</tr>').join('');
 }
 }
 function filterTransactions(type, btn) {
@@ -5727,7 +5954,41 @@ if (!filtered.length) {
 ftb.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--muted)">No ' + type + ' transactions found</td></tr>';
 return;
 }
-ftb.innerHTML = filtered.map((t, i) => '<tr><td>#' + (i + 1).toString().padStart(4, '0') + '</td><td><span class="tag ' + (t.type === 'deposit' ? 'tag-green' : t.type === 'withdrawal' ? 'tag-red' : t.type === 'earning' ? 'tag-gold' : 'tag-blue') + '">' + t.type.toUpperCase() + '</span></td><td>' + t.description + '</td><td style="color:' + (t.amount >= 0 ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + (t.amount >= 0 ? '+' : '') + 'N' + Math.abs(t.amount).toLocaleString() + '</td><td>' + new Date(t.date).toLocaleDateString() + '</td><td><span class="tag ' + (['approved', 'completed', 'paid'].includes(t.status) ? 'tag-green' : t.status === 'pending' ? 'tag-gold' : 'tag-red') + '">' + t.status.toUpperCase() + '</span></td></tr>').join('');
+ftb.innerHTML = filtered.map((t, i) => '<tr>' + transactionRowHtml(t, true, i) + '</tr>').join('');
+}
+function viewTransaction(transactionId) {
+const transaction = AppState.transactions.find(item => item.id === transactionId);
+if (!transaction) {
+showToast('Transaction details could not be found', 'error');
+return;
+}
+showTransactionDetails(transaction);
+}
+function viewWithdrawal(withdrawalId) {
+const withdrawal = AppState.withdrawals.find(item => item.id === withdrawalId);
+if (!withdrawal) {
+showToast('Withdrawal details could not be found', 'error');
+return;
+}
+const transaction = AppState.transactions.find(item => item.id === withdrawal.transactionId) || {
+id: withdrawal.transactionId || withdrawal.id,
+type: 'withdrawal',
+description: 'Withdrawal request - N' + Number(withdrawal.req || 0).toLocaleString(),
+amount: -Number(withdrawal.req || 0),
+date: withdrawal.date,
+status: withdrawal.status
+};
+showTransactionDetails(transaction);
+}
+function showTransactionDetails(transaction) {
+const type = String(transaction.type || 'transaction').toLowerCase();
+document.getElementById('transactionDetailType').textContent = type.toUpperCase();
+document.getElementById('transactionDetailDescription').textContent = transaction.description || type;
+document.getElementById('transactionDetailAmount').textContent = (Number(transaction.amount || 0) >= 0 ? '+' : '-') + 'N' + Math.abs(Number(transaction.amount || 0)).toLocaleString();
+document.getElementById('transactionDetailDate').textContent = new Date(transaction.date).toLocaleString();
+document.getElementById('transactionDetailStatus').textContent = String(transaction.status || 'unknown').toUpperCase();
+document.getElementById('transactionDetailId').textContent = transaction.id || '—';
+openModal('transactionDetailModal');
 }
 function exportTransactions() {
 if (!AppState.transactions.length) {
@@ -5747,9 +6008,28 @@ a.click();
 URL.revokeObjectURL(url);
 showToast('Transactions exported successfully', 'success');
 }
+function updateAchievements() {
+const hasTransactionType = type => AppState.transactions.some(transaction => transaction.type === type);
+const hasWithdrawal = AppState.withdrawals.length > 0 || hasTransactionType('withdrawal');
+const checks = {
+2: Boolean(AppState.membership.active),
+3: hasWithdrawal,
+4: Number(AppState.referrals.active || 0) >= 1,
+5: Number(AppState.referrals.active || 0) >= 5,
+6: Number(AppState.checkinDay || 0) >= 7,
+7: hasTransactionType('coin_buy'),
+8: hasTransactionType('gold_buy')
+};
+AppState.achievements.forEach(achievement => {
+if (Object.prototype.hasOwnProperty.call(checks, achievement.id)) {
+achievement.unlocked = checks[achievement.id];
+}
+});
+}
 function renderAchievements() {
 const grid = document.getElementById('achievementGrid');
 if (!grid) return;
+updateAchievements();
 const unlocked = AppState.achievements.filter(a => a.unlocked).length;
 document.getElementById('unlockedCount').textContent = unlocked;
 document.getElementById('lockedCount').textContent = AppState.achievements.length - unlocked;
@@ -6482,6 +6762,7 @@ reviewedBy: null
 });
 AppState.verificationStatus = 'pending';
 renderVerificationStatus();
+addNotification('Verification Submitted', 'Your identity verification is awaiting admin approval.', 'verification');
 showToast('Verification documents submitted for review', 'success');
 } catch (error) {
 if (idUploaded) await storage.ref(idPath).delete().catch(cleanupError => console.error('Could not remove incomplete verification document:', cleanupError));
@@ -7401,6 +7682,9 @@ await db.runTransaction(async transaction => {
 const postRef = db.collection('posts').doc(postId);
 const postSnapshot = await transaction.get(postRef);
 if (!postSnapshot.exists || postSnapshot.data().status !== 'pending') throw new Error('This post has already been reviewed');
+const authorRef = db.collection('users').doc(userId);
+const authorSnapshot = await transaction.get(authorRef);
+const author = authorSnapshot.exists ? authorSnapshot.data() : {};
 transaction.update(postRef, {
 status,
 reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -7415,6 +7699,23 @@ type: 'community',
 read: false,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
 });
+if (status === 'approved') {
+const followerIds = Array.isArray(author.followers)
+? [...new Set(author.followers)].filter(followerId => followerId && followerId !== userId)
+: [];
+followerIds.forEach(followerId => {
+const followerNotificationRef = db.collection('notifications').doc();
+transaction.set(followerNotificationRef, {
+userId: followerId,
+title: (author.name || 'Someone you follow') + ' published a post',
+message: (author.name || 'A member you follow') + ' just shared a new post in the C&J community.',
+type: 'community',
+postId,
+read: false,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+});
+}
 });
 showToast(status === 'approved' ? 'Community post approved' : 'Community post rejected', 'success');
 } catch (error) {
@@ -7518,13 +7819,28 @@ const recentWithdrawalsTable = document.getElementById('adminRecentWithdrawals')
 if (recentWithdrawalsTable) {
 recentWithdrawalsTable.replaceChildren();
 const recentWithdrawals = [...withdrawals].sort((a, b) => adminTimestamp(b.data().date) - adminTimestamp(a.data().date)).slice(0, 5);
-if (!recentWithdrawals.length) setAdminTableMessage('adminRecentWithdrawals', 3, 'No withdrawals have been submitted.');
+if (!recentWithdrawals.length) setAdminTableMessage('adminRecentWithdrawals', 4, 'No withdrawals have been submitted.');
 recentWithdrawals.forEach(doc => {
 const withdrawal = doc.data();
 const row = document.createElement('tr');
 appendAdminCell(row, withdrawal.userName || 'C&J member');
 appendAdminCell(row, 'N' + Number(withdrawal.req || 0).toLocaleString());
 appendAdminCell(row, (withdrawal.status || 'pending').toUpperCase());
+const actionCell = document.createElement('td');
+const viewButton = document.createElement('button');
+viewButton.type = 'button';
+viewButton.className = 'btn btn-outline btn-sm';
+viewButton.textContent = 'View';
+viewButton.addEventListener('click', () => showTransactionDetails({
+id: withdrawal.transactionId || doc.id,
+type: 'withdrawal',
+description: 'Withdrawal request - N' + Number(withdrawal.req || 0).toLocaleString(),
+amount: -Number(withdrawal.req || 0),
+date: withdrawal.date,
+status: withdrawal.status || 'pending'
+}));
+actionCell.appendChild(viewButton);
+row.appendChild(actionCell);
 recentWithdrawalsTable.appendChild(row);
 });
 }
@@ -7555,7 +7871,7 @@ const table = document.getElementById('adminTransactionTable');
 if (!table) return;
 table.replaceChildren();
 if (snapshot.empty) {
-setAdminTableMessage('adminTransactionTable', 6, 'No transactions have been recorded.');
+setAdminTableMessage('adminTransactionTable', 7, 'No transactions have been recorded.');
 return;
 }
 snapshot.docs.forEach(doc => {
@@ -7567,6 +7883,21 @@ appendAdminCell(row, 'N' + Number(data.amount || 0).toLocaleString());
 appendAdminCell(row, String(data.status || 'recorded').toUpperCase());
 appendAdminCell(row, formatAdminDate(data.date));
 appendAdminCell(row, data.ref || data.description || data.asset || '—');
+const actionCell = document.createElement('td');
+const viewButton = document.createElement('button');
+viewButton.type = 'button';
+viewButton.className = 'btn btn-outline btn-sm';
+viewButton.textContent = 'View';
+viewButton.addEventListener('click', () => showTransactionDetails({
+id: doc.id,
+type: data.type || 'transaction',
+description: data.description || data.ref || data.asset || data.type || 'Transaction',
+amount: Number(data.amount || 0),
+date: data.date,
+status: data.status || 'recorded'
+}));
+actionCell.appendChild(viewButton);
+row.appendChild(actionCell);
 table.appendChild(row);
 });
 }
@@ -7760,6 +8091,24 @@ reject.onclick = () => adminRejectWithdrawal(reject, doc.id);
 actions.append(approve, document.createTextNode(' '), reject);
 row.appendChild(actions);
 table.appendChild(row);
+});
+}
+function loadAdminWithdrawalQueue() {
+if (!isCurrentAdmin()) return;
+if (AppState.adminWithdrawalsUnsubscribe) AppState.adminWithdrawalsUnsubscribe();
+AppState.adminWithdrawalsUnsubscribe = db.collection('withdrawals')
+.where('status', '==', 'pending')
+.limit(100)
+.onSnapshot(snapshot => {
+renderAdminWithdrawals(snapshot.docs);
+const badge = document.getElementById('adminWithdrawalBadge');
+if (badge) {
+badge.textContent = String(snapshot.size);
+badge.style.display = snapshot.size ? 'inline-block' : 'none';
+}
+}, error => {
+console.error('Failed to monitor pending withdrawal queue:', error);
+showToast('Pending withdrawals could not be loaded: ' + error.message, 'error');
 });
 }
 function renderAdminVerifications(requests) {
@@ -7990,8 +8339,11 @@ const totalDeposits = depositSnapshot.docs
 .filter(doc => ['approved', 'completed'].includes(doc.data().status))
 .reduce((sum, doc) => sum + Number(doc.data().amount || 0), 0);
 const totalWithdrawalsPaid = withdrawalsSnapshot.docs
-.filter(doc => doc.data().status === 'paid')
-.reduce((sum, doc) => sum + Number(doc.data().net || 0), 0);
+.filter(doc => ['approved', 'paid'].includes(doc.data().status))
+.reduce((sum, doc) => {
+const withdrawal = doc.data();
+return sum + Number(withdrawal.net ?? withdrawal.req ?? 0);
+}, 0);
 const totalEarningsPaid = usersSnapshot.docs.reduce((sum, doc) => sum + Number(doc.data().totalEarned || 0), 0);
 document.getElementById('adUsers').textContent = usersSnapshot.size.toLocaleString();
 document.getElementById('adDeposits').textContent = 'N' + totalDeposits.toLocaleString();
@@ -8060,7 +8412,7 @@ document.getElementById('adminDisableBtn').hidden = normalizedStatus === 'disabl
 }
 async function loadAdminUserFinancialActivity(userId) {
 const table = document.getElementById('adminUserActivity');
-setAdminTableMessage('adminUserActivity', 5, 'Loading financial activity…');
+setAdminTableMessage('adminUserActivity', 6, 'Loading financial activity…');
 const [transactions, withdrawals, membershipRequests] = await Promise.all([
 db.collection('transactions').where('userId', '==', userId).get(),
 db.collection('withdrawals').where('userId', '==', userId).get(),
@@ -8104,7 +8456,7 @@ return dateB - dateA;
 });
 table.replaceChildren();
 if (!records.length) {
-setAdminTableMessage('adminUserActivity', 5, 'No financial activity records found for this account.');
+setAdminTableMessage('adminUserActivity', 6, 'No financial activity records found for this account.');
 return;
 }
 records.forEach(record => {
@@ -8114,6 +8466,21 @@ appendAdminCell(row, record.label);
 appendAdminCell(row, 'N' + record.amount.toLocaleString());
 appendAdminCell(row, record.status);
 appendAdminCell(row, record.details);
+const actionCell = document.createElement('td');
+const viewButton = document.createElement('button');
+viewButton.type = 'button';
+viewButton.className = 'btn btn-outline btn-sm';
+viewButton.textContent = 'View';
+viewButton.addEventListener('click', () => showTransactionDetails({
+id: record.id || 'activity-' + record.label,
+type: record.label.toLowerCase().includes('withdrawal') ? 'withdrawal' : 'transaction',
+description: record.label,
+amount: record.amount,
+date: record.date,
+status: record.status
+}));
+actionCell.appendChild(viewButton);
+row.appendChild(actionCell);
 table.appendChild(row);
 });
 }
@@ -8309,6 +8676,8 @@ if (!wdDoc.exists || wdDoc.data().status !== 'pending') {
 throw new Error('Withdrawal already processed');
 }
 const wdData = wdDoc.data();
+const linkedTransactionRef = wdData.transactionId ? db.collection('transactions').doc(wdData.transactionId) : null;
+const linkedTransactionDoc = linkedTransactionRef ? await transaction.get(linkedTransactionRef) : null;
 const userDoc = await transaction.get(userRef);
 if (!userDoc.exists) throw new Error('User account could not be found');
 const userData = userDoc.data();
@@ -8335,6 +8704,12 @@ transaction.update(wdRef, {
 status: 'paid',
 approvedAt: firebase.firestore.FieldValue.serverTimestamp()
 });
+if (linkedTransactionDoc && linkedTransactionDoc.exists) {
+transaction.update(linkedTransactionRef, {
+status: 'paid',
+reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+}
 const userUpdate = {
 balance: currentBalance - requestAmount,
 points: currentPoints - expectedPoints
@@ -8361,10 +8736,22 @@ showToast('Approval failed: ' + error.message, 'error');
 }
 async function adminRejectWithdrawal(btn, wdId) {
 try {
-await db.collection('withdrawals').doc(wdId).update({
+const withdrawalRef = db.collection('withdrawals').doc(wdId);
+const withdrawalDoc = await withdrawalRef.get();
+if (!withdrawalDoc.exists) throw new Error('Withdrawal request could not be found');
+const withdrawalData = withdrawalDoc.data();
+const batch = db.batch();
+batch.update(withdrawalRef, {
 status: 'rejected',
 rejectedAt: firebase.firestore.FieldValue.serverTimestamp()
 });
+if (withdrawalData.transactionId) {
+batch.update(db.collection('transactions').doc(withdrawalData.transactionId), {
+status: 'rejected',
+reviewedAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+}
+await batch.commit();
 btn.closest('tr').style.background = 'rgba(239,68,68,.06)';
 btn.closest('tr').querySelector('td:last-child').innerHTML = '<span class="tag tag-red">REJECTED</span>';
 showToast('Withdrawal rejected', 'error');
@@ -8541,26 +8928,12 @@ renderQuizStakePrompt();
 } else {
 const intro = document.createElement('p');
 intro.className = 'game-modal-copy';
-intro.textContent = 'Spin for C&J currency rewards. Stakes must be between N500 and N5,000. A new registered referral gives you one free spin.';
+intro.textContent = 'Spin for C&J currency rewards. Each registered referral gives you one free spin. Your reward is added to your total wallet balance.';
 body.appendChild(intro);
-const stakeField = document.createElement('div');
-stakeField.className = 'field';
-const stakeLabel = document.createElement('label');
-stakeLabel.textContent = 'Stake amount (N500 - N5,000)';
-const stakeInput = document.createElement('input');
-stakeInput.className = 'input';
-stakeInput.id = 'wheelStake';
-stakeInput.type = 'number';
-stakeInput.min = '500';
-stakeInput.max = '5000';
-stakeInput.step = '500';
-stakeInput.placeholder = 'Enter wheel stake';
-stakeField.append(stakeLabel, stakeInput);
-body.appendChild(stakeField);
 const freeSpins = Math.max(0, Number(AppState.referrals.registered || 0) - Number(AppState.freeSpinsUsed || 0));
 const freeSpinNote = document.createElement('p');
 freeSpinNote.className = 'game-modal-copy';
-freeSpinNote.textContent = 'Free referral spins available: ' + freeSpins;
+freeSpinNote.textContent = 'Referral spins available: ' + freeSpins + ' · No wallet stake required';
 body.appendChild(freeSpinNote);
 const stage = document.createElement('div');
 stage.className = 'wheel-stage';
@@ -8583,7 +8956,7 @@ labels.appendChild(label);
 wheel.appendChild(labels);
 stage.append(pointer, wheel);
 body.appendChild(stage);
-const spin = createGameChoice('Spin the wheel', () => spinGameWheel(wheel, spin, stakeInput, freeSpins > 0));
+const spin = createGameChoice('Spin the wheel', () => spinGameWheel(wheel, spin));
 spin.classList.add('wheel-spin-btn', 'btn', 'btn-primary');
 body.appendChild(spin);
 }
@@ -8695,15 +9068,9 @@ updateQuizTimer();
 if (quizState.timeRemaining <= 0) failQuizQuestion('Time is up. This question counts as incorrect.');
 }, 1000);
 }
-async function spinGameWheel(wheel, button, stakeInput, hasFreeSpin) {
+async function spinGameWheel(wheel, button) {
 if (Number(AppState.referrals.registered || 0) < 1) {
 showToast('Refer at least one member before spinning the wheel', 'error');
-return;
-}
-const requestedStake = Number(stakeInput.value);
-const useFreeSpin = hasFreeSpin && (!requestedStake || requestedStake < 500);
-if (!useFreeSpin && (!Number.isSafeInteger(requestedStake) || requestedStake < 500 || requestedStake > 5000)) {
-showToast('Wheel stakes must be between N500 and N5,000', 'error');
 return;
 }
 button.disabled = true;
@@ -8714,7 +9081,7 @@ const degrees = 1800 + (360 - (resultIndex * 45 + 22.5));
 wheel.style.transform = 'rotate(' + degrees + 'deg)';
 window.setTimeout(async () => {
 if (!document.getElementById('gameModal').classList.contains('active')) return;
-const stake = useFreeSpin ? 0 : requestedStake;
+const stake = 0;
 try {
 const user = auth.currentUser;
 const userRef = db.collection('users').doc(user.uid);
@@ -8727,17 +9094,16 @@ const balance = Number(data.balance || 0);
 const registeredReferrals = Number(data.referrals?.registered || 0);
 if (registeredReferrals < 1) throw new Error('Refer at least one member before spinning the wheel');
 const freeAvailable = Math.max(0, Number(data.referrals?.registered || 0) - Number(data.freeSpinsUsed || 0));
-if (useFreeSpin && freeAvailable < 1) throw new Error('No free referral spin is available');
-if (!useFreeSpin && balance < stake) throw new Error('Insufficient available balance');
+if (freeAvailable < 1) throw new Error('No referral spin is available');
 transaction.update(userRef, {
 balance: balance - stake + reward,
-...(useFreeSpin ? { freeSpinsUsed: Number(data.freeSpinsUsed || 0) + 1 } : {})
+freeSpinsUsed: Number(data.freeSpinsUsed || 0) + 1
 });
 transaction.set(ledgerRef, {
 userId: user.uid,
 userName: AppState.user.name,
 type: 'game_spin',
-description: useFreeSpin ? 'Free referral wheel spin reward' : 'Wheel spin stake and reward',
+description: 'Referral wheel spin reward',
 amount: reward - stake,
 stake,
 reward,
@@ -8747,10 +9113,10 @@ status: 'completed'
 });
 });
 AppState.balance += reward - stake;
-if (useFreeSpin) AppState.freeSpinsUsed++;
+AppState.freeSpinsUsed++;
 updateBalanceDisplays();
 renderTransactions();
-showGameResult('The wheel landed on N' + reward.toLocaleString() + ' C&J currency. ' + (useFreeSpin ? 'Free referral spin used.' : 'Stake: N' + stake.toLocaleString() + '.'));
+showGameResult('The wheel landed on N' + reward.toLocaleString() + '. The reward has been added to your total wallet balance. Referral spin used.');
 } catch (error) {
 console.error('Failed to settle wheel spin:', error);
 showToast('Wheel spin failed: ' + error.message, 'error');
