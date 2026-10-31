@@ -200,6 +200,9 @@ body:not(.admin-mode) #page-admin[aria-hidden="true"],body:not(.admin-mode) #adm
 .side-footer .em{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .main{margin-left:260px;padding:32px 40px 100px;min-height:100vh}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;gap:14px;flex-wrap:wrap}
+.app-back-button{display:inline-flex;align-items:center;gap:6px;margin-right:8px;position:fixed;top:88px;left:292px;z-index:180;box-shadow:0 8px 20px rgba(15,23,42,.16)}
+.app-back-button[hidden]{display:none!important}
+body.admin-mode .app-back-button{display:none!important}
 .page-title{font-size:28px;font-weight:700;letter-spacing:-.5px;color:var(--navy)}
 body.dark .page-title{color:#fff}
 .page-sub{color:var(--muted);font-size:13px;margin-top:4px}
@@ -441,6 +444,7 @@ body.dark .profile-photo-file,body.dark .verification-file{background:#111e33;co
 .wheel-pointer::after{content:"";position:absolute;left:7px;bottom:-13px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:17px solid #0a2560}
 .wheel-pointer::before{content:"";position:absolute;left:12px;top:7px;width:6px;height:6px;border-radius:50%;background:#f4c430;box-shadow:0 0 0 3px rgba(255,255,255,.75)}
 .wheel-spin-btn{display:block;width:100%;max-width:320px;margin:0 auto}
+.wheel-spin-btn:disabled{cursor:not-allowed;opacity:.55;box-shadow:none;transform:none}
 body.dark .quiz-timer{color:#f4c430}
 body.dark .quiz-timer-count{background:#26364e}
 body.dark .quiz-timer.urgent{color:#ff8790}
@@ -484,6 +488,12 @@ body.dark .quiz-feedback.incorrect,.dark .game-error{background:#3a1c24;color:#f
 .game-choice-btn:hover:not(:disabled){border-color:var(--gold);transform:translateY(-1px)}
 .game-choice-btn:disabled{opacity:.55;cursor:not-allowed}
 .game-result{padding:15px;border-radius:12px;background:var(--soft);margin-top:14px;color:var(--text);font-weight:650;line-height:1.5}
+.game-win-overlay{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;background:rgba(3,16,46,.58);backdrop-filter:blur(5px)}
+.game-win-dialog{width:min(100%,400px);padding:26px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-xl);text-align:center}
+.game-win-title{font-size:21px;font-weight:700;color:var(--navy);margin-bottom:10px}
+body.dark .game-win-title{color:#fff}
+.game-win-message{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:20px}
+.game-win-prize{display:block;color:var(--green);font-size:21px;font-weight:800;margin-top:8px}
 #gameModal .modal{max-width:520px}
 #membershipPaymentModal .field{margin-bottom:18px}
 #membershipPaymentModal .field label{font-size:14px;margin-bottom:8px}
@@ -549,7 +559,8 @@ body.dark .membership-account-name{color:#f3f6fb}
 .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:var(--green);display:grid;place-items:center;box-shadow:0 10px 25px rgba(32,199,101,.4);cursor:pointer;z-index:500;transition:transform .2s}
 .wa-float:hover{transform:scale(1.1)}
 .wa-float svg{width:28px;height:28px;fill:#fff}
-@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sidebar-close{display:grid}.sidebar-overlay.active{display:block;position:fixed;inset:0;background:rgba(3,16,46,.48);z-index:99;border:0;padding:0}.main{margin-left:0;padding:18px}.menu-toggle{display:grid}.hero-amount{font-size:32px}.landing-nav{padding:14px 20px}.nav-links{display:none}.section{padding:50px 20px}.chat-wrap{right:16px;bottom:90px}.chat-win{width:calc(100vw - 32px);height:420px}}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sidebar-close{display:grid}.sidebar-overlay.active{display:block;position:fixed;inset:0;background:rgba(3,16,46,.48);z-index:99;border:0;padding:0}.main{margin-left:0;padding:18px}.menu-toggle{display:grid;position:fixed;top:16px;left:16px;z-index:180}.hero-amount{font-size:32px}.landing-nav{padding:14px 20px}.nav-links{display:none}.section{padding:50px 20px}.chat-wrap{right:16px;bottom:90px}.chat-win{width:calc(100vw - 32px);height:420px}}
+@media(max-width:700px){.app-back-button{top:72px;left:16px}}
 .activity-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
 .activity-item:last-child{border-bottom:none}
 .activity-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
@@ -710,6 +721,14 @@ body.dark .community-post-author{color:#fff}
 .community-comment-form{display:flex;gap:8px;margin-top:12px}
 .community-comment-form input{flex:1;min-width:0}
 .community-profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--gold-soft);color:var(--gold);display:grid;place-items:center;font-size:22px;font-weight:800}
+.community-story-list{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 12px}
+.community-story{flex:0 0 112px;min-height:152px;border:1px solid var(--border);border-radius:12px;background:var(--soft);overflow:hidden;position:relative}
+.community-story-media{width:100%;height:118px;object-fit:cover;display:block;background:var(--navy-deep)}
+.community-story-name{padding:7px 8px;font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.community-filter-row{display:flex;gap:8px;margin:18px 0 12px}
+.community-filter-btn{padding:8px 13px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--muted);font:600 13px Inter,sans-serif}
+.community-filter-btn.active{border-color:var(--gold);background:var(--gold-soft);color:var(--gold)}
+.avatar-placeholder{width:60%;height:60%;color:var(--muted)}
 .asset-hero{position:relative;overflow:hidden;text-align:center;padding:32px 24px;border-radius:22px;background:radial-gradient(circle at 50% 35%,rgba(255,209,46,.2),transparent 40%),linear-gradient(145deg,#07112a,#101f46);color:#fff;border:1px solid rgba(212,160,23,.32)}
 .asset-coin{width:136px;height:136px;margin:6px auto 22px;border-radius:50%;display:grid;place-items:center;color:#513900;font-size:42px;font-weight:900;background:radial-gradient(circle at 35% 30%,#fff5b4 0,#f6d54d 30%,#d89b12 62%,#7d5105 100%);border:7px double #ffe57d;box-shadow:0 12px 45px rgba(245,190,20,.25),inset 0 0 0 6px rgba(255,248,190,.38)}
 .asset-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
@@ -835,7 +854,7 @@ body.print-promotion-certificate #promotionCertificateCard .promotion-certificat
 </style>
 </head>
 <body>
-<div id="landingView" class="view active">
+<div id="landingView" class="view">
 <nav class="landing-nav">
 <div class="nav-brand">
 <div class="nav-logo">C&J</div>
@@ -1558,11 +1577,12 @@ Refresh data
 <main class="main">
 <div class="topbar">
 <div style="display:flex;align-items:center;gap:12px">
-<button class="icon-btn menu-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
+<button class="icon-btn menu-toggle" id="sidebarToggle" data-sidebar-toggle onclick="toggleSidebar()" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 <path d="M3 12h18M3 6h18M3 18h18"/>
 </svg>
 </button>
+<button class="btn btn-outline btn-sm app-back-button" type="button" onclick="navigateBack()" title="Go back" hidden>← Back</button>
 <div>
 <div class="page-title" id="pageTitle">Dashboard</div>
 <div class="page-sub" id="pageSub">Welcome back, here's your overview</div>
@@ -2191,7 +2211,10 @@ Share on WhatsApp
 </div>
 </div>
 <div class="card" style="margin-top:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Your Referrals</div>
+<button class="btn btn-outline btn-sm" type="button" id="referralHistoryToggle" onclick="toggleReferralHistory()">View all</button>
+</div>
 <div class="table-wrap" style="margin-top:10px">
 <table>
 <thead>
@@ -2343,9 +2366,29 @@ PLAY RESPONSIBLY - Games are for entertainment purposes only
 </div>
 <div class="page" id="page-community">
 <div class="card" style="margin-bottom:20px">
-<div class="card-title">Create Post</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<div><div class="card-title">Stories</div><div style="font-size:13px;color:var(--muted)">Photos or videos up to 30 seconds</div></div>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<input class="profile-photo-file" id="storyMediaFile" type="file" accept="image/*,video/*" aria-label="Choose a story photo or video" onchange="validatePostMedia(this)" style="max-width:250px"/>
+<button class="btn btn-primary btn-sm" id="uploadStoryBtn" type="button" onclick="createStory()">Upload story</button>
+</div>
+</div>
+<div class="community-story-list" id="communityStories" style="margin-top:14px"><div style="font-size:13px;color:var(--muted)">No stories yet.</div></div>
+</div>
+<div class="card" style="margin-bottom:20px">
+<div class="card-title">Create Post or Status</div>
 <textarea class="input" style="min-height:80px;resize:vertical;margin-top:10px" maxlength="1000" placeholder="Share something with the C&J community..." id="postInput"></textarea>
+<div class="field" style="margin-top:12px">
+<label for="postMediaFile">Add a photo or short video</label>
+<input class="profile-photo-file" id="postMediaFile" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm,video/quicktime" onchange="validatePostMedia(this)"/>
+<span style="font-size:11px;color:var(--muted)">Photos up to 8 MB. Videos must be 30 seconds or shorter.</span>
+</div>
 <button class="btn btn-primary" style="margin-top:12px;width:auto;padding:12px 20px" onclick="createPost()">Post</button>
+</div>
+<div class="section-h" style="margin:18px 0 12px"><h2 class="section-t" style="font-size:20px">Community Posts</h2><p class="section-s">Browse community posts or your own submissions.</p></div>
+<div class="community-filter-row" role="group" aria-label="Filter community posts">
+<button class="community-filter-btn active" id="communityAllPostsBtn" type="button" onclick="setCommunityPostFilter('all')">All Posts</button>
+<button class="community-filter-btn" id="communityMyPostsBtn" type="button" onclick="setCommunityPostFilter('mine')">My Posts</button>
 </div>
 <div id="postsList">
 <div class="card" style="color:var(--muted)">Loading community posts…</div>
@@ -3373,13 +3416,19 @@ iOS: <a id="currentIosLink" href="#" target="_blank">https://example.com/cj-ios<
 </div>
 </div>
 <div class="card" id="admin-referrals" style="margin-bottom:24px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Referral overview</div>
+<button class="btn btn-outline btn-sm" type="button" id="adminReferralHistoryToggle" onclick="toggleAdminReferralHistory()" style="display:none">View all</button>
+</div>
 <p style="font-size:13px;color:var(--muted);margin:8px 0 14px">Registered and active referrals by member.</p>
 <div class="table-wrap"><table><thead><tr><th>Member</th><th>Referral code</th><th>Registered</th><th>Active</th></tr></thead>
 <tbody id="adminReferralTable"><tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">Loading referral data…</td></tr></tbody></table></div>
 </div>
 <div class="card" id="admin-transactions" style="margin-bottom:24px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
 <div class="card-title">Recent transactions</div>
+<button class="btn btn-outline btn-sm" type="button" id="adminTransactionHistoryToggle" onclick="toggleAdminTransactionHistory()">View all</button>
+</div>
 <p style="font-size:13px;color:var(--muted);margin:8px 0 14px">Latest wallet activity across member accounts.</p>
 <div class="table-wrap"><table><thead><tr><th>Member</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th>Details</th><th></th></tr></thead>
 <tbody id="adminTransactionTable"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Loading transactions…</td></tr></tbody></table></div>
@@ -3801,6 +3850,9 @@ appId: "1:896149954482:web:97ba0bc164dec6bcacceab",
 measurementId: "G-13XJY6VY81"
 });
 const auth = firebase.auth();
+const authPersistenceReady = auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(error => {
+console.error('Could not enable persistent sign-in:', error);
+});
 const db = firebase.firestore();
 const storage = firebase.storage();
 const ADMIN_EMAILS = new Set(['admin@cj.com']);
@@ -3854,6 +3906,7 @@ adminNavGroup.setAttribute('aria-hidden', String(!isAdmin));
 adminNavGroup.style.display = isAdmin ? '' : 'none';
 adminNavGroup.style.visibility = isAdmin ? '' : 'hidden';
 }
+updateBackButtonVisibility();
 }
 function getUserRole(user, userData) {
 const email = (user?.email || userData?.email || '').trim().toLowerCase();
@@ -3864,12 +3917,16 @@ return 'user';
 }
 const AppState = {
 user: null,
+currentPage: 'dashboard',
+previousPage: null,
+pendingServiceAction: null,
 accountStatus: 'active',
 balance: 0,
 totalEarned: 0,
 points: 0,
 referrals: { registered: 0, active: 0 },
 referralRecords: [],
+showAllReferrals: false,
 membership: {
 active: false,
 status: 'inactive',
@@ -3906,15 +3963,23 @@ announcementsUnsubscribe: null,
 adminPostsUnsubscribe: null,
 adminSupportUnsubscribe: null,
 adminWithdrawalsUnsubscribe: null,
+adminVerificationsUnsubscribe: null,
 supportMessagesUnsubscribe: null,
 posts: [],
 communityFollowingIds: [],
 communityLikedPostIds: [],
+communityMyPosts: [],
 communityPostsUnsubscribe: null,
+communityMyPostsUnsubscribe: null,
+communityPostsSnapshot: null,
+communityPostFilter: 'all',
 userSnapshotUnsubscribe: null,
 verificationSnapshotUnsubscribe: null,
 referralsUnsubscribe: null,
 adminSelectedUserId: null,
+showAllAdminTransactions: false,
+showAllAdminReferrals: false,
+adminTransactionSnapshot: null,
 adminUsersCache: null,
 earningTickerId: null,
 settings: {
@@ -3999,6 +4064,7 @@ document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
 target.classList.add('active');
 }
 function showLanding() {
+AppState.pendingServiceAction = null;
 showView('landingView');
 }
 function showAuth(type) {
@@ -4010,6 +4076,52 @@ if (signinView) signinView.style.display = type === 'signin' ? 'block' : 'none';
 if (signupView) signupView.style.display = type === 'signup' ? 'block' : 'none';
 if (forgotView) forgotView.style.display = type === 'forgot' ? 'block' : 'none';
 }
+const SERVICE_SHORTCUTS = {
+Wallet: { page: 'wallet' },
+Transfer: { modal: 'transferModal' },
+Withdrawal: { page: 'withdraw' },
+Deposit: { modal: 'depositModal' },
+Games: { page: 'games' },
+'Chat Support': { page: 'support' },
+Referral: { page: 'referral' },
+'Total Earn': { page: 'dashboard' },
+'Bank Account': { modal: 'bankModal' },
+'Music Promotion': { page: 'support' },
+'Connect Profile': { page: 'settings' }
+};
+function openServiceShortcut(serviceName) {
+const shortcut = SERVICE_SHORTCUTS[serviceName];
+if (!shortcut) return;
+if (!AppState.user) {
+AppState.pendingServiceAction = shortcut;
+showAuth('signin');
+return;
+}
+navigateTo(shortcut.page || 'dashboard');
+if (shortcut.modal) openModal(shortcut.modal);
+}
+function setupServiceShortcuts() {
+const selector = '#services .service-card, #page-services .service-card';
+document.querySelectorAll(selector).forEach(card => {
+const serviceName = card.querySelector('.service-name')?.textContent.trim();
+if (!SERVICE_SHORTCUTS[serviceName]) return;
+card.setAttribute('role', 'button');
+card.setAttribute('tabindex', '0');
+card.setAttribute('aria-label', 'Open ' + serviceName);
+});
+document.addEventListener('click', event => {
+const card = event.target.closest(selector);
+if (card) openServiceShortcut(card.querySelector('.service-name')?.textContent.trim());
+});
+document.addEventListener('keydown', event => {
+if (event.key !== 'Enter' && event.key !== ' ') return;
+const card = event.target.closest(selector);
+if (!card) return;
+event.preventDefault();
+openServiceShortcut(card.querySelector('.service-name')?.textContent.trim());
+});
+}
+setupServiceShortcuts();
 function showForgotPassword() {
 showAuth('forgot');
 }
@@ -4069,6 +4181,8 @@ AppState.user.createdAt = userData.createdAt || AppState.user.createdAt || null;
 function setProfileAvatar(element, photoUrl, initials) {
 if (!element) return;
 element.replaceChildren();
+element.style.background = '';
+element.style.color = '';
 if (photoUrl) {
 const image = document.createElement('img');
 image.src = photoUrl;
@@ -4078,7 +4192,23 @@ if (photoUrl.startsWith('blob:')) image.onload = () => URL.revokeObjectURL(photo
 image.onerror = () => setProfileAvatar(element, '', initials);
 element.appendChild(image);
 } else {
-element.textContent = initials || 'CJ';
+element.style.background = 'var(--soft)';
+element.style.color = 'var(--muted)';
+const placeholder = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+placeholder.setAttribute('viewBox', '0 0 24 24');
+placeholder.setAttribute('fill', 'none');
+placeholder.setAttribute('stroke', 'currentColor');
+placeholder.setAttribute('stroke-width', '1.8');
+placeholder.setAttribute('aria-hidden', 'true');
+placeholder.classList.add('avatar-placeholder');
+const head = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+head.setAttribute('cx', '12');
+head.setAttribute('cy', '8');
+head.setAttribute('r', '3.5');
+const shoulders = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+shoulders.setAttribute('d', 'M5 21v-1a7 7 0 0 1 14 0v1');
+placeholder.append(head, shoulders);
+element.appendChild(placeholder);
 }
 }
 function renderAccountProfile() {
@@ -4350,6 +4480,7 @@ AppState.totalEarned = 0;
 AppState.points = 0;
 AppState.referrals = { registered: 0, active: 0 };
 AppState.referralRecords = [];
+AppState.showAllReferrals = false;
 AppState.freeSpinsUsed = 0;
 AppState.membership = {
 active: false,
@@ -4399,6 +4530,11 @@ if (AppState.communityPostsUnsubscribe) {
 AppState.communityPostsUnsubscribe();
 AppState.communityPostsUnsubscribe = null;
 }
+if (AppState.communityMyPostsUnsubscribe) {
+AppState.communityMyPostsUnsubscribe();
+AppState.communityMyPostsUnsubscribe = null;
+AppState.communityMyPosts = [];
+}
 if (AppState.notificationsUnsubscribe) {
 AppState.notificationsUnsubscribe();
 AppState.notificationsUnsubscribe = null;
@@ -4422,6 +4558,10 @@ AppState.adminPostsUnsubscribe = null;
 if (AppState.adminWithdrawalsUnsubscribe) {
 AppState.adminWithdrawalsUnsubscribe();
 AppState.adminWithdrawalsUnsubscribe = null;
+}
+if (AppState.adminVerificationsUnsubscribe) {
+AppState.adminVerificationsUnsubscribe();
+AppState.adminVerificationsUnsubscribe = null;
 }
 if (AppState.adminSupportUnsubscribe) {
 AppState.adminSupportUnsubscribe();
@@ -4724,6 +4864,12 @@ listenForAssetPrices();
 startEarningTicker();
 initChatbot();
 setupRealtimeListeners();
+if (AppState.pendingServiceAction) {
+const pendingServiceAction = AppState.pendingServiceAction;
+AppState.pendingServiceAction = null;
+navigateTo(pendingServiceAction.page || 'dashboard');
+if (pendingServiceAction.modal) openModal(pendingServiceAction.modal);
+}
 }
 function setupRealtimeListeners() {
 if (!AppState.user || !AppState.user.uid) return;
@@ -4779,6 +4925,7 @@ if (isCurrentAdmin()) {
 loadAdminCommunityPosts();
 loadAdminSupportMessages();
 loadAdminWithdrawalQueue();
+loadAdminVerificationQueue();
 }
 }
 function loadUserNotifications() {
@@ -4839,6 +4986,7 @@ AppState.withdrawals = withdrawalRecords;
 AppState.transactions = [...standaloneTransactions, ...withdrawalTransactions]
 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 renderTransactions();
+renderAchievements();
 renderWithdrawals();
 renderWallet();
 };
@@ -4892,6 +5040,7 @@ showToast('Announcements could not be loaded: ' + error.message, 'error');
 });
 }
 function navigateTo(page) {
+const requestedPage = page;
 const isAdminUser = isCurrentAdmin();
 setAdminVisibility(isAdminUser);
 if (!isAdminUser && page === 'admin') {
@@ -4905,6 +5054,11 @@ if (pageEl) {
 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 pageEl.classList.add('active');
 }
+if (page !== AppState.currentPage && requestedPage !== 'admin') {
+AppState.previousPage = AppState.currentPage;
+AppState.currentPage = page;
+}
+updateBackButtonVisibility();
 document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 const navEl = document.querySelector('.nav-item[data-page="' + page + '"]');
 if (navEl) navEl.classList.add('active');
@@ -4919,6 +5073,23 @@ closeSidebar();
 }
 window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+function navigateBack() {
+const destination = AppState.previousPage && AppState.previousPage !== AppState.currentPage
+? AppState.previousPage
+: 'dashboard';
+navigateTo(destination);
+}
+function updateBackButtonVisibility() {
+const backButton = document.querySelector('.app-back-button');
+if (!backButton) return;
+const isMemberPage = Boolean(AppState.user) &&
+!isCurrentAdmin() &&
+!document.body.classList.contains('admin-mode');
+backButton.hidden = !isMemberPage ||
+AppState.currentPage === 'dashboard' ||
+!AppState.previousPage ||
+AppState.previousPage === AppState.currentPage;
+}
 function toggleSidebar() {
 const sidebar = document.getElementById('sidebar');
 if (!sidebar) return;
@@ -4927,15 +5098,21 @@ closeSidebar();
 } else {
 sidebar.classList.add('open');
 document.getElementById('sidebarOverlay')?.classList.add('active');
-document.getElementById('sidebarToggle')?.setAttribute('aria-expanded', 'true');
-document.getElementById('sidebarToggle')?.setAttribute('aria-label', 'Close navigation');
+document.querySelectorAll('[data-sidebar-toggle]').forEach(toggle => {
+toggle.setAttribute('aria-expanded', 'true');
+toggle.setAttribute('aria-label', 'Close navigation');
+toggle.title = 'Close navigation';
+});
 }
 }
 function closeSidebar() {
 document.getElementById('sidebar')?.classList.remove('open');
 document.getElementById('sidebarOverlay')?.classList.remove('active');
-document.getElementById('sidebarToggle')?.setAttribute('aria-expanded', 'false');
-document.getElementById('sidebarToggle')?.setAttribute('aria-label', 'Open navigation');
+document.querySelectorAll('[data-sidebar-toggle]').forEach(toggle => {
+toggle.setAttribute('aria-expanded', 'false');
+toggle.setAttribute('aria-label', 'Open navigation');
+toggle.title = 'Open navigation';
+});
 }
 function navigateAdminSection(sectionId, navItem) {
 if (!isCurrentAdmin()) {
@@ -5666,7 +5843,7 @@ return;
 }
 const t = WITHDRAWAL_TIERS[AppState.selectedWithdraw];
 const net = t.net;
-const pointsRequired = withdrawalPointCost(AppState.selectedWithdraw);
+let pointsRequired = withdrawalPointCost(AppState.selectedWithdraw);
 const user = auth.currentUser;
 if (!user) {
 showToast('Please sign in again before requesting a withdrawal', 'error');
@@ -5695,10 +5872,13 @@ return;
 }
 if (firstTierHistory.some(doc => doc.data().status === 'approved' || doc.data().status === 'paid')) {
 AppState.hasUsedIntroWithdrawal = true;
-showToast('Your one-time free N15,400 withdrawal has already been used. This tier now costs 20 points.', 'error');
+pointsRequired = withdrawalPointCost(AppState.selectedWithdraw);
 renderWithdrawalGrid();
 selectWithdrawal(AppState.selectedWithdraw);
+if (pointsRequired > AppState.points) {
+showToast('Your one-time free N15,400 withdrawal has already been used. This tier now costs ' + pointsRequired + ' points; you have ' + AppState.points + '.', 'error');
 return;
+}
 }
 }
 const withdrawalData = {
@@ -5797,11 +5977,17 @@ if (registeredEl) registeredEl.textContent = AppState.referrals.registered;
 if (activeEl) activeEl.textContent = AppState.referrals.active;
 if (pointsEl) pointsEl.textContent = AppState.points;
 const table = document.getElementById('refTable');
+const toggle = document.getElementById('referralHistoryToggle');
+if (toggle) {
+toggle.style.display = referrals.length > 5 ? '' : 'none';
+toggle.textContent = AppState.showAllReferrals ? 'Show less' : 'View all';
+}
 if (table) {
 if (!referrals.length) {
 table.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:28px;color:var(--muted)">No referrals yet - start sharing!</td></tr>';
 } else {
-table.innerHTML = referrals.map(referral => {
+const visibleReferrals = AppState.showAllReferrals ? referrals : referrals.slice(0, 5);
+table.innerHTML = visibleReferrals.map(referral => {
 const active = Boolean(referral.membership?.active);
 const joined = asDate(referral.createdAt);
 return '<tr><td>' + escapeTransactionText(referral.name || referral.email || 'C&J member') + '</td><td><span class="tag ' + (active ? 'tag-green' : 'tag-gold') + '">' + (active ? 'ACTIVE' : 'REGISTERED') + '</span></td><td>' + escapeTransactionText(joined ? joined.toLocaleDateString() : '—') + '</td><td>' + (active ? '10' : '0') + '</td></tr>';
@@ -5809,6 +5995,10 @@ return '<tr><td>' + escapeTransactionText(referral.name || referral.email || 'C&
 }
 }
 renderPromotionCertificate();
+}
+function toggleReferralHistory() {
+AppState.showAllReferrals = !AppState.showAllReferrals;
+renderReferrals();
 }
 function buildReferralLink(code) {
 const url = new URL(window.location.href);
@@ -6907,21 +7097,69 @@ button.textContent = following ? 'Following' : 'Follow';
 function refreshCommunityFollowButtons() {
 document.querySelectorAll('.community-follow-btn[data-follow-user]').forEach(button => setCommunityFollowButton(button, button.dataset.followUser));
 }
-function renderCommunityPosts(snapshot) {
-const list = document.getElementById('postsList');
+function renderCommunityStories() {
+const list = document.getElementById('communityStories');
 if (!list) return;
-AppState.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-.filter(post => !post.status || post.status === 'approved');
 list.replaceChildren();
-if (!AppState.posts.length) {
+const stories = AppState.posts.filter(post => {
+if (post.postType !== 'story' || !post.mediaUrl) return false;
+if (post.status && post.status !== 'approved' && post.userId !== AppState.user.uid) return false;
+const expiry = asDate(post.expiresAt);
+return !expiry || expiry.getTime() > Date.now();
+});
+if (!stories.length) {
 const empty = document.createElement('div');
-empty.className = 'card';
-empty.style.color = 'var(--muted)';
-empty.textContent = 'No community posts yet. Start the conversation!';
+empty.style.cssText = 'font-size:13px;color:var(--muted)';
+empty.textContent = 'No stories yet. Share a photo or short video.';
 list.appendChild(empty);
 return;
 }
-AppState.posts.forEach(post => {
+stories.forEach(story => {
+const item = document.createElement('article');
+item.className = 'community-story';
+const media = document.createElement(story.mediaType === 'video' ? 'video' : 'img');
+media.className = 'community-story-media';
+media.src = story.mediaUrl;
+if (story.mediaType === 'video') {
+media.controls = true;
+media.preload = 'metadata';
+} else {
+media.alt = 'Story shared by ' + (story.userName || 'C&J member');
+media.loading = 'lazy';
+}
+const name = document.createElement('div');
+name.className = 'community-story-name';
+name.textContent = story.userId === AppState.user.uid ? 'Your story' : (story.userName || 'C&J member');
+if (story.status && story.status !== 'approved') name.textContent += ' · Pending';
+item.append(media, name);
+list.appendChild(item);
+});
+}
+function setCommunityPostFilter(filter) {
+AppState.communityPostFilter = filter === 'mine' ? 'mine' : 'all';
+document.getElementById('communityAllPostsBtn')?.classList.toggle('active', AppState.communityPostFilter === 'all');
+document.getElementById('communityMyPostsBtn')?.classList.toggle('active', AppState.communityPostFilter === 'mine');
+if (AppState.communityPostsSnapshot) renderCommunityPosts(AppState.communityPostsSnapshot);
+}
+function renderCommunityPosts(snapshot) {
+const list = document.getElementById('postsList');
+if (!list) return;
+AppState.communityPostsSnapshot = snapshot;
+AppState.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+renderCommunityStories();
+const visiblePosts = AppState.communityPostFilter === 'mine'
+? (AppState.communityMyPosts.length ? AppState.communityMyPosts : AppState.posts).filter(post => post.userId === AppState.user.uid)
+: AppState.posts.filter(post => (!post.status || post.status === 'approved') && post.postType !== 'story');
+list.replaceChildren();
+if (!visiblePosts.length) {
+const empty = document.createElement('div');
+empty.className = 'card';
+empty.style.color = 'var(--muted)';
+empty.textContent = AppState.communityPostFilter === 'mine' ? 'You have not posted in the community yet.' : 'No community posts yet. Start the conversation!';
+list.appendChild(empty);
+return;
+}
+visiblePosts.forEach(post => {
 const card = document.createElement('article');
 card.className = 'card';
 card.style.marginBottom = '14px';
@@ -6933,6 +7171,12 @@ setProfileAvatar(avatar, post.profilePhotoUrl || '', post.userAvatar || communit
 const authorDetails = document.createElement('div');
 authorDetails.style.cssText = 'display:grid;gap:3px';
 authorDetails.append(makeCommunityAuthor(post.userName, post.userId, post.username));
+if (AppState.communityPostFilter === 'mine') {
+const status = document.createElement('span');
+status.className = 'tag ' + (post.status === 'approved' ? 'tag-green' : post.status === 'rejected' ? 'tag-red' : 'tag-gold');
+status.textContent = post.status || 'Published';
+authorDetails.appendChild(status);
+}
 const date = document.createElement('div');
 date.style.cssText = 'font-size:12px;color:var(--muted)';
 date.textContent = communityDate(post.date);
@@ -6949,6 +7193,22 @@ header.appendChild(follow);
 const content = document.createElement('div');
 content.style.cssText = 'font-size:14px;line-height:1.6;color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere';
 content.textContent = post.content || '';
+if (post.mediaUrl && post.mediaType === 'image') {
+const media = document.createElement('img');
+media.src = post.mediaUrl;
+media.alt = 'Photo shared by ' + (post.userName || 'C&J member');
+media.loading = 'lazy';
+media.style.cssText = 'display:block;width:100%;max-height:520px;object-fit:contain;border-radius:12px;margin-top:12px;background:var(--surface-2)';
+content.appendChild(media);
+}
+if (post.mediaUrl && post.mediaType === 'video') {
+const media = document.createElement('video');
+media.src = post.mediaUrl;
+media.controls = true;
+media.preload = 'metadata';
+media.style.cssText = 'display:block;width:100%;max-height:520px;border-radius:12px;margin-top:12px;background:#000';
+content.appendChild(media);
+}
 const actions = document.createElement('div');
 actions.className = 'community-post-actions';
 const liked = AppState.communityLikedPostIds.includes(post.id);
@@ -7006,6 +7266,9 @@ list.appendChild(card);
 }
 function loadCommunityPosts() {
 if (AppState.communityPostsUnsubscribe) AppState.communityPostsUnsubscribe();
+if (AppState.communityMyPostsUnsubscribe) AppState.communityMyPostsUnsubscribe();
+AppState.communityPostsSnapshot = null;
+AppState.communityMyPosts = [];
 AppState.communityPostsUnsubscribe = db.collection('posts').orderBy('date', 'desc').limit(50).onSnapshot(renderCommunityPosts, error => {
 console.error('Failed to load community posts:', error);
 const list = document.getElementById('postsList');
@@ -7016,6 +7279,14 @@ message.className = 'card';
 message.textContent = 'Community posts could not be loaded: ' + error.message;
 list.appendChild(message);
 }
+});
+AppState.communityMyPostsUnsubscribe = db.collection('posts').where('userId', '==', AppState.user.uid).onSnapshot(snapshot => {
+AppState.communityMyPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+.sort((first, second) => (asDate(second.date)?.getTime() || 0) - (asDate(first.date)?.getTime() || 0));
+if (AppState.communityPostFilter === 'mine' && AppState.communityPostsSnapshot) renderCommunityPosts(AppState.communityPostsSnapshot);
+}, error => {
+console.error('Failed to load your community posts:', error);
+if (AppState.communityPostFilter === 'mine') showToast('Your posts could not be loaded: ' + error.message, 'error');
 });
 }
 async function loadCommunityComments(postId, container) {
@@ -7358,7 +7629,6 @@ return;
 setProfileAvatar(document.getElementById('settingsAvatar'), URL.createObjectURL(file), communityInitials(AppState.user.name));
 }
 async function uploadProfilePhoto() {
-if (!requireAccountActive('change your profile photo')) return;
 const input = document.getElementById('profilePhotoInput');
 const file = input?.files?.[0];
 if (!file) {
@@ -7384,7 +7654,7 @@ const fileRef = storage.ref(path);
 await fileRef.put(file, { contentType: file.type });
 uploaded = true;
 const profilePhotoUrl = await fileRef.getDownloadURL();
-await db.collection('users').doc(user.uid).update({ profilePhotoUrl, profilePhotoPath: path });
+await db.collection('users').doc(user.uid).set({ profilePhotoUrl, profilePhotoPath: path }, { merge: true });
 AppState.user.profilePhotoUrl = profilePhotoUrl;
 AppState.user.profilePhotoPath = path;
 renderAccountProfile();
@@ -7406,12 +7676,114 @@ button.disabled = false;
 button.textContent = 'Upload photo';
 }
 }
+async function validatePostMedia(input) {
+const file = input?.files?.[0];
+if (!file) return true;
+const isImage = file.type.startsWith('image/');
+const isVideo = file.type.startsWith('video/');
+if (!isImage && !isVideo) {
+input.value = '';
+showToast('Choose an image or video file', 'error');
+return false;
+}
+if (isImage && file.size > 8 * 1024 * 1024) {
+input.value = '';
+showToast('Photos must be 8 MB or smaller', 'error');
+return false;
+}
+if (isVideo && file.size > 50 * 1024 * 1024) {
+input.value = '';
+showToast('Videos must be 50 MB or smaller', 'error');
+return false;
+}
+if (isVideo) {
+const duration = await new Promise(resolve => {
+const video = document.createElement('video');
+video.preload = 'metadata';
+video.onloadedmetadata = () => {
+URL.revokeObjectURL(video.src);
+resolve(video.duration);
+};
+video.onerror = () => resolve(NaN);
+video.src = URL.createObjectURL(file);
+});
+if (!Number.isFinite(duration) || duration > 30) {
+input.value = '';
+showToast('Videos must be 30 seconds or shorter', 'error');
+return false;
+}
+}
+input.dataset.valid = 'true';
+return true;
+}
+async function createStory() {
+if (!requireAccountActive('upload a story')) return;
+const input = document.getElementById('storyMediaFile');
+const file = input?.files?.[0];
+if (!file) {
+showToast('Choose a photo or video for your story first', 'error');
+return;
+}
+if (!(await validatePostMedia(input))) return;
+const user = auth.currentUser;
+if (!user || !AppState.user) {
+showToast('Sign in before uploading a story', 'error');
+return;
+}
+const button = document.getElementById('uploadStoryBtn');
+button.disabled = true;
+button.textContent = 'Uploading…';
+const path = 'communityMedia/' + user.uid + '/' + Date.now() + '-story-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+let uploaded = false;
+try {
+const fileRef = storage.ref(path);
+await fileRef.put(file, { contentType: file.type });
+uploaded = true;
+const mediaUrl = await fileRef.getDownloadURL();
+await db.collection('posts').add({
+userId: user.uid,
+userName: AppState.user.name,
+username: AppState.user.username || '',
+profilePhotoUrl: AppState.user.profilePhotoUrl || '',
+userAvatar: communityInitials(AppState.user.name),
+content: '',
+mediaUrl,
+mediaPath: path,
+mediaType: file.type.startsWith('video/') ? 'video' : 'image',
+postType: 'story',
+expiresAt: firebase.firestore.Timestamp.fromMillis(Date.now() + 24 * 60 * 60 * 1000),
+likeCount: 0,
+commentCount: 0,
+status: 'pending',
+date: firebase.firestore.FieldValue.serverTimestamp(),
+submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+});
+input.value = '';
+input.dataset.valid = '';
+showToast('Story submitted for admin review', 'success');
+} catch (error) {
+if (uploaded) {
+try {
+await storage.ref(path).delete();
+} catch (cleanupError) {
+console.error('Could not remove incomplete story upload:', cleanupError);
+}
+}
+console.error('Failed to upload community story:', error);
+showToast('Story could not be uploaded: ' + error.message, 'error');
+} finally {
+button.disabled = false;
+button.textContent = 'Upload story';
+}
+}
 async function createPost() {
 if (!requireAccountActive('post in the community')) return;
 const input = document.getElementById('postInput');
+const mediaInput = document.getElementById('postMediaFile');
 const content = input.value.trim();
-if (!content) {
-showToast('Write something before posting', 'error');
+const file = mediaInput?.files?.[0] || null;
+if (!content && !file) {
+showToast('Write something or choose a photo/video before posting', 'error');
 return;
 }
 if (content.length > 1000) {
@@ -7424,6 +7796,17 @@ if (!user) {
 showToast('Sign in to create a post', 'error');
 return;
 }
+if (file && !(await validatePostMedia(mediaInput))) return;
+let mediaUrl = '';
+let mediaPath = '';
+let mediaType = '';
+if (file) {
+mediaType = file.type.startsWith('video/') ? 'video' : 'image';
+mediaPath = 'communityMedia/' + user.uid + '/' + Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+const mediaRef = storage.ref(mediaPath);
+await mediaRef.put(file, { contentType: file.type });
+mediaUrl = await mediaRef.getDownloadURL();
+}
 await db.collection('posts').add({
 userId: user.uid,
 userName: AppState.user.name,
@@ -7431,6 +7814,9 @@ username: AppState.user.username || '',
 profilePhotoUrl: AppState.user.profilePhotoUrl || '',
 userAvatar: communityInitials(AppState.user.name),
 content,
+mediaUrl,
+mediaPath,
+mediaType,
 likeCount: 0,
 commentCount: 0,
 status: 'pending',
@@ -7438,6 +7824,7 @@ date: firebase.firestore.FieldValue.serverTimestamp(),
 submittedAt: firebase.firestore.FieldValue.serverTimestamp()
 });
 input.value = '';
+if (mediaInput) mediaInput.value = '';
 showToast('Post submitted for admin review', 'success');
 } catch (error) {
 console.error('Failed to create community post:', error);
@@ -7851,13 +8238,17 @@ if (!table) return;
 table.replaceChildren();
 const referrers = users.map(doc => ({ id: doc.id, ...doc.data() }))
 .filter(user => user.referralCode || Number(user.referrals?.registered || 0) > 0)
-.sort((a, b) => Number(b.referrals?.active || 0) - Number(a.referrals?.active || 0))
-.slice(0, 100);
+.sort((a, b) => Number(b.referrals?.active || 0) - Number(a.referrals?.active || 0));
+const toggle = document.getElementById('adminReferralHistoryToggle');
+if (toggle) {
+toggle.style.display = referrers.length > 5 ? '' : 'none';
+toggle.textContent = AppState.showAllAdminReferrals ? 'Show less' : 'View all';
+}
 if (!referrers.length) {
 setAdminTableMessage('adminReferralTable', 4, 'No referral activity has been recorded.');
 return;
 }
-referrers.forEach(user => {
+(AppState.showAllAdminReferrals ? referrers : referrers.slice(0, 5)).forEach(user => {
 const row = document.createElement('tr');
 appendAdminCell(row, user.name || user.email || user.id);
 appendAdminCell(row, user.referralCode || '—');
@@ -7866,15 +8257,25 @@ appendAdminCell(row, Number(user.referrals?.active || 0).toLocaleString());
 table.appendChild(row);
 });
 }
+function toggleAdminReferralHistory() {
+AppState.showAllAdminReferrals = !AppState.showAllAdminReferrals;
+renderAdminReferrals(AppState.adminUsersCache || []);
+}
 function renderAdminTransactions(snapshot) {
 const table = document.getElementById('adminTransactionTable');
 if (!table) return;
 table.replaceChildren();
+const toggle = document.getElementById('adminTransactionHistoryToggle');
+if (toggle) {
+toggle.style.display = snapshot.size > 5 ? '' : 'none';
+toggle.textContent = AppState.showAllAdminTransactions ? 'Show less' : 'View all';
+}
 if (snapshot.empty) {
 setAdminTableMessage('adminTransactionTable', 7, 'No transactions have been recorded.');
 return;
 }
-snapshot.docs.forEach(doc => {
+const visibleTransactions = AppState.showAllAdminTransactions ? snapshot.docs : snapshot.docs.slice(0, 5);
+visibleTransactions.forEach(doc => {
 const data = doc.data();
 const row = document.createElement('tr');
 appendAdminCell(row, data.userName || data.userEmail || data.userId || 'C&J member');
@@ -7900,6 +8301,10 @@ actionCell.appendChild(viewButton);
 row.appendChild(actionCell);
 table.appendChild(row);
 });
+}
+function toggleAdminTransactionHistory() {
+AppState.showAllAdminTransactions = !AppState.showAllAdminTransactions;
+if (AppState.adminTransactionSnapshot) renderAdminTransactions(AppState.adminTransactionSnapshot);
 }
 function renderAdminDepositRequests(requests) {
 const table = document.getElementById('adminDepositTable');
@@ -8109,6 +8514,24 @@ badge.style.display = snapshot.size ? 'inline-block' : 'none';
 }, error => {
 console.error('Failed to monitor pending withdrawal queue:', error);
 showToast('Pending withdrawals could not be loaded: ' + error.message, 'error');
+});
+}
+function loadAdminVerificationQueue() {
+if (!isCurrentAdmin()) return;
+if (AppState.adminVerificationsUnsubscribe) AppState.adminVerificationsUnsubscribe();
+AppState.adminVerificationsUnsubscribe = db.collection('verifications')
+.where('status', '==', 'pending')
+.limit(100)
+.onSnapshot(snapshot => {
+renderAdminVerifications(snapshot.docs);
+const badge = document.getElementById('adminVerificationBadge');
+if (badge) {
+badge.textContent = String(snapshot.size);
+badge.style.display = snapshot.size ? 'inline-block' : 'none';
+}
+}, error => {
+console.error('Failed to monitor pending verification queue:', error);
+showToast('Pending identity verifications could not be loaded: ' + error.message, 'error');
 });
 }
 function renderAdminVerifications(requests) {
@@ -8377,6 +8800,7 @@ renderAdminWithdrawals(withdrawals);
 renderAdminVerifications(verificationRequests.docs);
 renderAdminDashboardTables(usersSnapshot.docs, withdrawalsSnapshot.docs);
 renderAdminReferrals(usersSnapshot.docs);
+AppState.adminTransactionSnapshot = transactionSnapshot;
 renderAdminTransactions(transactionSnapshot);
 renderAdminDepositRequests(pendingDeposits);
 const pendingAssetRequests = assetRequestSnapshot.docs.filter(doc => doc.data().status === 'pending');
@@ -8668,6 +9092,11 @@ showToast('Rejection failed: ' + error.message, 'error');
 async function adminApproveWithdrawal(btn, wdId, userId, amount) {
 let usedIntroOffer = false;
 try {
+const introHistory = await db.collection('withdrawals').where('userId', '==', userId).get();
+const introAlreadyUsedPreviously = introHistory.docs.some(doc => {
+const previous = doc.data();
+return doc.id !== wdId && Number(previous.req) === 15400 && ['approved', 'paid'].includes(previous.status);
+});
 await db.runTransaction(async (transaction) => {
 const wdRef = db.collection('withdrawals').doc(wdId);
 const userRef = db.collection('users').doc(userId);
@@ -8684,7 +9113,8 @@ const userData = userDoc.data();
 const requestAmount = Number(wdData.req);
 const tier = WITHDRAWAL_TIERS.find(item => item.req === requestAmount);
 if (!tier) throw new Error('Withdrawal tier is no longer available');
-const expectedPoints = requestAmount === 15400 && !userData.hasUsedIntroWithdrawal
+const introAlreadyUsed = Boolean(userData.hasUsedIntroWithdrawal) || introAlreadyUsedPreviously;
+const expectedPoints = requestAmount === 15400 && !introAlreadyUsed
 ? 0
 : Number(tier.points || 0);
 const currentBalance = Number(userData.balance || 0);
@@ -8699,7 +9129,7 @@ if (currentBalance < requestAmount) {
 throw new Error('Insufficient user balance');
 }
 if (currentPoints < expectedPoints) throw new Error('Insufficient referral points');
-usedIntroOffer = requestAmount === 15400 && !userData.hasUsedIntroWithdrawal;
+usedIntroOffer = requestAmount === 15400 && !introAlreadyUsed;
 transaction.update(wdRef, {
 status: 'paid',
 approvedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -8715,6 +9145,7 @@ balance: currentBalance - requestAmount,
 points: currentPoints - expectedPoints
 };
 if (usedIntroOffer) userUpdate.hasUsedIntroWithdrawal = true;
+else if (requestAmount === 15400 && introAlreadyUsed) userUpdate.hasUsedIntroWithdrawal = true;
 transaction.update(userRef, userUpdate);
 const notifRef = db.collection('notifications').doc();
 transaction.set(notifRef, {
@@ -8892,10 +9323,32 @@ button.addEventListener('click', onClick);
 return button;
 }
 function showGameResult(message) {
-const result = document.createElement('div');
-result.className = 'game-result';
-result.textContent = message;
-document.getElementById('gameModalBody').appendChild(result);
+const overlay = document.createElement('div');
+overlay.className = 'game-win-overlay';
+const dialog = document.createElement('section');
+dialog.className = 'game-win-dialog';
+dialog.setAttribute('role', 'alertdialog');
+dialog.setAttribute('aria-modal', 'true');
+dialog.setAttribute('aria-labelledby', 'gameWinTitle');
+dialog.setAttribute('aria-describedby', 'gameWinMessage');
+const title = document.createElement('h2');
+title.className = 'game-win-title';
+title.id = 'gameWinTitle';
+title.textContent = 'Congratulations!';
+const description = document.createElement('p');
+description.className = 'game-win-message';
+description.id = 'gameWinMessage';
+description.textContent = 'You won';
+const prize = document.createElement('strong');
+prize.className = 'game-win-prize';
+prize.textContent = message;
+description.appendChild(prize);
+const confirmation = createGameChoice('Confirm', () => overlay.remove());
+confirmation.classList.add('btn', 'btn-primary', 'btn-block');
+dialog.append(title, description, confirmation);
+overlay.appendChild(dialog);
+document.body.appendChild(overlay);
+confirmation.focus();
 }
 function openGame(type) {
 const titles = {
@@ -8914,10 +9367,6 @@ return;
 if (!AppState.membership.active) {
 showToast('Activate your membership to access games', 'error');
 navigateTo('membership');
-return;
-}
-if (type === 'wheel' && Number(AppState.referrals.registered || 0) < 1) {
-showToast('Refer at least one member before spinning the wheel', 'error');
 return;
 }
 document.getElementById('gameModalTitle').textContent = titles[type];
@@ -8956,8 +9405,9 @@ labels.appendChild(label);
 wheel.appendChild(labels);
 stage.append(pointer, wheel);
 body.appendChild(stage);
-const spin = createGameChoice('Spin the wheel', () => spinGameWheel(wheel, spin));
+const spin = createGameChoice(freeSpins > 0 ? 'Spin the wheel' : 'No referral spins available', () => spinGameWheel(wheel, spin));
 spin.classList.add('wheel-spin-btn', 'btn', 'btn-primary');
+spin.disabled = freeSpins < 1;
 body.appendChild(spin);
 }
 openModal('gameModal');
@@ -9069,21 +9519,20 @@ if (quizState.timeRemaining <= 0) failQuizQuestion('Time is up. This question co
 }, 1000);
 }
 async function spinGameWheel(wheel, button) {
-if (Number(AppState.referrals.registered || 0) < 1) {
-showToast('Refer at least one member before spinning the wheel', 'error');
+const freeAvailable = Math.max(0, Number(AppState.referrals.registered || 0) - Number(AppState.freeSpinsUsed || 0));
+if (freeAvailable < 1) {
+showToast('No referral spin is available', 'error');
 return;
 }
 button.disabled = true;
 const rewards = [500, 500, 750, 1000, 1000, 1500, 2000, 5000];
 const resultIndex = Math.floor(Math.random() * rewards.length);
 const reward = rewards[resultIndex];
-const degrees = 1800 + (360 - (resultIndex * 45 + 22.5));
-wheel.style.transform = 'rotate(' + degrees + 'deg)';
-window.setTimeout(async () => {
-if (!document.getElementById('gameModal').classList.contains('active')) return;
 const stake = 0;
+let latestSpinState = null;
 try {
 const user = auth.currentUser;
+if (!user) throw new Error('Sign in again before spinning the wheel');
 const userRef = db.collection('users').doc(user.uid);
 const ledgerRef = db.collection('transactions').doc();
 await db.runTransaction(async transaction => {
@@ -9092,8 +9541,8 @@ if (!snapshot.exists) throw new Error('Your account record could not be found');
 const data = snapshot.data();
 const balance = Number(data.balance || 0);
 const registeredReferrals = Number(data.referrals?.registered || 0);
-if (registeredReferrals < 1) throw new Error('Refer at least one member before spinning the wheel');
 const freeAvailable = Math.max(0, Number(data.referrals?.registered || 0) - Number(data.freeSpinsUsed || 0));
+latestSpinState = { registeredReferrals, freeSpinsUsed: Number(data.freeSpinsUsed || 0) };
 if (freeAvailable < 1) throw new Error('No referral spin is available');
 transaction.update(userRef, {
 balance: balance - stake + reward,
@@ -9112,17 +9561,31 @@ date: firebase.firestore.FieldValue.serverTimestamp(),
 status: 'completed'
 });
 });
-AppState.balance += reward - stake;
+AppState.balance += reward;
 AppState.freeSpinsUsed++;
 updateBalanceDisplays();
 renderTransactions();
-showGameResult('The wheel landed on N' + reward.toLocaleString() + '. The reward has been added to your total wallet balance. Referral spin used.');
 } catch (error) {
+if (latestSpinState && Math.max(0, latestSpinState.registeredReferrals - latestSpinState.freeSpinsUsed) < 1) {
+AppState.referrals = { ...AppState.referrals, registered: latestSpinState.registeredReferrals };
+AppState.freeSpinsUsed = latestSpinState.freeSpinsUsed;
+button.disabled = true;
+button.textContent = 'No referral spins available';
+} else {
+button.disabled = false;
+}
 console.error('Failed to settle wheel spin:', error);
 showToast('Wheel spin failed: ' + error.message, 'error');
+return;
 }
-const spinAgain = createGameChoice('Spin again', () => openGame('wheel'));
+const degrees = 1800 + (360 - (resultIndex * 45 + 22.5));
+wheel.style.transform = 'rotate(' + degrees + 'deg)';
+window.setTimeout(() => {
+showGameResult('N' + reward.toLocaleString() + ' C&J wallet credits');
+const spinsLeft = Math.max(0, Number(AppState.referrals.registered || 0) - Number(AppState.freeSpinsUsed || 0));
+const spinAgain = createGameChoice(spinsLeft > 0 ? 'Spin again' : 'No referral spins remaining', () => openGame('wheel'));
 spinAgain.classList.add('wheel-spin-btn', 'btn', 'btn-primary');
+spinAgain.disabled = spinsLeft < 1;
 document.getElementById('gameModalBody').appendChild(spinAgain);
 }, 4100);
 }
@@ -9617,7 +10080,19 @@ showToast('Admin panel data could not be loaded: ' + error.message, 'error');
 });
 }
 }
-auth.onAuthStateChanged(user => {
+function restoreDashboardOnResume() {
+if (!auth.currentUser || !AppState.user) return;
+const appView = document.getElementById('appView');
+if (!appView?.classList.contains('active')) {
+showView('appView');
+navigateForCurrentUser();
+}
+}
+window.addEventListener('pageshow', restoreDashboardOnResume);
+document.addEventListener('visibilitychange', () => {
+if (!document.hidden) restoreDashboardOnResume();
+});
+authPersistenceReady.then(() => auth.onAuthStateChanged(user => {
 AppState.user = null;
 setAdminVisibility(false);
 if (user) {
@@ -9658,13 +10133,21 @@ navigateForCurrentUser();
 }
 }).catch(error => {
 console.error('Failed to load the signed-in user profile from Firestore:', error);
+if (auth.currentUser?.uid === user.uid) {
+const name = user.displayName || user.email?.split('@')[0] || 'Member';
+AppState.user = { uid: user.uid, name, email: user.email || '', role: getUserRole(user, {}) };
+enterApp();
+navigateForCurrentUser();
+showToast('You are signed in, but account details are still reconnecting.', 'error');
+return;
+}
 showView('landingView');
 showToast('Your account could not be loaded. Please try signing in again.', 'error');
 });
 } else {
 showView('landingView');
 }
-});
+}));
 </script>
 </body>
 </html>
